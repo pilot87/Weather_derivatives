@@ -17,9 +17,10 @@ export const updateWeather = () => async (dispatch: any, getState: any) => {
         if(getState().auth.name != '') {
             getState().auth.request.post('/weather/update')
                 .then((res: any) => {
+                    console.log(res.data)
                     dispatch(update(res.data))
                 })
-                .catch((err: any) => console.log(err.response.data.message))
+                // .catch((err: any) => console.log(err.response.data.message))
         }
         await sleep(10000)
     }
