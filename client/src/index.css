@@ -1,0 +1,9 @@
+@import "~materialize-css/dist/css/materialize.min.css";
+
+nav {
+  background-color: #757575;
+}
+
+#nav-mobile li a {
+  font-size: 120%;
+}
