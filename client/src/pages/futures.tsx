@@ -21,7 +21,7 @@ interface State {
 export const Futures = () => {
     const defaultcity = useSelector((state: State) => Object.keys(state.weather.weather)[0])
     const [city, setCity] = useState(defaultcity)
-    const [temp, setTemp] = useState<{temp: string, image: string}>({temp: '0', image: 'border_color'})
+    const [temp, setTemp] = useState<{temp: string, image: string}>({temp: '0', image: 'wb_sunny'})
     const [rich, setRich] = useState(true)
 
     const request = useSelector((state: State) => state.auth.request)
@@ -125,6 +125,9 @@ export const Futures = () => {
                 } else if (event.target.value === '.') {
                     setTemp({temp: '0.', image: 'wb_sunny'})
                     askRate('0.')
+                } else if (event.target.value === '') {
+                    setTemp({temp: '0', image: 'wb_sunny'})
+                    askRate('0')
                 } else {
                     setTemp({temp: event.target.value, image: 'border_color'})
                     setTempRate('')

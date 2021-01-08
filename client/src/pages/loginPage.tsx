@@ -11,7 +11,7 @@ export const Auth = () => {
     const dispatch = useDispatch()
 
     const [form, setForm] = useState({
-        email: '', password: ''
+        email: {msg: '', state: ''}, password: {msg: '', state: ''}
     })
 
     const [msg, setMsg] = useState({
@@ -19,13 +19,23 @@ export const Auth = () => {
     })
 
     const changeHandler = (event: any) => {
-        setForm({ ...form, [event.target.name]: event.target.value })
+        setForm({ ...form, [event.target.name]: {msg: event.target.value, state: 'active'}})
+    }
+
+    const focusHandler = (event: any) => {
+        setForm({ ...form, [event.target.name]: {msg: event.target.value, state: 'active'}})
+    }
+
+    const blurHandler = (event: any) => {
+        if (event.target.value === '') {
+            setForm({ ...form, [event.target.name]: {msg: event.target.value, state: ''}})
+        }
     }
 
     const a = useSelector((state: State) => state.auth.request)
 
     const handleLogin = () => {
-        a.post('/auth/login', {email: form.email, password: form.password})
+        a.post('/auth/login', {email: form.email.msg, password: form.password.msg})
             .then((res: any) => {
                 dispatch(setSession({email: res.data.email, name: res.data.username,
                     token: res.data.token}))
@@ -56,10 +66,12 @@ export const Auth = () => {
                             id='email'
                             name='email'
                             type='text'
-                            value={form.email}
+                            value={form.email.msg}
                             onChange={changeHandler}
+                            onFocus={focusHandler}
+                            onBlur={blurHandler}
                         />
-                        <label htmlFor='email' className='active' style={{fontSize: '160%'}}>Email</label>
+                        <label htmlFor='email' className={form.email.state} style={{fontSize: '160%'}}>Email</label>
                     </div>
                     <div className='input-field col s6'>
                         <i className='material-icons prefix'>more_horiz</i>
@@ -67,10 +79,12 @@ export const Auth = () => {
                             id='password'
                             name='password'
                             type='password'
-                            value={form.password}
+                            value={form.password.msg}
                             onChange={changeHandler}
+                            onFocus={focusHandler}
+                            onBlur={blurHandler}
                         />
-                        <label htmlFor='password' className='active' style={{fontSize: '160%'}}>Password</label>
+                        <label htmlFor='password' className={form.password.state} style={{fontSize: '160%'}}>Password</label>
                     </div>
                 </div>
             </form>

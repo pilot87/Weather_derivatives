@@ -11,7 +11,7 @@ export const About = () => {
     const dispatch = useDispatch()
 
     const [form, setForm] = useState(
-        {username: '', password: ''
+        {username: {msg: '', state: ''}, password: {msg: '', state: ''}
         })
 
     const [msg, setMsg] = useState({
@@ -23,13 +23,23 @@ export const About = () => {
     })
 
     const changeHandler = (event: any) => {
-        setForm({ ...form, [event.target.name]: event.target.value })
+        setForm({ ...form, [event.target.name]: {msg: event.target.value, state: 'active'}})
+    }
+
+    const focusHandler = (event: any) => {
+        setForm({ ...form, [event.target.name]: {msg: event.target.value, state: 'active'}})
+    }
+
+    const blurHandler = (event: any) => {
+        if (event.target.value === '') {
+            setForm({ ...form, [event.target.name]: {msg: event.target.value, state: ''}})
+        }
     }
 
     const a = useSelector((state: State) => state.auth.request)
 
     const handleRename = () => {
-        a.post('/profile/rename', { username: form.username })
+        a.post('/profile/rename', { username: form.username.msg })
             .then((res: any) => {
                 dispatch(rename(res.data.username))
                 setMsg({message: 'Welcome, ' + res.data.username + '!', color: '#66bb6a'})
@@ -40,7 +50,7 @@ export const About = () => {
     }
 
     const handlePassword = () => {
-        a.post('/profile/chpasswd', { password: form.password })
+        a.post('/profile/chpasswd', { password: form.password.msg })
             .then((res: any) => {
                 setMsg2({message: 'Password has changed', color: '#66bb6a'})
             })
@@ -81,10 +91,12 @@ export const About = () => {
                             id='username'
                             name='username'
                             type='text'
-                            value={form.username}
+                            value={form.username.msg}
                             onChange={changeHandler}
+                            onFocus={focusHandler}
+                            onBlur={blurHandler}
                         />
-                        <label htmlFor='email' className='active' style={{fontSize: '160%'}}>New username</label>
+                        <label htmlFor='username' className={form.username.state} style={{fontSize: '160%'}}>New username</label>
                     </div>
                 </div>
             </form>
@@ -108,10 +120,12 @@ export const About = () => {
                             id='password'
                             name='password'
                             type='password'
-                            value={form.password}
+                            value={form.password.msg}
                             onChange={changeHandler}
+                            onFocus={focusHandler}
+                            onBlur={blurHandler}
                         />
-                        <label htmlFor='email' className='active' style={{fontSize: '160%'}}>New password</label>
+                        <label htmlFor='password' className={form.password.state} style={{fontSize: '160%'}}>New password</label>
                     </div>
                 </div>
             </form>

@@ -9,7 +9,7 @@ interface State {
 export const AddUser = () => {
 
     const [form, setForm] = useState({
-        email: '', password: '', username: ''
+        email: {msg: '', state: ''}, password: {msg: '', state: ''}, username: {msg: '', state: ''}
     })
 
     const [msg, setMsg] = useState({
@@ -17,7 +17,17 @@ export const AddUser = () => {
     })
 
     const changeHandler = (event: any) => {
-        setForm({ ...form, [event.target.name]: event.target.value })
+        setForm({ ...form, [event.target.name]: {msg: event.target.value, state: 'active'}})
+    }
+
+    const focusHandler = (event: any) => {
+        setForm({ ...form, [event.target.name]: {msg: event.target.value, state: 'active'}})
+    }
+
+    const blurHandler = (event: any) => {
+        if (event.target.value === '') {
+            setForm({ ...form, [event.target.name]: {msg: event.target.value, state: ''}})
+        }
     }
 
     const a = useSelector((state: State) => state.auth.request)
@@ -33,7 +43,7 @@ export const AddUser = () => {
             if (password) record.password = password.msg
             return record
         }
-        a.post('/auth/register', {email: form.email, username: form.username, password: form.password})
+        a.post('/auth/register', {email: form.email.msg, username: form.username.msg, password: form.password.msg})
             .then((res: any) => {
                 setMsg(
                     {message: res.data.message, color: '#66bb6a',
@@ -65,10 +75,12 @@ export const AddUser = () => {
                             id='email'
                             name='email'
                             type='text'
-                            value={form.email}
+                            value={form.email.msg}
                             onChange={changeHandler}
+                            onFocus={focusHandler}
+                            onBlur={blurHandler}
                         />
-                        <label htmlFor='email' className='active' style={{fontSize: '160%'}}>Email</label>
+                        <label htmlFor='email' className={form.email.state} style={{fontSize: '160%'}}>Email</label>
                     </div>
                     <div className='row' style={{color: '#ef5350', fontSize: '115%'}}>
                         {msg.errors.email}
@@ -81,10 +93,12 @@ export const AddUser = () => {
                             id='username'
                             name='username'
                             type='text'
-                            value={form.username}
+                            value={form.username.msg}
                             onChange={changeHandler}
+                            onFocus={focusHandler}
+                            onBlur={blurHandler}
                         />
-                        <label htmlFor='username' className='active' style={{fontSize: '160%'}}>User name</label>
+                        <label htmlFor='username' className={form.username.state} style={{fontSize: '160%'}}>User name</label>
                     </div>
                     <div className='row' style={{color: '#ef5350', fontSize: '115%'}}>
                         {msg.errors.username}
@@ -97,10 +111,12 @@ export const AddUser = () => {
                             id='password'
                             name='password'
                             type='password'
-                            value={form.password}
+                            value={form.password.msg}
                             onChange={changeHandler}
+                            onFocus={focusHandler}
+                            onBlur={blurHandler}
                         />
-                        <label htmlFor='password' className='active' style={{fontSize: '160%'}}>Password</label>
+                        <label htmlFor='password' className={form.password.state} style={{fontSize: '160%'}}>Password</label>
                     </div>
                     <div className='row' style={{color: '#ef5350', fontSize: '115%'}}>
                         {msg.errors.password}
