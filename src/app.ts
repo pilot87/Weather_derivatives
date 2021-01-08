@@ -3,7 +3,8 @@ const config = require('config')
 const path = require('path')
 const mongoose = require('mongoose')
 const schedule = require('node-schedule')
-import { forecast } from "./shedule/weather.update"
+import {forecast} from './shedule/weather.update'
+import {billing} from './shedule/billing.update'
 // const User = require('./models/User')
 // const City = require('./models/City')
 
@@ -20,6 +21,7 @@ const rule = new schedule.RecurrenceRule()
 rule.second = 15
 schedule.scheduleJob(rule, () => {
     forecast()
+    billing()
 })
 // @ts-ignore
 app.use(express.json({ extended: true }))
@@ -27,7 +29,7 @@ app.use(express.json({ extended: true }))
 app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/api/profile', require('./routes/profile.routes'))
 app.use('/api/weather', require('./routes/weather.routes'))
-app.use('/api/derivatives', require('./routes/derivatives.routes'))
+app.use('/api/derivative', require('./routes/derivative.routes'))
 
 if (process.env.NODE_ENV === 'production') {
     app.use('/', express.static(path.join(__dirname, 'client', 'build')))

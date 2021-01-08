@@ -3,6 +3,7 @@ const {check, validationResult} = require('express-validator')
 const bcrypt = require('bcryptjs')
 const User = require('../models/User')
 const auth = require('../middleware/auth.middleware')
+
 const router = Router()
 
 router.post('/rename', auth,
@@ -55,5 +56,17 @@ router.post('/chpasswd', auth,
             res.status(500).json({message: 'Internal server error'})
         }
 })
+
+router.post('/balance', auth,
+    async(req: any, res: any) => {
+        try {
+            const email = req.user.email
+            const user = await User.findOne({ email })
+            res.status(200).json({balance: Number.parseFloat(user.balance)})
+        } catch (e) {
+            console.log(e)
+            res.status(500).json({message: 'Internal server error'})
+        }
+    })
 
 module.exports = router

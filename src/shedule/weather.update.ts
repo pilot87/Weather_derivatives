@@ -102,7 +102,7 @@ export const forecast = async() => {
                     config.get('apiKey'))
                     .then(async (hourly3: Hourly3) => {
                         try {
-                            console.log('create ' + city)
+                            // console.log('create ' + city)
 
                             const expected_value = await hourly3.data.list.map((hour, index, array) =>
                                 array.slice(0, index + 1).reduce(
@@ -149,7 +149,7 @@ export const forecast = async() => {
             })
             .catch((e: any) => console.log('error in ring 1' + JSON.stringify(e)))
         } else {
-            console.log('what?')
+            // console.log('what?')
             await City.findOneAndUpdate({name: city}, { $set: {init_phase: false}})
         }
     }
@@ -157,7 +157,7 @@ export const forecast = async() => {
 
     cities.forEach(city => {
         if(!city.init_phase) {
-            console.log('upd')
+            // console.log('upd')
             axios.get('https://api.openweathermap.org/data/2.5/weather?q=' + city.name + '&appid=' +
                 config.get('apiKey'))
                 .then(async (current: Current) => {

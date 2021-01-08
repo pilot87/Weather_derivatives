@@ -1,11 +1,16 @@
 import {Schema, model, Types} from 'mongoose'
 
 const schema = new Schema({
-    city: { type: Types.ObjectId, ref: 'City' },
+    completed: {type: Boolean, required: true},
+    quantity: {type: Number, required: true},
+    email: { type: String, required: true},
+    duration: { type: Number, required: true},
+    duration_left: { type: Number, required: true},
+    city: { type: String, required: true},
     type: { type: String, required: true },
     hidden: {type: Boolean, required: true},
-    temp: {type: String, required: false },
-    temp_reach: {type: Boolean, required: false },
+    temp: {type: String, required: true },
+    temp_reach: {type: Boolean, required: true },
     wind_speed: {type: String, required: false },
     wind_speed_reach: {type: Boolean, required: false },
     clouds: {type: String, required: false },

@@ -16,16 +16,16 @@ class Head extends React.Component {
 }
 
 ReactDOM.render(
-  <React.StrictMode>
-      <Head>
-          <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet' />
-          <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
-          <title>My Page</title>
-      </Head>
-      <Provider store={store}>
-          <App />
-      </Provider>
-  </React.StrictMode>,
+    <React.StrictMode>
+        <Head>
+            <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet' />
+            <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+            <title>My Page</title>
+        </Head>
+            <Provider store={store}>
+            <App />
+        </Provider>
+    </React.StrictMode>,
   document.getElementById('root')
 )
 

@@ -7,6 +7,7 @@ export interface Session {
     name: string,
     email: string,
     request: any
+    balance: number
 }
 
 export interface User {
@@ -27,6 +28,7 @@ catch (e) {
 const initialState: Session = {
     name: es.name,
     email: es.email,
+    balance: 0,
     request: axios.create({
         baseURL: "/api",
         timeout: 30000,
@@ -56,10 +58,14 @@ export const authSlice = createSlice({
             es.name = action.payload
             document.cookie = JSON.stringify(es)
             state.name = action.payload
+        },
+        updBalance(state, action: PayloadAction<{ balance: number }>) {
+            const {balance} = action.payload
+            state.balance = balance
         }
     }
 })
 
-export const { setSession, rename } = authSlice.actions
+export const { setSession, rename, updBalance } = authSlice.actions
 
 export default authSlice.reducer

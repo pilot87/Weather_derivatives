@@ -5,6 +5,8 @@ import {useDispatch} from 'react-redux'
 import { Navbar } from './components/Navbar'
 
 import {updateWeather} from './features/weather/useWeather'
+import {updateRate} from './features/derivative/useDerivative'
+import {regularUpdateBalance} from './features/auth/useAuth'
 
 import { Auth } from './pages/loginPage'
 import { AddUser } from './pages/addUser'
@@ -18,6 +20,8 @@ const App = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {dispatch(updateWeather())})
+    useEffect(() => {dispatch(updateRate())})
+    useEffect(() => {dispatch(regularUpdateBalance())})
 
   return (
       <Router>

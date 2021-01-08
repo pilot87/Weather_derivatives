@@ -4,6 +4,10 @@ nav {
   background-color: #757575;
 }
 
+body {
+  background-color: #eeeeee;
+}
+
 #nav-mobile li a {
   font-size: 120%;
 }

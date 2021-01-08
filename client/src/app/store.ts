@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 import authReducer from '../features/auth/authSlice'
 import weatherReducer from '../features/weather/weatherSlice'
+import derivativeReducer from '../features/derivative/derivativeSlice'
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    weather: weatherReducer
+    weather: weatherReducer,
+    derivative: derivativeReducer
   },
 })
 

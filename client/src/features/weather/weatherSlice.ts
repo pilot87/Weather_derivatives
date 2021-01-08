@@ -35,12 +35,12 @@ export const authSlice = createSlice({
     name: 'weather',
     initialState,
     reducers: {
-        update(state: WeatherAll, action: PayloadAction<WeatherMap>) {
+        update_weather(state: WeatherAll, action: PayloadAction<WeatherMap>) {
             state.weather = action.payload
         }
     }
 })
 
-export const { update } = authSlice.actions
+export const { update_weather } = authSlice.actions
 
 export default authSlice.reducer

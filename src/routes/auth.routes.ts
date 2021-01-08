@@ -45,7 +45,13 @@ router.post(
 
             const hashedPassword = await bcrypt.hash(password, 12)
             // console.log('point 0')
-            const user = new User({ email, username, password: hashedPassword, last_active: Date.now(), balance: '1000'})
+            const user = new User({
+                email,
+                username,
+                password: hashedPassword,
+                last_active: Date.now(),
+                balance: '10000'
+            })
             // console.log('point 1')
 
             await user.save()
