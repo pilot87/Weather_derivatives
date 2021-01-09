@@ -5,8 +5,6 @@ import App from './App'
 import { store } from './app/store'
 import { Provider } from 'react-redux'
 import * as serviceWorker from './serviceWorker'
-import {updateWeather} from './features/weather/useWeather'
-import {useDispatch} from 'react-redux'
 
 const headRoot = document.head
 class Head extends React.Component {

@@ -48,7 +48,7 @@ const App = () => {
                 <Route exact path='/about' component={About} />
                 <Route exact path='/weather' component={WeatherPage} />
                 <Route path='/forecast/:city' component={Forecast} />
-                <Route exact path='/futures' component={Futures} />
+                <Route exact path='/futures' component={ Futures} />
                 <Redirect to='/' />
             </Switch>
         </div>

@@ -8,7 +8,8 @@ import friscoimg from '../San Francisco.jpg'
 import nyimg from '../NewYork.jpg'
 import parisimg from '../Paris.jpg'
 import { store } from '../app/store'
-import {updateBalance} from "../features/auth/useAuth";
+import {updateBalance} from "../features/auth/useAuth"
+import {rate} from '../features/derivative/useDerivative'
 
 const city_img = [mskimg, friscoimg, nyimg, parisimg]
 
@@ -25,31 +26,22 @@ export const Futures = () => {
     const [rich, setRich] = useState(true)
 
     const request = useSelector((state: State) => state.auth.request)
+    const derivative = useSelector((state: State) => state.derivative.daily[city])
 
-    const onceAskRate = (t?: string) => {
+    const onceAskRate = (t: string, over: boolean) => {
         let verible: number
         if (t) {
             verible = Number.parseFloat(t)
         } else {
             verible = Number.parseFloat(temp.temp)
         }
-        request.post('/derivative/rate',
-            {
-                city: city,
-                duration: 60 * 24,
-                temp: verible,
-                rich: rich
-            })
-            .then((res: any) => {
-                setTempRate(Math.round((res.data.rate + Number.EPSILON) * 10000) / 100 + ' %')
-            })
-            .catch((err: any) => {
-                console.log(err)
-            })
-        return '0 %'
+        const lvl = rate(derivative.standard_deviation, derivative.expected_value,
+            verible, over)
+        // setTempRate(Math.round((lvl + Number.EPSILON) * 10000) / 100 + ' %')
+        return Math.round((lvl + Number.EPSILON) * 10000) / 100 + ' %'
     }
 
-    const [tempRate, setTempRate] = useState<string>(onceAskRate)
+    const [tempRate, setTempRate] = useState<string>(onceAskRate(temp.temp, rich))
     const [quantity, setQuantity] = useState<string>('1')
     const [private_derivative, setPrivate_derivative] = useState(true)
 
@@ -73,14 +65,13 @@ export const Futures = () => {
     }
 
     const weather = useSelector((state: State) => state.weather.weather[city])
-    const derivative = useSelector((state: State) => state.derivative.daily[city])
 
-    let rate: any = <div className="progress">
+    let rates: any = <div className="progress">
         <div className="indeterminate"/>
     </div>
 
     if (derivative !== undefined) {
-        rate = derivative.temp.map((d, i) =>
+        rates = derivative.temp.map((d, i) =>
             <tr>
                 <td>{Math.round((d + Number.EPSILON) * 100) / 100 + ' °C'}</td>
                 <td style={{textAlign: 'center'}}>{Math.round((derivative.rate[i] + Number.EPSILON) * 1000) / 10 + ' %' }</td>
@@ -89,31 +80,17 @@ export const Futures = () => {
         )
     }
 
-
-
-    const askRate = async (t?: string) => {
+    const askRate = (t: string, over: boolean) => {
         let verible: number
         if (t) {
             verible = Number.parseFloat(t)
         } else {
             verible = Number.parseFloat(temp.temp)
         }
-        request.post('/derivative/rate',
-            {
-                city: city,
-                duration: 60 * 24,
-                temp: verible,
-                rich: rich
-            })
-            .then((res: any) => {
-                setTempRate(Math.round((res.data.rate + Number.EPSILON) * 10000) / 100 + ' %')
-            })
-            .catch((err: any) => {
-                console.log(err)
-            })
+        const lvl = rate(derivative.standard_deviation, derivative.expected_value,
+            verible, over)
+        setTempRate(Math.round((lvl + Number.EPSILON) * 10000) / 100 + ' %')
     }
-
-    // askRate()
 
     const changeTempHandler = async (event: any) => {
 
@@ -121,13 +98,13 @@ export const Futures = () => {
             if (Number.parseFloat(event.target.value).toString() === 'NaN') {
                 if (event.target.value === '-') {
                     setTemp({temp: '-0', image: 'ac_unit'})
-                    askRate('-0')
+                    askRate('-0', rich)
                 } else if (event.target.value === '.') {
                     setTemp({temp: '0.', image: 'wb_sunny'})
-                    askRate('0.')
+                    askRate('0.', rich)
                 } else if (event.target.value === '') {
                     setTemp({temp: '0', image: 'wb_sunny'})
-                    askRate('0')
+                    askRate('0', rich)
                 } else {
                     setTemp({temp: event.target.value, image: 'border_color'})
                     setTempRate('')
@@ -137,15 +114,14 @@ export const Futures = () => {
                 if (Number.parseFloat(event.target.value) < 0) {
                     setTemp({temp: event.target.value, image: 'ac_unit'})
                     console.log('changeTempHandler')
-                    askRate(event.target.value)
+                    askRate(event.target.value, rich)
                 } else {
                     setTemp({temp: event.target.value, image: 'wb_sunny'})
                     console.log('changeTempHandler')
-                    askRate(event.target.value)
+                    askRate(event.target.value, rich)
                 }
             }
         }
-        // console.log(Number.isInteger('1'))
     }
 
     const changeQuantityHandler = (event: any) => {
@@ -225,7 +201,7 @@ export const Futures = () => {
                         </tr>
                         </thead>
                         <tbody>
-                            {rate}
+                            {rates}
                         </tbody>
                     </table>
                 </div>
@@ -259,10 +235,11 @@ export const Futures = () => {
                             <label htmlFor='quantity' className='active grey-text text-darken-3' style={{fontSize: '160%'}}>Quantity</label>
                             <label style={{marginTop: '70px'}}>
                                 <input type="checkbox" className="filled-in" checked={rich}
-                                    onChange={ async () => {
+                                    onChange={ () => {
+                                        askRate(temp.temp, !rich)
                                         setRich(!rich)
                                         console.log('Rich')
-                                        askRate()
+
                                     }}/>
                                 <span className="grey-text text-darken-3">Pay if temperature rises above</span>
                             </label>
@@ -270,7 +247,7 @@ export const Futures = () => {
                     </div>
                     <div className="collection" style={{marginTop: '70px'}}>
                         <a className="collection-item grey lighten-3 grey-text text-darken-3"><span className="badge">
-                            {balance}
+                            {Math.round((balance + Number.EPSILON) * 100) / 100 + ' USD'}
                         </span>Balance</a>
                     </div>
                 </div>

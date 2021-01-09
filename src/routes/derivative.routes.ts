@@ -158,6 +158,14 @@ router.post('/buy', auth,
                 res.status(400).json({message: 'Your balance is not enouph'})
             }
 
+            if (quantity < 1) {
+                res.status(400).json({message: 'Quantity should be more than 0'})
+            }
+
+            if (duration < 1) {
+                res.status(400).json({message: 'Duration should be more than 0'})
+            }
+
             const derivative = new Derivative({
                 completed: false,
                 quantity: quantity,
@@ -186,51 +194,30 @@ router.post('/buy', auth,
     }
 )
 
-router.post('/buy', auth,
+router.post('/daily_params', auth,
     async (req: any, res: any) => {
         try {
-            const {city, duration, temp, rich, quantity, hidden} = req.body
+            // console.log('daily_index')
+            // const {  } = req.body
+            // console.log(city)
 
-            if(duration < 5) {
-                return res.status(400).json({message: 'duration should be more than 5 minutes'})
-            }
+            const index: number = Math.floor(60 * 24 / 180)
 
-            const di = await rate(city, duration, temp, rich)
+            const cities = await City.find()
 
-            const condidate_city = await City.findOne({name: city})
-
-            if (!condidate_city) {
-                return res.status(400).json({message: 'City is not trackable'})
-            }
-
-            const amount = di * quantity * duration
-            const email = req.user.email
-            const user = await User.findOne({ email })
-
-            if (amount > user.balance) {
-                res.status(400).json({message: 'Your balance is not enouph'})
-            }
-
-            const derivative = new Derivative({
-                city: city,
-                type: 'futures',
-                hidden: hidden,
-                temp: temp,
-                temp_reach: rich,
-                duration: duration,
-                email: email
+            const stats = cities.map((city: any) => {
+                return ({
+                    name: city.name,
+                    expected_value: city.expected_value[index],
+                    standard_deviation: city.standard_deviation[index]
+                })
             })
 
-            await derivative.save()
-
-            await User.findOneAndUpdate({email}, {$set: {balance: user.balance - amount}})
-
-            res.status(200).json({message: 'success'})
+            res.status(200).json({stats: stats})
 
         } catch (e) {
-            if (e === 'duration should be more than 5 minutes') {
-                res.status(400).json({message: e})
-            }
+            console.log('error in stats ')
+            console.log(e)
             res.status(500).json({message: 'Server error: ' + JSON.stringify(e)})
         }
     }
