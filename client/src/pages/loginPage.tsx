@@ -1,14 +1,13 @@
-import React, {useContext, useEffect, useState} from 'react'
-import {useSelector, useDispatch} from 'react-redux'
+import React, {useState} from 'react'
+import {useSelector} from 'react-redux'
 import {Session, setSession} from '../features/auth/authSlice'
+import {store} from '../app/store'
 
 interface State {
     auth: Session
 }
 
 export const Auth = () => {
-
-    const dispatch = useDispatch()
 
     const [form, setForm] = useState({
         email: {msg: '', state: ''}, password: {msg: '', state: ''}
@@ -37,7 +36,7 @@ export const Auth = () => {
     const handleLogin = () => {
         a.post('/auth/login', {email: form.email.msg, password: form.password.msg})
             .then((res: any) => {
-                dispatch(setSession({email: res.data.email, name: res.data.username,
+                store.dispatch(setSession({email: res.data.email, name: res.data.username,
                     token: res.data.token}))
                 setMsg({message: 'Welcome, ' + res.data.username + '!', color: '#66bb6a'})
                 window.location.replace('about')

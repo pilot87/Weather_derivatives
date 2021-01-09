@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
-import {useSelector, useDispatch} from 'react-redux'
+import {useSelector} from 'react-redux'
 import {Weather, WeatherAll} from '../features/weather/weatherSlice'
-import {Derivative, update_rate} from '../features/derivative/derivativeSlice'
+import {Derivative} from '../features/derivative/derivativeSlice'
 import {Session} from '../features/auth/authSlice'
 import mskimg from '../Moscow.jpg'
 import friscoimg from '../San Francisco.jpg'
 import nyimg from '../NewYork.jpg'
 import parisimg from '../Paris.jpg'
-import { store } from '../app/store'
+import {store} from '../app/store'
 import {updateBalance} from "../features/auth/useAuth"
 import {rate} from '../features/derivative/useDerivative'
 

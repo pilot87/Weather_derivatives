@@ -1,19 +1,15 @@
-import {useSelector, useDispatch} from 'react-redux'
+import {useSelector} from 'react-redux'
 import React from 'react'
 import {useParams} from 'react-router-dom'
-import {Weather, WeatherAll} from '../features/weather/weatherSlice'
+import {WeatherAll} from '../features/weather/weatherSlice'
 
 interface State {
     weather: WeatherAll
 }
 
 export const Forecast = () => {
-    const dispatch = useDispatch()
 
     const city = useParams<{city: string}>().city
-
-    // console.log(city)
-    // console.log(useSelector((state: State) => state.weather.weather[city]).hourly_tmp)
 
     const hourly = useSelector((state: State) => {
         if (state.weather.weather[city] !== undefined) {

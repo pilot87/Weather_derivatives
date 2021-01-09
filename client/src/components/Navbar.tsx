@@ -1,5 +1,5 @@
-import React, {useContext} from 'react'
-import {NavLink, useHistory} from 'react-router-dom'
+import React from 'react'
+import {NavLink} from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import {Session} from '../features/auth/authSlice'

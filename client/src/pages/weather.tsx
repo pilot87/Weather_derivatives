@@ -1,5 +1,5 @@
 import React from 'react'
-import {useSelector, useDispatch} from 'react-redux'
+import {useSelector} from 'react-redux'
 import {Weather, WeatherAll} from '../features/weather/weatherSlice'
 import mskimg from '../Moscow.jpg'
 import friscoimg from '../San Francisco.jpg'

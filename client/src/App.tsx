@@ -15,13 +15,19 @@ import { WeatherPage } from './pages/weather'
 import { Forecast } from './pages/forecast'
 import { Futures } from './pages/futures'
 
+import {store} from './app/store'
+
 const App = () => {
 
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
-    useEffect(() => {dispatch(updateWeather())})
-    useEffect(() => {dispatch(updateRate())})
-    useEffect(() => {dispatch(regularUpdateBalance())})
+    // useEffect(() => {dispatch(updateWeather())})
+    // useEffect(() => {dispatch(updateRate())})
+    // useEffect(() => {dispatch(regularUpdateBalance())})
+    store.dispatch(updateWeather())
+    store.dispatch(updateRate())
+    store.dispatch(regularUpdateBalance())
+
 
   return (
       <Router>

@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {Session, rename, setSession} from '../features/auth/authSlice'
-import {useDispatch, useSelector} from 'react-redux'
+import {useSelector} from 'react-redux'
+import {store} from '../app/store'
 
 
 interface State {
@@ -8,7 +9,6 @@ interface State {
 }
 
 export const About = () => {
-    const dispatch = useDispatch()
 
     const [form, setForm] = useState(
         {username: {msg: '', state: ''}, password: {msg: '', state: ''}
@@ -41,7 +41,7 @@ export const About = () => {
     const handleRename = () => {
         a.post('/profile/rename', { username: form.username.msg })
             .then((res: any) => {
-                dispatch(rename(res.data.username))
+                store.dispatch(rename(res.data.username))
                 setMsg({message: 'Welcome, ' + res.data.username + '!', color: '#66bb6a'})
             })
             .catch((err: any) => setMsg(
@@ -60,7 +60,7 @@ export const About = () => {
     }
 
     const handleLogout = () => {
-        dispatch(setSession({ email: '', name: '', token: '' }))
+        store.dispatch(setSession({ email: '', name: '', token: '' }))
         window.location.replace('login')
     }
 
