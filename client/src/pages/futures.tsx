@@ -35,6 +35,9 @@ export const Futures = () => {
         } else {
             verible = Number.parseFloat(temp.temp)
         }
+        if (derivative == undefined) {
+            window.location.replace('about')
+        }
         const lvl = rate(derivative.standard_deviation, derivative.expected_value,
             verible, over)
         // setTempRate(Math.round((lvl + Number.EPSILON) * 10000) / 100 + ' %')
