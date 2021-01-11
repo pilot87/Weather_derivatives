@@ -1,13 +1,8 @@
 import React from 'react'
 import {useSelector} from 'react-redux'
 import {Weather, WeatherAll} from '../features/weather/weatherSlice'
-import mskimg from '../Moscow.jpg'
-import friscoimg from '../San Francisco.jpg'
-import nyimg from '../NewYork.jpg'
-import parisimg from '../Paris.jpg'
 
-const city_img = [mskimg, friscoimg, nyimg, parisimg]
-
+import {city_img} from '../components/Images'
 
 interface State {
     weather: WeatherAll
@@ -58,7 +53,7 @@ export const WeatherPage = () => {
 
             </td>
         ))
-    if(cities == []) {
+    if(cities === []) {
         cities = <div className="progress">
             <div className="indeterminate"/>
         </div>
@@ -70,7 +65,7 @@ export const WeatherPage = () => {
                 <div className="nav-wrapper">
                     <div className="col s12">
                         <a href="/" className="breadcrumb">Home</a>
-                        <a className="breadcrumb">Weather</a>
+                        <p className="breadcrumb">Weather</p>
                     </div>
                 </div>
             </nav>

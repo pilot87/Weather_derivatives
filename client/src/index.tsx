@@ -20,7 +20,7 @@ ReactDOM.render(
             <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
             <title>My Page</title>
         </Head>
-            <Provider store={store}>
+        <Provider store={store}>
             <App />
         </Provider>
     </React.StrictMode>,

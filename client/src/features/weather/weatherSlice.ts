@@ -1,7 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import {AppThunk, RootState} from '../../app/store'
-import {useDispatch} from 'react-redux'
-
 
 export interface Weather {
     // name: string,

@@ -1,4 +1,5 @@
 import {update_rate} from './derivativeSlice'
+const axios = require('axios').default
 
 const sleep = (ms: number) => {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -42,7 +43,7 @@ export const updateRate = () => async (dispatch: any, getState: any) => {
 
     while(true) {
         if(getState().auth.name !== '') {
-            getState().auth.request.post('/derivative/daily_params')
+            axios.create(getState().auth.request_params).post('/derivative/daily_params')
                 .then((res: any) => {
                     res.data.stats.forEach((city: any) => {
                         let temp: number[]
@@ -68,7 +69,7 @@ export const updateRate = () => async (dispatch: any, getState: any) => {
                             }
 
                             step = step / 2
-                        } while (Math.max(... di) > 1)
+                        } while (Math.max(...di) > 1)
 
                         let di2 = []
 

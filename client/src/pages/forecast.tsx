@@ -31,21 +31,6 @@ export const Forecast = () => {
             <div className="indeterminate"/>
         </div>
     })
-    const hourly1 = useSelector((state: State) => {
-        if (state.weather.weather[city] !== undefined) {
-            return state.weather.weather[city].hourly_temp.map((tmp: number, index:number) => {
-                return (
-                    <a className='collection-item'><span className='badge'>
-                    {tmp + ' °C'}</span>
-                        {index + ' h'}
-                    </a>
-                )
-            })
-        }
-        return <div className="progress">
-            <div className="indeterminate"/>
-        </div>
-    })
 
     return (
         <>
@@ -54,7 +39,7 @@ export const Forecast = () => {
                     <div className="col s12">
                         <a href="/" className="breadcrumb">Home</a>
                         <a href="/weather" className="breadcrumb">Weather</a>
-                        <a className="breadcrumb">{'Forecast for ' + city}</a>
+                        <p className="breadcrumb">{'Forecast for ' + city}</p>
                     </div>
                 </div>
             </nav>

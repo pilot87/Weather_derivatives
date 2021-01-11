@@ -3,6 +3,8 @@ import {Session, rename, setSession} from '../features/auth/authSlice'
 import {useSelector} from 'react-redux'
 import {store} from '../app/store'
 
+const axios = require('axios').default
+
 
 interface State {
     auth: Session
@@ -36,7 +38,7 @@ export const About = () => {
         }
     }
 
-    const a = useSelector((state: State) => state.auth.request)
+    const a = useSelector((state: State) => axios.create(state.auth.request_params))
 
     const handleRename = () => {
         a.post('/profile/rename', { username: form.username.msg })
@@ -70,17 +72,17 @@ export const About = () => {
                 <div className="nav-wrapper">
                     <div className="col s12">
                         <a href="/" className="breadcrumb">Home</a>
-                        <a className="breadcrumb">About</a>
+                        <p className="breadcrumb">About</p>
                     </div>
                 </div>
             </nav>
         <div className='row' style={{marginTop: 25}}>
             <div className='row'>
                 <div className='collection' style={{fontSize: '120%'}}>
-                    <a className='collection-item black-text'>
-                        {'Email:    ' + useSelector((state: State) => state.auth.email)}</a>
-                    <a className='collection-item black-text'>
-                        {'Username: ' + useSelector((state: State) => state.auth.name)}</a>
+                    <p className='collection-item black-text'>
+                        {'Email:    ' + useSelector((state: State) => state.auth.email)}</p>
+                    <p className='collection-item black-text'>
+                        {'Username: ' + useSelector((state: State) => state.auth.name)}</p>
                 </div>
             </div>
             <form className='col s12'>

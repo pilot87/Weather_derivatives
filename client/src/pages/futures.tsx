@@ -3,15 +3,13 @@ import {useSelector} from 'react-redux'
 import {Weather, WeatherAll} from '../features/weather/weatherSlice'
 import {Derivative} from '../features/derivative/derivativeSlice'
 import {Session} from '../features/auth/authSlice'
-import mskimg from '../Moscow.jpg'
-import friscoimg from '../San Francisco.jpg'
-import nyimg from '../NewYork.jpg'
-import parisimg from '../Paris.jpg'
+import {city_img} from '../components/Images'
 import {store} from '../app/store'
 import {updateBalance} from "../features/auth/useAuth"
 import {rate} from '../features/derivative/useDerivative'
 
-const city_img = [mskimg, friscoimg, nyimg, parisimg]
+const axios = require('axios').default
+
 
 interface State {
     weather: WeatherAll,
@@ -25,7 +23,7 @@ export const Futures = () => {
     const [temp, setTemp] = useState<{temp: string, image: string}>({temp: '0', image: 'wb_sunny'})
     const [rich, setRich] = useState(true)
 
-    const request = useSelector((state: State) => state.auth.request)
+    const request = useSelector((state: State) => axios.create(state.auth.request_params))
     const derivative = useSelector((state: State) => state.derivative.daily[city])
 
     const onceAskRate = (t: string, over: boolean) => {
@@ -35,7 +33,7 @@ export const Futures = () => {
         } else {
             verible = Number.parseFloat(temp.temp)
         }
-        if (derivative == undefined) {
+        if (derivative === undefined) {
             window.location.replace('about')
         }
         const lvl = rate(derivative.standard_deviation, derivative.expected_value,
@@ -61,7 +59,7 @@ export const Futures = () => {
             </td>
         ))
 
-    if(cities == []) {
+    if(cities === []) {
         cities = <div className="progress">
             <div className="indeterminate"/>
         </div>
@@ -249,21 +247,21 @@ export const Futures = () => {
                         </div>
                     </div>
                     <div className="collection" style={{marginTop: '70px'}}>
-                        <a className="collection-item grey lighten-3 grey-text text-darken-3"><span className="badge">
+                        <p className="collection-item grey lighten-3 grey-text text-darken-3"><span className="badge">
                             {Math.round((balance + Number.EPSILON) * 100) / 100 + ' USD'}
-                        </span>Balance</a>
+                        </span>Balance</p>
                     </div>
                 </div>
                 <div className="col s3">
                     <div className="collection">
-                        <a className="collection-item grey lighten-3 grey-text text-darken-3"><span className="badge">
+                        <p className="collection-item grey lighten-3 grey-text text-darken-3"><span className="badge">
                             {tempRate}
-                        </span>Rate</a>
+                        </span>Rate</p>
                     </div>
                     <div className="collection" style={{marginTop: '70px'}}>
-                        <a className="collection-item grey lighten-3 grey-text text-darken-3"><span className="badge">
+                        <p className="collection-item grey lighten-3 grey-text text-darken-3"><span className="badge">
                             {Math.round(Number.parseFloat(tempRate) * Number.parseFloat(quantity)) * 60 * 24 / 100 + ' USD'}
-                        </span>Amount</a>
+                        </span>Amount</p>
                     </div>
                     <div style={{marginTop: '38px'}}>
                         <label>
@@ -287,7 +285,7 @@ export const Futures = () => {
             <div className="nav-wrapper">
                 <div className="col s12">
                     <a href="/" className="breadcrumb">Home</a>
-                    <a className="breadcrumb">Futures</a>
+                    <p className="breadcrumb">Futures</p>
                 </div>
             </div>
         </nav>

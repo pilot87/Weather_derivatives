@@ -1,12 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import {AppThunk, RootState} from "../../app/store"
-
-const axios = require('axios').default
 
 export interface Session {
     name: string,
     email: string,
-    request: any
+    request_params: any
     balance: number
 }
 
@@ -29,11 +26,11 @@ const initialState: Session = {
     name: es.name,
     email: es.email,
     balance: 0,
-    request: axios.create({
+    request_params: {
         baseURL: "/api",
         timeout: 30000,
         headers: { 'Content-Type': 'application/json', 'Authorization': es.token }
-    })
+    }
 }
 
 export const authSlice = createSlice({
@@ -46,11 +43,11 @@ export const authSlice = createSlice({
             document.cookie = JSON.stringify(es)
             state.name = name
             state.email = email
-            state.request = axios.create({
+            state.request_params = {
                 baseURL: "/api",
                 timeout: 30000,
                 headers: { 'Content-Type': 'application/json', 'Authorization': es.token }
-            })
+            }
             // state.request.defaults.headers.common['Authorization'] = 'Bearer ' + token
         },
         rename(state, action: PayloadAction<string>) {

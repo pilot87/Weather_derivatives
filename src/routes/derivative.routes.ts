@@ -223,4 +223,68 @@ router.post('/daily_params', auth,
     }
 )
 
+router.post('/city_stat', auth,
+    async (req: any, res: any) => {
+        try {
+
+            const {city} = req.body
+
+            const email = req.user.email
+
+            const der_user = await Derivative.find({email: email, city: city})
+
+            const der_pub = await Derivative.find({hidden: false, city: city})
+
+            const der = der_user.concat(der_pub).filter(
+                (v: number, i: number, a: Uint8Array) => a.indexOf(v) === i)
+
+            res.status(200).json({stats: der.length})
+
+        } catch (e) {
+            console.log('error in stats ')
+            console.log(e)
+            res.status(500).json({message: 'Server error: ' + JSON.stringify(e)})
+        }
+    }
+)
+
+router.post('/stats', auth,
+    async (req: any, res: any) => {
+        try {
+
+            const email = req.user.email
+
+            const der_user = await Derivative.find({email: email})
+
+            const der_pub = await Derivative.find({hidden: false})
+
+            const cities = await City.find()
+
+            const der = der_user.concat(der_pub).filter(
+                (v: number, i: number, a: Uint8Array) => a.indexOf(v) === i)
+
+            interface Stat {
+                [index: string]: {
+                    quantity: number,
+                    derivative: any
+                }
+            }
+
+            const stats: Stat = {}
+            for (const city of cities) {
+                stats[city.name] = der.filter((elem: any) => elem.city === city.name)
+            }
+
+            // console.log(stats['Moscow'].derivative)
+
+            res.status(200).json({stats: stats})
+
+        } catch (e) {
+            console.log('error in stats ')
+            console.log(e)
+            res.status(500).json({message: 'Server error: ' + JSON.stringify(e)})
+        }
+    }
+)
+
 module.exports = router

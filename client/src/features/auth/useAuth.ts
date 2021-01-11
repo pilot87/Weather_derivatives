@@ -1,4 +1,5 @@
 import {updBalance} from './authSlice'
+const axios = require('axios').default
 
 const sleep = (ms: number) => {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -7,11 +8,11 @@ const sleep = (ms: number) => {
 export const regularUpdateBalance = () => async (dispatch: any, getState: any) => {
 
     while(true) {
-        if(getState().auth.name != '') {
-            getState().auth.request.post('/profile/balance')
+        if(getState().auth.name !== '') {
+            axios.create(getState().auth.request_params).post('/profile/balance')
                 // getState().auth.request.post('/weather/rate')
                 .then((res: any) => {
-                    console.log(res.data)
+                    // console.log(res.data)
                     dispatch(updBalance(res.data))
                 })
             // .catch((err: any) => console.log(err.response.data.message))

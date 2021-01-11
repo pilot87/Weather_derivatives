@@ -29,6 +29,7 @@ export const Navbar = () => {
                 <a href='/' className='brand-logo'>Forecast Trading</a>
                 <ul id='nav-mobile' className='right hide-on-med-and-down'>
                     <li><NavLink to='/weather'>Weather</NavLink></li>
+                    <li><NavLink to='/statistic'>Statistic</NavLink></li>
                     <li><NavLink to='/futures'>Futures</NavLink></li>
                     <li><NavLink to='/about'>Hello, {user}!</NavLink></li>
                 </ul>
