@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {useSelector} from "react-redux"
-import {Stat, StatDetail} from '../features/stats/statsSlice'
+import {Stat, StatDetail, page_city_change} from '../features/stats/statsSlice'
 import {city_img} from "../components/Images"
+import {store} from '../app/store'
 
 interface State {
     stats: Stat
@@ -9,15 +10,13 @@ interface State {
 
 export const Statistic = () => {
 
-    const init = useSelector((state: State) => Object.keys(state.stats.city).map(city =>
-    {
-        return {
-            index: 0,
-            active: ['green lighten-4', '', '']
-        }
-    }))
+    // const init = useSelector((state: State) => Object.keys(state.stats.city))
+    //
+    // for (const city of init) {
+    //     store.dispatch(page_city_push({index: 0, active: ['green lighten-4', '', '']}))
+    // }
 
-    const [active_tab, setActive_tab] = useState<{index: number, active: string[]}[]>(init)
+    // const [active_tab, setActive_tab] = useState<{index: number, active: string[]}[]>(init)
 
     const show = (s: StatDetail, index: number) =>
         <table className={[0].map((condition) => {
@@ -53,6 +52,7 @@ export const Statistic = () => {
             </tbody>
         </table>
 
+    const card = useSelector((state: State) => state.stats.card)
 
     let cities: any = useSelector((state: State) =>
         Object.entries(state.stats.city).map((city: [string, StatDetail[]], index: number) => {
@@ -64,7 +64,7 @@ export const Statistic = () => {
             if (city[1].length !== 0) {
                 tab_content[0] = city[1].map((detail, index2) => show(detail, index2))
             }
-            if (active_tab[index] === undefined) {
+            if (state.stats.card[index] === undefined) {
                 window.location.replace('about')
             }
             const re: any = []
@@ -77,28 +77,34 @@ export const Statistic = () => {
                         <div className="card-tabs">
                             <ul className="tabs tabs-fixed-width">
                                 <li className="tab" style={{cursor: 'pointer'}} onClick={() => {
-                                    const ac = active_tab
-                                    ac[index].index = 0
-                                    ac[index].active = ['green lighten-4', '', '']
-                                    setActive_tab(ac)
-                                }}><p className={active_tab[index].active[0]}>Futures</p></li>
+                                    store.dispatch(page_city_change({index: index, payload:
+                                            {index: 0, active: ['green lighten-4', '', '']}}))
+                                    // const ac = active_tab
+                                    // ac[index].index = 0
+                                    // ac[index].active = ['green lighten-4', '', '']
+                                    // setActive_tab(ac)
+                                }}><p className={card[index].active[0]}>Futures</p></li>
                                 <li className="tab" style={{cursor: 'pointer'}} onClick={() => {
-                                    const ac = active_tab
-                                    ac[index].index = 1
-                                    ac[index].active = ['', 'green lighten-4', '']
-                                    setActive_tab(ac)
-                                }}><p className={active_tab[index].active[1]}>Statistic</p></li>
+                                    store.dispatch(page_city_change({index: index, payload:
+                                            {index: 1, active: ['', 'green lighten-4', '']}}))
+                                    // const ac = active_tab
+                                    // ac[index].index = 1
+                                    // ac[index].active = ['', 'green lighten-4', '']
+                                    // setActive_tab(ac)
+                                }}><p className={card[index].active[1]}>Statistic</p></li>
                                 <li className="tab" style={{cursor: 'pointer'}} onClick={() => {
-                                    const ac = active_tab
-                                    ac[index].index = 2
-                                    ac[index].active = ['', '', 'green lighten-4']
-                                    setActive_tab(ac)
-                                }}><p className={active_tab[index].active[2]}>Test 2</p></li>
+                                    store.dispatch(page_city_change({index: index, payload:
+                                            {index: 2, active: ['', '', 'green lighten-4']}}))
+                                    // const ac = active_tab
+                                    // ac[index].index = 2
+                                    // ac[index].active = ['', '', 'green lighten-4']
+                                    // setActive_tab(ac)
+                                }}><p className={card[index].active[2]}>Test 2</p></li>
                             </ul>
                         </div>
                     </div>
             )
-            return re.concat(tab_content[active_tab[index].index])
+            return re.concat(tab_content[card[index].index])
         })
     )
 
