@@ -39,7 +39,7 @@ export const Forecast = () => {
                     <div className="col s12">
                         <a href="/" className="breadcrumb">Home</a>
                         <a href="/weather" className="breadcrumb">Weather</a>
-                        <p className="breadcrumb">{'Forecast for ' + city}</p>
+                        <a className="breadcrumb">{'Forecast for ' + city}</a>
                     </div>
                 </div>
             </nav>

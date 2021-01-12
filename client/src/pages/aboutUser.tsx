@@ -72,7 +72,7 @@ export const About = () => {
                 <div className="nav-wrapper">
                     <div className="col s12">
                         <a href="/" className="breadcrumb">Home</a>
-                        <p className="breadcrumb">About</p>
+                        <a className="breadcrumb">About</a>
                     </div>
                 </div>
             </nav>

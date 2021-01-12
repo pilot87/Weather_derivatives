@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {useSelector} from "react-redux"
-import {StatDetail, Stat} from '../features/stats/statsSlice'
+import {Stat, StatDetail} from '../features/stats/statsSlice'
 import {city_img} from "../components/Images"
 
 interface State {
@@ -102,28 +102,36 @@ export const Statistic = () => {
                 {/*<div className="card-content grey lighten-4">*/}
                 {/*    <div id="test4">{tab_content[active_tab[index].index]}</div>*/}
                 {/*</div>*/}
-            console.log(city[0] + ' ' + re.length)
-            return re.concat([active_tab[index].index])
-
+            // console.log(city[0] + ' ' + ret.length)
+            return re.concat(tab_content[active_tab[index].index])
         })
     )
 
     const view: any = []
 
-    if(cities === []) {
-        cities = <div className="progress">
-            <div className="indeterminate"/>
-        </div>
-    }
+    // if(cities === []) {
+    //     view.push(<div className="progress">
+    //         <div className="indeterminate"/>
+    //     </div>)
+    // } else {
+    //     const max = Math.max(cities.map((city: any) => city.length))
+    //
+    // }
+
+
 
     let i = 0
+
+    // console.log(cities)
+
+    // console.log(Math.max(cities.map((city: any) => city.length)))
 
     do {
         view.push(
             <tr>
                 {cities.map((city: any) => {
-                    if (city[i].length > i) {
-                        return <td>city[i]</td>
+                    if (city.length > i) {
+                        return <td>{city[i]}</td>
                     } else {
                         return <td>Blob</td>
                     }
@@ -131,13 +139,13 @@ export const Statistic = () => {
             </tr>
         )
         i++
-    } while (Math.max(cities.map((city: any) => city.length)) > i)
+    } while (Math.max(...cities.map((city: any) => city.length)) > i)
 
-    view.push(
-        <tr>
-            {cities.map((city: any) => city[i])}
-        </tr>
-    )
+    // view.push(
+    //     <tr>
+    //         {cities.map((city: any) => city[i])}
+    //     </tr>
+    // )
 
     return (
         <>
@@ -145,7 +153,7 @@ export const Statistic = () => {
                 <div className="nav-wrapper">
                     <div className="col s12">
                         <a href="/" className="breadcrumb">Home</a>
-                        <p className="breadcrumb">Statistic</p>
+                        <a className="breadcrumb">Statistic</a>
                     </div>
                 </div>
             </nav>
@@ -154,4 +162,7 @@ export const Statistic = () => {
             </table>
         </>
     )
+    // return (<table>
+    //     {view}
+    // </table>)
 }

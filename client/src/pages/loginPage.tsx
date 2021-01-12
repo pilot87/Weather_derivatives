@@ -54,7 +54,7 @@ export const Auth = () => {
                 <div className="nav-wrapper">
                     <div className="col s12">
                         <a href="/" className="breadcrumb">Home</a>
-                        <p className="breadcrumb">Login</p>
+                        <a className="breadcrumb">Login</a>
                     </div>
                 </div>
             </nav>

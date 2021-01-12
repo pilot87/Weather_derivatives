@@ -65,7 +65,7 @@ export const AddUser = () => {
                 <div className="nav-wrapper">
                     <div className="col s12">
                         <a href="/" className="breadcrumb">Home</a>
-                        <p className="breadcrumb">Register</p>
+                        <a className="breadcrumb">Register</a>
                     </div>
                 </div>
             </nav>

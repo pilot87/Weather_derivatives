@@ -65,7 +65,7 @@ export const WeatherPage = () => {
                 <div className="nav-wrapper">
                     <div className="col s12">
                         <a href="/" className="breadcrumb">Home</a>
-                        <p className="breadcrumb">Weather</p>
+                        <a className="breadcrumb">Weather</a>
                     </div>
                 </div>
             </nav>

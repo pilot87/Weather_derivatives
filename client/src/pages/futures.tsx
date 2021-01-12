@@ -285,7 +285,7 @@ export const Futures = () => {
             <div className="nav-wrapper">
                 <div className="col s12">
                     <a href="/" className="breadcrumb">Home</a>
-                    <p className="breadcrumb">Futures</p>
+                    <a className="breadcrumb">Futures</a>
                 </div>
             </div>
         </nav>
