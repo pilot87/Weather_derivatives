@@ -5,6 +5,10 @@ import App from './App'
 import { store } from './app/store'
 import { Provider } from 'react-redux'
 import * as serviceWorker from './serviceWorker'
+import {updateWeather} from "./features/weather/useWeather";
+import {updateRate} from "./features/derivative/useDerivative";
+import {regularUpdateBalance} from "./features/auth/useAuth";
+import {updateStats} from "./features/stats/useStats";
 
 const headRoot = document.head
 class Head extends React.Component {

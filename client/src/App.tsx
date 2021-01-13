@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import { Navbar } from './components/Navbar'
 
@@ -8,15 +9,24 @@ import {updateRate} from './features/derivative/useDerivative'
 import {regularUpdateBalance} from './features/auth/useAuth'
 import {updateStats} from './features/stats/useStats'
 
+import {Session} from './features/auth/authSlice'
+import {WeatherAll} from './features/weather/weatherSlice'
+import {Stat} from './features/stats/statsSlice'
+import {Derivative} from './features/derivative/derivativeSlice'
+
+
+
 import { Auth } from './pages/loginPage'
 import { AddUser } from './pages/addUser'
 import { About } from './pages/aboutUser'
 import { WeatherPage } from './pages/weather'
 import { Forecast } from './pages/forecast'
 import { Futures } from './pages/futures'
-import { Statistic } from './pages/statistic'
+import Statistic from './pages/statistic'
 
 import {store} from './app/store'
+
+
 
 const App = () => {
 
@@ -25,11 +35,11 @@ const App = () => {
     // useEffect(() => {dispatch(updateWeather())})
     // useEffect(() => {dispatch(updateRate())})
     // useEffect(() => {dispatch(regularUpdateBalance())})
-    store.dispatch(updateWeather())
+    // store.dispatch(updateWeather())
     store.dispatch(updateRate())
     store.dispatch(regularUpdateBalance())
     store.dispatch(updateStats())
-
+    store.dispatch(updateWeather())
 
   return (
       <Router>
@@ -40,15 +50,13 @@ const App = () => {
                     exact
                     path='/'
                     render={() => (
-                        <>
-                            <nav>
-                                <div className="nav-wrapper">
-                                    <div className="col s12">
-                                        <p className="breadcrumb">Home</p>
-                                    </div>
+                        <nav>
+                            <div className="nav-wrapper">
+                                <div className="col s12">
+                                    <p className="breadcrumb">Home</p>
                                 </div>
-                            </nav>
-                        </>
+                            </div>
+                        </nav>
                     )}
                 />
                 <Route exact path='/login' component={ Auth } />
@@ -57,7 +65,7 @@ const App = () => {
                 <Route exact path='/weather' component={ WeatherPage } />
                 <Route path='/forecast/:city' component={ Forecast } />
                 <Route exact path='/futures' component={ Futures } />
-                <Route exact path='/statistic' component={ Statistic } />
+                <Route exact path='/statistic' component={ Statistic }  />
                 <Redirect to='/' />
             </Switch>
         </div>

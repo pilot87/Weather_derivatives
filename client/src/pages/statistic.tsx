@@ -1,30 +1,17 @@
 import React from 'react'
-import {useSelector} from "react-redux"
+import {connect} from 'react-redux'
 import {Stat, StatDetail, page_city_change} from '../features/stats/statsSlice'
 import {city_img} from "../components/Images"
-import {store} from '../app/store'
 
-interface State {
-    stats: Stat
-}
+const Statistic = ({stats, page_city_change}: any): any => {
 
-export const Statistic = () => {
-
-    // const init = useSelector((state: State) => Object.keys(state.stats.city))
-    //
-    // for (const city of init) {
-    //     store.dispatch(page_city_push({index: 0, active: ['green lighten-4', '', '']}))
-    // }
-
-    // const [active_tab, setActive_tab] = useState<{index: number, active: string[]}[]>(init)
+    // console.log(stats)
 
     const show = (s: StatDetail, index: number) =>
         <table className={[0].map((condition) => {
             if(index % 2 === 0) {
-                console.log('yellow')
                 return "striped collection-item yellow lighten-4 grey-text text-darken-3"
             } else {
-                console.log('green')
                 return "striped collection-item green lighten-4 grey-text text-darken-3"
             }
         })[0]}>
@@ -52,19 +39,16 @@ export const Statistic = () => {
             </tbody>
         </table>
 
-    const card = useSelector((state: State) => state.stats.card)
-
-    let cities: any = useSelector((state: State) =>
-        Object.entries(state.stats.city).map((city: [string, StatDetail[]], index: number) => {
+    const cities: any = Object.entries(stats.city).map((city: any, index: number) => {
             const tab_content: any = [
                 'No futures',
                 'Quantity of futures: ' + city[1].length,
                 'Test 2',
             ]
             if (city[1].length !== 0) {
-                tab_content[0] = city[1].map((detail, index2) => show(detail, index2))
+                tab_content[0] = city[1].map((detail: any, index2: number) => show(detail, index2))
             }
-            if (state.stats.card[index] === undefined) {
+            if (stats.page[index] === undefined) {
                 window.location.replace('about')
             }
             const re: any = []
@@ -77,38 +61,35 @@ export const Statistic = () => {
                         <div className="card-tabs">
                             <ul className="tabs tabs-fixed-width">
                                 <li className="tab" style={{cursor: 'pointer'}} onClick={() => {
-                                    store.dispatch(page_city_change({index: index, payload:
-                                            {index: 0, active: ['green lighten-4', '', '']}}))
-                                    // const ac = active_tab
-                                    // ac[index].index = 0
-                                    // ac[index].active = ['green lighten-4', '', '']
-                                    // setActive_tab(ac)
-                                }}><p className={card[index].active[0]}>Futures</p></li>
+                                    page_city_change({index: index, payload:
+                                            {index: 0, active: ['green lighten-4', '', '']}})
+                                    // store.dispatch(page_city_change({index: index, payload:
+                                    //         {index: 0, active: ['green lighten-4', '', '']}}))
+                                }}>
+                                    <p className={stats.page[index].active[0]}>Futures</p>
+                                </li>
                                 <li className="tab" style={{cursor: 'pointer'}} onClick={() => {
-                                    store.dispatch(page_city_change({index: index, payload:
-                                            {index: 1, active: ['', 'green lighten-4', '']}}))
-                                    // const ac = active_tab
-                                    // ac[index].index = 1
-                                    // ac[index].active = ['', 'green lighten-4', '']
-                                    // setActive_tab(ac)
-                                }}><p className={card[index].active[1]}>Statistic</p></li>
+                                    page_city_change({index: index, payload:
+                                            {index: 1, active: ['', 'green lighten-4', '']}})
+                                }}>
+                                    <p className={stats.page[index].active[1]}>Statistic</p>
+                                </li>
                                 <li className="tab" style={{cursor: 'pointer'}} onClick={() => {
-                                    store.dispatch(page_city_change({index: index, payload:
-                                            {index: 2, active: ['', '', 'green lighten-4']}}))
-                                    // const ac = active_tab
-                                    // ac[index].index = 2
-                                    // ac[index].active = ['', '', 'green lighten-4']
-                                    // setActive_tab(ac)
-                                }}><p className={card[index].active[2]}>Test 2</p></li>
+                                    page_city_change({index: index, payload:
+                                            {index: 2, active: ['', '', 'green lighten-4']}})
+                                }}>
+                                    <p className={stats.page[index].active[2]}>Test 2</p>
+                                </li>
                             </ul>
                         </div>
                     </div>
             )
-            return re.concat(tab_content[card[index].index])
-        })
-    )
+            return re.concat(tab_content[stats.page[index].index])
+    })
 
-    const view: any = []
+    let view: any = []
+
+
     let i = 0
     do {
         view.push(
@@ -117,13 +98,14 @@ export const Statistic = () => {
                     if (city.length > i) {
                         return <td className="">{city[i]}</td>
                     } else {
-                        return <td></td>
+                        return <td/>
                     }
                 })}
             </tr>
         )
         i++
     } while (Math.max(...cities.map((city: any) => city.length)) > i)
+
 
     return (
         <>
@@ -143,3 +125,13 @@ export const Statistic = () => {
         </>
     )
 }
+
+interface State {
+    stats: Stat
+}
+
+export default connect((state: State) => {
+        return {stats: state.stats}
+    }, {
+    page_city_change: page_city_change
+})(Statistic)

@@ -135,7 +135,7 @@ export const Futures = () => {
         <h4 className="grey-text text-darken-3">
             {city}
         </h4>
-            <div className="progress">
+        <div className="progress">
             <div className="indeterminate"/>
         </div>
     </>

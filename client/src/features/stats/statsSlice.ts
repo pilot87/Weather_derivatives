@@ -27,12 +27,12 @@ export interface PageStat {
 
 export interface Stat {
     city: CurrentStat
-    card: PageStat[]
+    page: PageStat[]
 }
 
 const initialState: Stat = {
     city: {},
-    card: (new Array(city_img.length)).fill({index: 0, active: ['green lighten-4', '', '']})
+    page: (new Array(city_img.length)).fill({index: 0, active: ['green lighten-4', '', '']})
 }
 
 export const statsSlice = createSlice({
@@ -45,10 +45,10 @@ export const statsSlice = createSlice({
             }
         },
         page_city_push(state: Stat, action: PayloadAction<PageStat>) {
-            state.card.push(action.payload)
+            state.page.push(action.payload)
         },
         page_city_change(state: Stat, action: PayloadAction<{index: number, payload: PageStat}>) {
-            state.card[action.payload.index] = action.payload.payload
+            state.page[action.payload.index] = action.payload.payload
         }
     }
 })
