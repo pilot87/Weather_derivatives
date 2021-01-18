@@ -1,16 +1,8 @@
 import React, {useState} from 'react'
-import {Session, rename, setSession} from '../features/auth/authSlice'
-import {useSelector} from 'react-redux'
-import {store} from '../app/store'
 
 const axios = require('axios').default
 
-
-interface State {
-    auth: Session
-}
-
-export const About = () => {
+export const About = ({auth, rename, setSession}: any): any => {
 
     const [form, setForm] = useState(
         {username: {msg: '', state: ''}, password: {msg: '', state: ''}
@@ -38,12 +30,12 @@ export const About = () => {
         }
     }
 
-    const a = useSelector((state: State) => axios.create(state.auth.request_params))
+    const a = axios.create(auth.request_params)
 
     const handleRename = () => {
         a.post('/profile/rename', { username: form.username.msg })
             .then((res: any) => {
-                store.dispatch(rename(res.data.username))
+                rename(res.data.username)
                 setMsg({message: 'Welcome, ' + res.data.username + '!', color: '#66bb6a'})
             })
             .catch((err: any) => setMsg(
@@ -62,7 +54,7 @@ export const About = () => {
     }
 
     const handleLogout = () => {
-        store.dispatch(setSession({ email: '', name: '', token: '' }))
+        setSession({ email: '', name: '', token: '' })
         window.location.replace('login')
     }
 
@@ -72,7 +64,7 @@ export const About = () => {
                 <div className="nav-wrapper">
                     <div className="col s12">
                         <a href="/" className="breadcrumb">Home</a>
-                        <a className="breadcrumb">About</a>
+                        <a href="/about" className="breadcrumb">About</a>
                     </div>
                 </div>
             </nav>
@@ -80,9 +72,9 @@ export const About = () => {
             <div className='row'>
                 <div className='collection' style={{fontSize: '120%'}}>
                     <p className='collection-item black-text'>
-                        {'Email:    ' + useSelector((state: State) => state.auth.email)}</p>
+                        {'Email:    ' + auth.email}</p>
                     <p className='collection-item black-text'>
-                        {'Username: ' + useSelector((state: State) => state.auth.name)}</p>
+                        {'Username: ' + auth.name}</p>
                 </div>
             </div>
             <form className='col s12'>

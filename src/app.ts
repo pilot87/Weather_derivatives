@@ -5,15 +5,6 @@ const mongoose = require('mongoose')
 const schedule = require('node-schedule')
 import {forecast} from './shedule/weather.update'
 import {billing} from './shedule/billing.update'
-// const User = require('./models/User')
-// const City = require('./models/City')
-
-const bar = async () => {
-    const city = new City({ name: 'Paris', lat: '48.85', lon: '2.35', current_tmp: '0', hourly_tmp: []})
-    await city.save()
-}
-
-// bar()
 
 const app: express.Application = express()
 
@@ -46,7 +37,8 @@ async function start() {
         await mongoose.connect(config.get('mongoUri'), {
             useNewUrlParser: true,
             useUnifiedTopology: true,
-            useCreateIndex: true
+            useCreateIndex: true,
+            useFindAndModify: false
         })
         app.listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
     } catch (e) {

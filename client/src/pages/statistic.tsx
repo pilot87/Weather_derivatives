@@ -1,11 +1,9 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Stat, StatDetail, page_city_change} from '../features/stats/statsSlice'
-import {city_img} from "../components/Images"
 
-const Statistic = ({stats, page_city_change}: any): any => {
+import {StatDetail} from '../features/stats/statsSlice'
+import {city_img} from '../components/Images'
 
-    // console.log(stats)
+export const Statistic = ({stats, page_city_change}: any): any => {
 
     const show = (s: StatDetail, index: number) =>
         <table className={[0].map((condition) => {
@@ -63,8 +61,6 @@ const Statistic = ({stats, page_city_change}: any): any => {
                                 <li className="tab" style={{cursor: 'pointer'}} onClick={() => {
                                     page_city_change({index: index, payload:
                                             {index: 0, active: ['green lighten-4', '', '']}})
-                                    // store.dispatch(page_city_change({index: index, payload:
-                                    //         {index: 0, active: ['green lighten-4', '', '']}}))
                                 }}>
                                     <p className={stats.page[index].active[0]}>Futures</p>
                                 </li>
@@ -89,7 +85,6 @@ const Statistic = ({stats, page_city_change}: any): any => {
 
     let view: any = []
 
-
     let i = 0
     do {
         view.push(
@@ -113,7 +108,7 @@ const Statistic = ({stats, page_city_change}: any): any => {
                 <div className="nav-wrapper">
                     <div className="col s12">
                         <a href="/" className="breadcrumb">Home</a>
-                        <a className="breadcrumb">Statistic</a>
+                        <a href="/statistic" className="breadcrumb">Statistic</a>
                     </div>
                 </div>
             </nav>
@@ -125,13 +120,3 @@ const Statistic = ({stats, page_city_change}: any): any => {
         </>
     )
 }
-
-interface State {
-    stats: Stat
-}
-
-export default connect((state: State) => {
-        return {stats: state.stats}
-    }, {
-    page_city_change: page_city_change
-})(Statistic)

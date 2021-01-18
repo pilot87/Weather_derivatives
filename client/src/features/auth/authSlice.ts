@@ -1,15 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+
+
 export interface Session {
-    name: string,
-    email: string,
+    name: string
+    email: string
     request_params: any
     balance: number
 }
 
 export interface User {
-    name: string,
-    email: string,
+    name: string
+    email: string
     token: string
 }
 
@@ -48,7 +50,6 @@ export const authSlice = createSlice({
                 timeout: 30000,
                 headers: { 'Content-Type': 'application/json', 'Authorization': es.token }
             }
-            // state.request.defaults.headers.common['Authorization'] = 'Bearer ' + token
         },
         rename(state, action: PayloadAction<string>) {
             const es = JSON.parse(document.cookie)

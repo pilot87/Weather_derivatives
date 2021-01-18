@@ -5,19 +5,23 @@ const sleep = (ms: number) => {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export const updateWeather = () => async (dispatch: any, getState: any) => {
-
-    while(true) {
-        if(getState().auth.name !== '') {
-            axios.create(getState().auth.request_params).post('/weather/update')
-            // getState().auth.request.post('/weather/rate')
-                .then((res: any) => {
-                    // console.log(res.data)
-                    dispatch(update_weather(res.data))
-                })
-                // .catch((err: any) => console.log(err.response.data.message))
-        }
-        await sleep(10000)
+const upd = (dispatch: any, getState: any) => {
+    if (getState().auth.name !== '') {
+        axios.create(getState().auth.request_params).post('/weather/update')
+            .then((res: any) => {
+                dispatch(update_weather(res.data))
+            })
     }
-    // return Promise.resolve()
+}
+
+export const regularUpdateWeather = () => async (dispatch: any, getState: any) => {
+    while(true) {
+        await sleep(10000)
+        upd(dispatch, getState)
+    }
+}
+
+export const updateWeather = () => async (dispatch: any, getState: any) => {
+    upd(dispatch, getState)
+    return Promise.resolve()
 }

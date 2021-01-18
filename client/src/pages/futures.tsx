@@ -1,78 +1,81 @@
-import React, {useState} from 'react'
-import {useSelector} from 'react-redux'
+import React from 'react'
+
 import {Weather, WeatherAll} from '../features/weather/weatherSlice'
 import {Derivative} from '../features/derivative/derivativeSlice'
 import {Session} from '../features/auth/authSlice'
 import {city_img} from '../components/Images'
 import {store} from '../app/store'
-import {updateBalance} from "../features/auth/useAuth"
+import {updateBalance} from '../features/auth/useAuth'
 import {rate} from '../features/derivative/useDerivative'
 
 const axios = require('axios').default
 
-
-interface State {
-    weather: WeatherAll,
-    derivative: Derivative,
+interface Args {
     auth: Session
+    weather0: WeatherAll
+    derivative0: Derivative
+    setCity: any
+    setTemp: any
+    setRich: any
+    setTempRate: any
+    setQuantity: any
+    setPrivate_derivative: any
 }
 
-export const Futures = () => {
-    const defaultcity = useSelector((state: State) => Object.keys(state.weather.weather)[0])
-    const [city, setCity] = useState(defaultcity)
-    const [temp, setTemp] = useState<{temp: string, image: string}>({temp: '0', image: 'wb_sunny'})
-    const [rich, setRich] = useState(true)
+export const Futures = ({
+                            auth,
+                            weather0,
+                            derivative0,
+                            setCity,
+                            setTemp,
+                            setRich,
+                            setTempRate,
+                            setQuantity,
+                            setPrivate_derivative
+}: Args): any => {
 
-    const request = useSelector((state: State) => axios.create(state.auth.request_params))
-    const derivative = useSelector((state: State) => state.derivative.daily[city])
+    const city = derivative0.page.city
+    const temp = derivative0.page.temp
+    const rich = derivative0.page.rich
 
-    const onceAskRate = (t: string, over: boolean) => {
-        let verible: number
-        if (t) {
-            verible = Number.parseFloat(t)
-        } else {
-            verible = Number.parseFloat(temp.temp)
-        }
-        if (derivative === undefined) {
-            window.location.replace('about')
-        }
-        const lvl = rate(derivative.standard_deviation, derivative.expected_value,
-            verible, over)
-        // setTempRate(Math.round((lvl + Number.EPSILON) * 10000) / 100 + ' %')
-        return Math.round((lvl + Number.EPSILON) * 10000) / 100 + ' %'
-    }
+    const request = axios.create(auth.request_params)
+    const derivative = derivative0.daily[city]
 
-    const [tempRate, setTempRate] = useState<string>(onceAskRate(temp.temp, rich))
-    const [quantity, setQuantity] = useState<string>('1')
-    const [private_derivative, setPrivate_derivative] = useState(true)
 
-    let cities: any = useSelector((state: State) =>
-        Object.entries(state.weather.weather).map((city: [string, Weather], index: number) =>
-            <td onClick={() => setCity(city[0])}
-                style={{cursor: 'pointer'}}>
-                <div className="card">
-                    <div className="card-image">
-                        <img src={city_img[index]} alt={city[0]} style={{maxWidth: '100%', height: 'auto'}}/>
-                        <span className="card-title">{city[0]}</span>
+    const tempRate = derivative0.page.tempRate
+
+    const private_derivative = derivative0.page.private_derivative
+    const quantity = derivative0.page.quantity
+
+    let cities: any = <div className="progress">
+        <div className="indeterminate"/>
+    </div>
+
+    if(weather0.weather !== undefined) {
+        cities = Object.entries(weather0.weather).map((city: [string, Weather], index: number) => {
+            return (
+                <td onClick={() => {
+                    setCity(city[0])
+                    askRate(temp.temp, rich)
+                }}
+                    style={{cursor: 'pointer'}}>
+                    <div className="card">
+                        <div className="card-image">
+                            <img src={city_img[index]} alt={city[0]} style={{maxWidth: '100%', height: 'auto'}}/>
+                            <span className="card-title">{city[0]}</span>
+                        </div>
                     </div>
-                </div>
-            </td>
-        ))
-
-    if(cities === []) {
-        cities = <div className="progress">
-            <div className="indeterminate"/>
-        </div>
+                </td>
+            )
+        })
     }
-
-    const weather = useSelector((state: State) => state.weather.weather[city])
 
     let rates: any = <div className="progress">
         <div className="indeterminate"/>
     </div>
 
     if (derivative !== undefined) {
-        rates = derivative.temp.map((d, i) =>
+        rates = derivative.temp.map((d: number, i: number) =>
             <tr>
                 <td>{Math.round((d + Number.EPSILON) * 100) / 100 + ' °C'}</td>
                 <td style={{textAlign: 'center'}}>{Math.round((derivative.rate[i] + Number.EPSILON) * 1000) / 10 + ' %' }</td>
@@ -81,15 +84,21 @@ export const Futures = () => {
         )
     }
 
-    const askRate = (t: string, over: boolean) => {
+    const askRate = (t?: string, over?: boolean) => {
         let verible: number
         if (t) {
             verible = Number.parseFloat(t)
         } else {
             verible = Number.parseFloat(temp.temp)
         }
+        let over_ver: boolean
+        if (over) {
+            over_ver = over
+        } else {
+            over_ver = rich
+        }
         const lvl = rate(derivative.standard_deviation, derivative.expected_value,
-            verible, over)
+            verible, over_ver)
         setTempRate(Math.round((lvl + Number.EPSILON) * 10000) / 100 + ' %')
     }
 
@@ -131,16 +140,9 @@ export const Futures = () => {
         }
     }
 
-    let card: any = <>
-        <h4 className="grey-text text-darken-3">
-            {city}
-        </h4>
-        <div className="progress">
-            <div className="indeterminate"/>
-        </div>
-    </>
+    let card: any
 
-    const balance = useSelector((state: State) => state.auth.balance)
+    const balance = auth.balance
 
     const handleBuy = () => {
         request.post('/derivative/buy', {
@@ -156,7 +158,7 @@ export const Futures = () => {
             })
     }
 
-    if(weather !== undefined) {
+    if(weather0.weather[city] !== undefined) {
         card = <>
             <h4 className="grey-text text-darken-3">
                 {city}
@@ -167,27 +169,27 @@ export const Futures = () => {
                         <tbody>
                         <tr>
                             <td>Temperature</td>
-                            <td style={{textAlign: 'right'}}>{Math.round((weather.current_temp + Number.EPSILON) * 100) / 100 + ' °C'}</td>
+                            <td style={{textAlign: 'right'}}>{Math.round((weather0.weather[city].current_temp + Number.EPSILON) * 100) / 100 + ' °C'}</td>
                         </tr>
                         <tr>
                             <td>Wind speed</td>
-                            <td style={{textAlign: 'right'}}>{weather.current_wind_speed + ' meter/sec'}</td>
+                            <td style={{textAlign: 'right'}}>{weather0.weather[city].current_wind_speed + ' meter/sec'}</td>
                         </tr>
                         <tr>
                             <td>Cloudiness</td>
-                            <td style={{textAlign: 'right'}}>{weather.current_clouds + ' %'}</td>
+                            <td style={{textAlign: 'right'}}>{weather0.weather[city].current_clouds + ' %'}</td>
                         </tr>
                         <tr>
                             <td>Pressure</td>
-                            <td style={{textAlign: 'right'}}>{weather.current_pressure + ' hPa'}</td>
+                            <td style={{textAlign: 'right'}}>{weather0.weather[city].current_pressure + ' hPa'}</td>
                         </tr>
                         <tr>
                             <td>Humidity</td>
-                            <td style={{textAlign: 'right'}}>{weather.current_humidity + ' %'}</td>
+                            <td style={{textAlign: 'right'}}>{weather0.weather[city].current_humidity + ' %'}</td>
                         </tr>
                         <tr>
                             <td>Visibility</td>
-                            <td style={{textAlign: 'right'}}>{weather.current_visibility + ' metres'}</td>
+                            <td style={{textAlign: 'right'}}>{weather0.weather[city].current_visibility + ' metres'}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -237,10 +239,9 @@ export const Futures = () => {
                             <label style={{marginTop: '70px'}}>
                                 <input type="checkbox" className="filled-in" checked={rich}
                                     onChange={ () => {
-                                        askRate(temp.temp, !rich)
                                         setRich(!rich)
+                                        askRate(temp.temp, rich)
                                         console.log('Rich')
-
                                     }}/>
                                 <span className="grey-text text-darken-3">Pay if temperature rises above</span>
                             </label>
@@ -278,6 +279,15 @@ export const Futures = () => {
 
             </div>
         </>
+    } else {
+        card = <>
+            <h4 className="grey-text text-darken-3">
+                {city}
+            </h4>
+            <div className="progress">
+                <div className="indeterminate"/>
+            </div>
+        </>
     }
 
     return <div className="grey lighten-3">
@@ -285,7 +295,7 @@ export const Futures = () => {
             <div className="nav-wrapper">
                 <div className="col s12">
                     <a href="/" className="breadcrumb">Home</a>
-                    <a className="breadcrumb">Futures</a>
+                    <a href="/futures" className="breadcrumb">Futures</a>
                 </div>
             </div>
         </nav>

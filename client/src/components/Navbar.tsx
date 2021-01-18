@@ -8,8 +8,8 @@ interface State {
     auth: Session
 }
 
-export const Navbar = () => {
-    const user = useSelector((state: State ) => state.auth.name)
+export const Navbar = ({auth}: any): any => {
+    const user = auth.name
     if (user === '') return (
         <nav>
             <div className='nav-wrapper'>

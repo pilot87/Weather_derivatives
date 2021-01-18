@@ -1,14 +1,8 @@
 import React, {useState} from 'react'
-import {Session} from '../features/auth/authSlice'
-import {useSelector} from 'react-redux'
 
 const axios = require('axios').default
 
-interface State {
-    auth: Session
-}
-
-export const AddUser = () => {
+export const AddUser = ({auth}: any): any => {
 
     const [form, setForm] = useState({
         email: {msg: '', state: ''}, password: {msg: '', state: ''}, username: {msg: '', state: ''}
@@ -32,7 +26,7 @@ export const AddUser = () => {
         }
     }
 
-    const a = useSelector((state: State) => axios.create(state.auth.request_params))
+    const a = axios.create(auth.request_params)
 
     const handleRegister = async() => {
         const parseErrors = (err: any) => {
@@ -65,7 +59,7 @@ export const AddUser = () => {
                 <div className="nav-wrapper">
                     <div className="col s12">
                         <a href="/" className="breadcrumb">Home</a>
-                        <a className="breadcrumb">Register</a>
+                        <a href="/register" className="breadcrumb">Register</a>
                     </div>
                 </div>
             </nav>

@@ -1,4 +1,4 @@
-import {update_rate} from './derivativeSlice'
+import {update_rate, init_page} from './derivativeSlice'
 const axios = require('axios').default
 
 const sleep = (ms: number) => {
@@ -39,57 +39,82 @@ export const rate =  (standard_deviation: number,
     return 1.05 * Phi
 }
 
-export const updateRate = () => async (dispatch: any, getState: any) => {
+const upd = (dispatch: any, getState: any, init: boolean) => {
+    if(getState().auth.name !== '') {
+        axios.create(getState().auth.request_params).post('/derivative/daily_params')
+            .then((res: any) => {
+                res.data.stats.forEach((city: any) => {
+                    let temp: number[]
+                    let di: number[]
+                    let step = 2
+                    const l = 2
 
-    while(true) {
-        if(getState().auth.name !== '') {
-            axios.create(getState().auth.request_params).post('/derivative/daily_params')
-                .then((res: any) => {
-                    res.data.stats.forEach((city: any) => {
-                        let temp: number[]
-                        let di: number[]
-                        let step = 2
-                        const l = 2
+                    do {
+                        temp = []
+                        di = []
 
-                        do {
-                            temp = []
-                            di = []
-
-                            for (let t = 0; t < 2 * l + 1; t++) {
-                                temp.push(city.expected_value - (l - t) * step)
-                            }
-
-                            for (const t of temp) {
-                                const i = rate(
-                                    city.standard_deviation,
-                                    city.expected_value,
-                                    t,
-                                    true)
-                                di.push(i)
-                            }
-
-                            step = step / 2
-                        } while (Math.max(...di) > 1)
-
-                        let di2 = []
-
-                        for (const i of di) {
-                            di2.push(1 - i)
+                        for (let t = 0; t < 2 * l + 1; t++) {
+                            temp.push(city.expected_value - (l - t) * step)
                         }
 
-                        dispatch(update_rate({
-                            city: city.name,
-                            rate: di,
-                            rate2: di2,
-                            temp: temp,
-                            expected_value: city.expected_value,
-                            standard_deviation: city.standard_deviation
-                        }))
-                    })
+                        for (const t of temp) {
+                            const i = rate(
+                                city.standard_deviation,
+                                city.expected_value,
+                                t,
+                                true)
+                            di.push(i)
+                        }
 
+                        step = step / 2
+                    } while (Math.max(...di) > 1)
+
+                    let di2 = []
+
+                    for (const i of di) {
+                        di2.push(1 - i)
+                    }
+
+                    dispatch(update_rate({
+                        city: city.name,
+                        rate: di,
+                        rate2: di2,
+                        temp: temp,
+                        expected_value: city.expected_value,
+                        standard_deviation: city.standard_deviation
+                    }))
                 })
-                .catch((err: any) => console.log(err))
-        }
-        await sleep(10000)
+                if (init) {
+                    dispatch(init_page({
+                        city: 'Moscow',
+                        temp: {
+                            temp: '0',
+                            image: 'wb_sunny'
+                        },
+                        quantity: '1',
+                        tempRate: Math.round((rate(
+                            getState().derivative.daily[Object.keys(getState().weather.weather)[0]].standard_deviation,
+                            getState().derivative.daily[Object.keys(getState().weather.weather)[0]].expected_value,
+                            0,
+                            true
+                        ) + Number.EPSILON) * 10000) / 100 + ' %',
+                        private_derivative: true,
+                        rich: true
+                    }))
+                }
+            })
+            .catch((err: any) => console.log(err))
     }
+}
+
+export const regularUpdateRate = () => async (dispatch: any, getState: any) => {
+    while(true) {
+        await sleep(10000)
+        upd(dispatch, getState, false)
+    }
+}
+
+export const updateRate = () => async (dispatch: any, getState: any) => {
+    upd(dispatch, getState, true)
+    return Promise.resolve()
 }

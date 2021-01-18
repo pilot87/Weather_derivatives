@@ -5,32 +5,23 @@ const sleep = (ms: number) => {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export const regularUpdateBalance = () => async (dispatch: any, getState: any) => {
-
-    while(true) {
-        if(getState().auth.name !== '') {
-            axios.create(getState().auth.request_params).post('/profile/balance')
-                // getState().auth.request.post('/weather/rate')
-                .then((res: any) => {
-                    // console.log(res.data)
-                    dispatch(updBalance(res.data))
-                })
-            // .catch((err: any) => console.log(err.response.data.message))
-        }
-        await sleep(10000)
+const upd = (dispatch: any, getState: any) => {
+    if(getState().auth.name !== '') {
+        axios.create(getState().auth.request_params).post('/profile/balance')
+            .then((res: any) => {
+                dispatch(updBalance(res.data))
+            })
     }
-    // return Promise.resolve()
+}
+
+export const regularUpdateBalance = () => async (dispatch: any, getState: any) => {
+    while(true) {
+        await sleep(10000)
+        upd(dispatch, getState)
+    }
 }
 
 export const updateBalance = () => async (dispatch: any, getState: any) => {
-
-    getState().auth.request.post('/profile/balance')
-        // getState().auth.request.post('/weather/rate')
-        .then((res: any) => {
-            console.log(res.data)
-            dispatch(updBalance(res.data))
-        })
-            // .catch((err: any) => console.log(err.response.data.message))
-
-    // return Promise.resolve()
+    upd(dispatch, getState)
+    return Promise.resolve()
 }
