@@ -8,15 +8,10 @@ import {Session, rename, setSession} from './features/auth/authSlice'
 import {WeatherAll} from './features/weather/weatherSlice'
 import {page_city_change, Stat} from './features/stats/statsSlice'
 
-import {
-    Derivative,
-    setCity,
-    setTemp,
-    setRich,
-    setTempRate,
-    setQuantity,
-    setPrivate_derivative
-} from './features/derivative/derivativeSlice'
+import { Derivative } from './features/derivative/derivativeSlice'
+
+import {changeCity, changeTemp, changeRich, changeQuantity,
+    changePrivate_derivative} from './features/derivative/useDerivative'
 
 import { Auth } from './pages/loginPage'
 import { AddUser } from './pages/addUser'
@@ -68,12 +63,11 @@ const AuthPage = connect(() => (state: State) => {
 const FuturesPage = connect(() => (state: State) => {
     return {auth: state.auth, weather0: state.weather, derivative0: state.derivative}
 }, {
-    setCity: setCity,
-    setTemp: setTemp,
-    setRich: setRich,
-    setTempRate: setTempRate,
-    setQuantity: setQuantity,
-    setPrivate_derivative: setPrivate_derivative
+    changeCity: changeCity,
+    changeTemp: changeTemp,
+    changeRich: changeRich,
+    changeQuantity: changeQuantity,
+    changePrivate_derivative: changePrivate_derivative
 })(Futures)
 
 

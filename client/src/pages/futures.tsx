@@ -6,7 +6,6 @@ import {Session} from '../features/auth/authSlice'
 import {city_img} from '../components/Images'
 import {store} from '../app/store'
 import {updateBalance} from '../features/auth/useAuth'
-import {rate} from '../features/derivative/useDerivative'
 
 const axios = require('axios').default
 
@@ -14,24 +13,22 @@ interface Args {
     auth: Session
     weather0: WeatherAll
     derivative0: Derivative
-    setCity: any
-    setTemp: any
-    setRich: any
-    setTempRate: any
-    setQuantity: any
-    setPrivate_derivative: any
+    changeCity: (city: string) => void
+    changeTemp: (event: any) => void
+    changeRich: () => void
+    changeQuantity: (event: any) => void
+    changePrivate_derivative: () => void
 }
 
 export const Futures = ({
                             auth,
                             weather0,
                             derivative0,
-                            setCity,
-                            setTemp,
-                            setRich,
-                            setTempRate,
-                            setQuantity,
-                            setPrivate_derivative
+                            changeCity,
+                            changeTemp,
+                            changeRich,
+                            changeQuantity,
+                            changePrivate_derivative
 }: Args): any => {
 
     const city = derivative0.page.city
@@ -55,8 +52,7 @@ export const Futures = ({
         cities = Object.entries(weather0.weather).map((city: [string, Weather], index: number) => {
             return (
                 <td onClick={() => {
-                    setCity(city[0])
-                    askRate(temp.temp, rich)
+                    changeCity(city[0])
                 }}
                     style={{cursor: 'pointer'}}>
                     <div className="card">
@@ -82,62 +78,6 @@ export const Futures = ({
                 <td style={{textAlign: 'right'}}>{Math.round((derivative.rate2[i] + Number.EPSILON) * 1000) / 10 + ' %' }</td>
             </tr>
         )
-    }
-
-    const askRate = (t?: string, over?: boolean) => {
-        let verible: number
-        if (t) {
-            verible = Number.parseFloat(t)
-        } else {
-            verible = Number.parseFloat(temp.temp)
-        }
-        let over_ver: boolean
-        if (over) {
-            over_ver = over
-        } else {
-            over_ver = rich
-        }
-        const lvl = rate(derivative.standard_deviation, derivative.expected_value,
-            verible, over_ver)
-        setTempRate(Math.round((lvl + Number.EPSILON) * 10000) / 100 + ' %')
-    }
-
-    const changeTempHandler = async (event: any) => {
-
-        if (/^(-?[0-9]*\.?[0-9]*)$/.test(event.target.value)) {
-            if (Number.parseFloat(event.target.value).toString() === 'NaN') {
-                if (event.target.value === '-') {
-                    setTemp({temp: '-0', image: 'ac_unit'})
-                    askRate('-0', rich)
-                } else if (event.target.value === '.') {
-                    setTemp({temp: '0.', image: 'wb_sunny'})
-                    askRate('0.', rich)
-                } else if (event.target.value === '') {
-                    setTemp({temp: '0', image: 'wb_sunny'})
-                    askRate('0', rich)
-                } else {
-                    setTemp({temp: event.target.value, image: 'border_color'})
-                    setTempRate('')
-                }
-            } else {
-                console.log(event.target.value)
-                if (Number.parseFloat(event.target.value) < 0) {
-                    setTemp({temp: event.target.value, image: 'ac_unit'})
-                    console.log('changeTempHandler')
-                    askRate(event.target.value, rich)
-                } else {
-                    setTemp({temp: event.target.value, image: 'wb_sunny'})
-                    console.log('changeTempHandler')
-                    askRate(event.target.value, rich)
-                }
-            }
-        }
-    }
-
-    const changeQuantityHandler = (event: any) => {
-        if (/^[1-9][0-9]*$/.test(event.target.value)) {
-            setQuantity(event.target.value)
-        }
     }
 
     let card: any
@@ -217,7 +157,9 @@ export const Futures = ({
                                 name='temp'
                                 type='text'
                                 value={temp.temp}
-                                onChange={changeTempHandler}
+                                onChange={async (event: any) => {
+                                    changeTemp(event)
+                                }}
                                 onFocus={event => event.target.select()}
                             />
                             <label htmlFor='temp' className='active grey-text text-darken-3' style={{fontSize: '160%'}}>Temperature [°C]</label>
@@ -232,16 +174,16 @@ export const Futures = ({
                                 name='quantity'
                                 type='text'
                                 value={quantity}
-                                onChange={changeQuantityHandler}
+                                onChange={(event: any) => {
+                                    changeQuantity(event)
+                                }}
                                 onFocus={event => event.target.select()}
                             />
                             <label htmlFor='quantity' className='active grey-text text-darken-3' style={{fontSize: '160%'}}>Quantity</label>
                             <label style={{marginTop: '70px'}}>
                                 <input type="checkbox" className="filled-in" checked={rich}
                                     onChange={ () => {
-                                        setRich(!rich)
-                                        askRate(temp.temp, rich)
-                                        console.log('Rich')
+                                        changeRich()
                                     }}/>
                                 <span className="grey-text text-darken-3">Pay if temperature rises above</span>
                             </label>
@@ -267,7 +209,9 @@ export const Futures = ({
                     <div style={{marginTop: '38px'}}>
                         <label>
                             <input type="checkbox" className="filled-in" checked={private_derivative}
-                                   onChange={() => setPrivate_derivative(!private_derivative)}/>
+                                   onChange={() => {
+                                       changePrivate_derivative()
+                                   }}/>
                             <span className="grey-text text-darken-3">Private (only you will see one)</span>
                         </label>
                     </div>

@@ -1,4 +1,6 @@
-import {update_rate, init_page} from './derivativeSlice'
+import {update_rate, init_page, setCity, setTemp, setTempRate, setRich,
+    setQuantity, setPrivate_derivative} from './derivativeSlice'
+
 const axios = require('axios').default
 
 const sleep = (ms: number) => {
@@ -15,7 +17,7 @@ const normalcdf = (X: number) => {
     return Prob
 }
 
-export const rate =  (standard_deviation: number,
+const rate =  (standard_deviation: number,
                expected_value: number,
                temp: number,
                rich: boolean) => {
@@ -31,7 +33,7 @@ export const rate =  (standard_deviation: number,
     } else {
         Phi = Math.round(100000 * normalcdf((temp - expected_value) /
             standard_deviation)) / 100000
-        if(rich) {
+        if(!rich) {
             Phi = 1 - Phi
         }
     }
@@ -116,5 +118,66 @@ export const regularUpdateRate = () => async (dispatch: any, getState: any) => {
 
 export const updateRate = () => async (dispatch: any, getState: any) => {
     upd(dispatch, getState, true)
-    return Promise.resolve()
+}
+
+const askRate = (dispatch: any, getState: any) => {
+    const city = getState().derivative.page.city
+    const lvl = rate(getState().derivative.daily[city].standard_deviation,
+        getState().derivative.daily[city].expected_value,
+        getState().derivative.page.temp.temp,
+        getState().derivative.page.rich)
+    console.log(lvl)
+    dispatch(setTempRate(Math.round((lvl + Number.EPSILON) * 10000) / 100 + ' %'))
+}
+
+export const changeCity = (city: string) => async (dispatch: any, getState: any) => {
+    dispatch(setCity(city))
+    askRate(dispatch, getState)
+}
+
+export const changeTemp = (event: any) => async (dispatch: any, getState: any) => {
+
+    if (/^(-?[0-9]*\.?[0-9]*)$/.test(event.target.value)) {
+        if (Number.parseFloat(event.target.value).toString() === 'NaN') {
+            if (event.target.value === '-') {
+                dispatch(setTemp({temp: '-0', image: 'ac_unit'}))
+                askRate(dispatch, getState)
+            } else if (event.target.value === '.') {
+                dispatch(setTemp({temp: '0.', image: 'wb_sunny'}))
+                askRate(dispatch, getState)
+            } else if (event.target.value === '') {
+                dispatch(setTemp({temp: '0', image: 'wb_sunny'}))
+                askRate(dispatch, getState)
+            } else {
+                dispatch(setTemp({temp: event.target.value, image: 'border_color'}))
+                askRate(dispatch, getState)
+            }
+        } else {
+            console.log(event.target.value)
+            if (Number.parseFloat(event.target.value) < 0) {
+                dispatch(setTemp({temp: event.target.value, image: 'ac_unit'}))
+                askRate(dispatch, getState)
+            } else {
+                dispatch(setTemp({temp: event.target.value, image: 'wb_sunny'}))
+                askRate(dispatch, getState)
+            }
+        }
+    }
+}
+
+export const changeRich = () => async (dispatch: any, getState: any) => {
+    dispatch(setRich(!getState().derivative.page.rich))
+    askRate(dispatch, getState)
+}
+
+export const changeQuantity = (event: any) => async (dispatch: any, getState: any) => {
+    if (/^[1-9][0-9]*$/.test(event.target.value)) {
+        dispatch(setQuantity(event.target.value))
+    }
+    askRate(dispatch, getState)
+}
+
+export const changePrivate_derivative = () => async (dispatch: any, getState: any) => {
+    dispatch(setPrivate_derivative(!getState().derivative.page.private_derivative))
+    askRate(dispatch, getState)
 }
