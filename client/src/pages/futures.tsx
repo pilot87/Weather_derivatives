@@ -53,11 +53,11 @@ export const Futures = ({
             return (
                 <td onClick={() => {
                     changeCity(city[0])
-                }}
-                    style={{cursor: 'pointer'}}>
+                }}>
                     <div className="card">
                         <div className="card-image">
-                            <img src={city_img[index]} alt={city[0]} style={{maxWidth: '100%', height: 'auto'}}/>
+                            <img className='futures_img'
+                                src={city_img[index]} alt={city[0]}/>
                             <span className="card-title">{city[0]}</span>
                         </div>
                     </div>
@@ -74,8 +74,8 @@ export const Futures = ({
         rates = derivative.temp.map((d: number, i: number) =>
             <tr>
                 <td>{Math.round((d + Number.EPSILON) * 100) / 100 + ' °C'}</td>
-                <td style={{textAlign: 'center'}}>{Math.round((derivative.rate[i] + Number.EPSILON) * 1000) / 10 + ' %' }</td>
-                <td style={{textAlign: 'right'}}>{Math.round((derivative.rate2[i] + Number.EPSILON) * 1000) / 10 + ' %' }</td>
+                <td className='text_center'>{Math.round((derivative.rate[i] + Number.EPSILON) * 1000) / 10 + ' %' }</td>
+                <td className='text_right'>{Math.round((derivative.rate2[i] + Number.EPSILON) * 1000) / 10 + ' %' }</td>
             </tr>
         )
     }
@@ -116,27 +116,27 @@ export const Futures = ({
                         <tbody>
                         <tr>
                             <td>Temperature</td>
-                            <td style={{textAlign: 'right'}}>{Math.round((weather0.weather[city].current_temp + Number.EPSILON) * 100) / 100 + ' °C'}</td>
+                            <td className='text_right'>{Math.round((weather0.weather[city].current_temp + Number.EPSILON) * 100) / 100 + ' °C'}</td>
                         </tr>
                         <tr>
                             <td>Wind speed</td>
-                            <td style={{textAlign: 'right'}}>{weather0.weather[city].current_wind_speed + ' meter/sec'}</td>
+                            <td className='text_right'>{weather0.weather[city].current_wind_speed + ' meter/sec'}</td>
                         </tr>
                         <tr>
                             <td>Cloudiness</td>
-                            <td style={{textAlign: 'right'}}>{weather0.weather[city].current_clouds + ' %'}</td>
+                            <td className='text_right'>{weather0.weather[city].current_clouds + ' %'}</td>
                         </tr>
                         <tr>
                             <td>Pressure</td>
-                            <td style={{textAlign: 'right'}}>{weather0.weather[city].current_pressure + ' hPa'}</td>
+                            <td className='text_right'>{weather0.weather[city].current_pressure + ' hPa'}</td>
                         </tr>
                         <tr>
                             <td>Humidity</td>
-                            <td style={{textAlign: 'right'}}>{weather0.weather[city].current_humidity + ' %'}</td>
+                            <td className='text_right'>{weather0.weather[city].current_humidity + ' %'}</td>
                         </tr>
                         <tr>
                             <td>Visibility</td>
-                            <td style={{textAlign: 'right'}}>{weather0.weather[city].current_visibility + ' metres'}</td>
+                            <td className='text_right'>{weather0.weather[city].current_visibility + ' metres'}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -146,8 +146,8 @@ export const Futures = ({
                         <thead>
                         <tr>
                             <th>Temperature</th>
-                            <th style={{textAlign: 'center'}}>Reach rate</th>
-                            <th style={{textAlign: 'right'}}>Not reach rate</th>
+                            <th className='text_center'>Reach rate</th>
+                            <th className='text_right'>Not reach rate</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -169,7 +169,9 @@ export const Futures = ({
                                 }}
                                 onFocus={event => event.target.select()}
                             />
-                            <label htmlFor='temp' className='active grey-text text-darken-3' style={{fontSize: '160%'}}>Temperature [°C]</label>
+                            <label htmlFor='temp' className='active label_temperature grey-text text-darken-3'>
+                                Temperature [°C]
+                            </label>
                         </div>
 
                     </div>
@@ -186,8 +188,10 @@ export const Futures = ({
                                 }}
                                 onFocus={event => event.target.select()}
                             />
-                            <label htmlFor='quantity' className='active grey-text text-darken-3' style={{fontSize: '160%'}}>Quantity</label>
-                            <label style={{marginTop: '70px'}}>
+                            <label htmlFor='quantity' className='active label_quantity grey-text text-darken-3'>
+                                Quantity
+                            </label>
+                            <label className='label_rich'>
                                 <input type="checkbox" className="filled-in" checked={rich}
                                     onChange={ () => {
                                         changeRich()
@@ -196,7 +200,7 @@ export const Futures = ({
                             </label>
                         </div>
                     </div>
-                    <div className="collection" style={{marginTop: '70px'}}>
+                    <div className="collection label_rich">
                         <p className="collection-item grey lighten-3 grey-text text-darken-3"><span className="badge">
                             {Math.round((balance + Number.EPSILON) * 100) / 100 + ' USD'}
                         </span>Balance</p>
@@ -208,12 +212,12 @@ export const Futures = ({
                             {tempRate}
                         </span>Rate</p>
                     </div>
-                    <div className="collection" style={{marginTop: '70px'}}>
+                    <div className="collection label_rich">
                         <p className="collection-item grey lighten-3 grey-text text-darken-3"><span className="badge">
                             {Math.round(Number.parseFloat(tempRate) * Number.parseFloat(quantity)) * 60 * 24 / 100 + ' USD'}
                         </span>Amount</p>
                     </div>
-                    <div style={{marginTop: '38px'}}>
+                    <div className='cont_private_label'>
                         <label>
                             <input type="checkbox" className="filled-in" checked={private_derivative}
                                    onChange={() => {
@@ -222,7 +226,7 @@ export const Futures = ({
                             <span className="grey-text text-darken-3">Private (only you will see one)</span>
                         </label>
                     </div>
-                    <div className="waves-effect waves-light btn" style={{marginTop: '33px'}}
+                    <div className="buy_btn btn"
                     onClick={handleBuy}>
                         Buy
                     </div>

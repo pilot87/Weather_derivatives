@@ -18,11 +18,11 @@ export const Auth = ({auth}: any): any => {
     })
 
     const changeHandler = (event: any) => {
-        setForm({ ...form, [event.target.name]: {msg: event.target.value, state: 'active'}})
+        setForm({ ...form, [event.target.name]: {msg: event.target.value, state: ' active'}})
     }
 
     const focusHandler = (event: any) => {
-        setForm({ ...form, [event.target.name]: {msg: event.target.value, state: 'active'}})
+        setForm({ ...form, [event.target.name]: {msg: event.target.value, state: ' active'}})
     }
 
     const blurHandler = (event: any) => {
@@ -38,11 +38,11 @@ export const Auth = ({auth}: any): any => {
             .then((res: any) => {
                 store.dispatch(setSession({email: res.data.email, name: res.data.username,
                     token: res.data.token}))
-                setMsg({message: 'Welcome, ' + res.data.username + '!', color: '#66bb6a'})
+                setMsg({message: 'Welcome, ' + res.data.username + '!', color: 'green'})
                 window.location.replace('about')
             })
             .catch((err: any) => setMsg(
-                {message: (err.response.data) ? err.response.data.message : err.data.message, color: '#ef5350'}
+                {message: (err.response.data) ? err.response.data.message : err.data.message, color: 'red'}
             ))
     }
 
@@ -56,7 +56,7 @@ export const Auth = ({auth}: any): any => {
                     </div>
                 </div>
             </nav>
-        <div className='row' style={{marginTop: 25}}>
+        <div className='row login_cont'>
             <form className='col s12'>
                 <div className='row'>
                     <div className='input-field col s6'>
@@ -70,7 +70,7 @@ export const Auth = ({auth}: any): any => {
                             onFocus={focusHandler}
                             onBlur={blurHandler}
                         />
-                        <label htmlFor='email' className={form.email.state} style={{fontSize: '160%'}}>Email</label>
+                        <label htmlFor='email' className={'email' + form.email.state}>Email</label>
                     </div>
                     <div className='input-field col s6'>
                         <i className='material-icons prefix'>more_horiz</i>
@@ -83,27 +83,25 @@ export const Auth = ({auth}: any): any => {
                             onFocus={focusHandler}
                             onBlur={blurHandler}
                         />
-                        <label htmlFor='password' className={form.password.state} style={{fontSize: '160%'}}>Password</label>
+                        <label htmlFor='password' className={'password' + form.password.state}>Password</label>
                     </div>
                 </div>
             </form>
             <div className='card-action'>
                 <button
-                    className='btn green lighten-2 black-text'
-                    style={{float: 'left', marginLeft: 10}}
+                    className='btn login_btn green lighten-2 black-text'
                     onClick={handleLogin}
                 >
                     Login
                 </button>
                 <a
-                    className='btn grey lighten-1 black-text'
-                    style={{float: 'right', marginRight: 10}}
+                    className='btn register_btn grey lighten-1 black-text'
                     href='/register'
                 >
                     Register new User
                 </a>
             </div>
-            <div className='alert' style={{paddingTop: 155, marginLeft: 10, color: msg.color, fontSize: '120%'}}>
+            <div className={'alert login_alert ' + msg.color + '-text text-lighten-1'}>
                 {msg.message}
             </div>
         </div>

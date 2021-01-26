@@ -5,7 +5,8 @@ const axios = require('axios').default
 export const AddUser = ({auth}: any): any => {
 
     const [form, setForm] = useState({
-        email: {msg: '', state: ''}, password: {msg: '', state: ''}, username: {msg: '', state: ''}
+        email: {msg: '', state: 'adduser_label'}, password: {msg: '', state: 'adduser_label'},
+        username: {msg: '', state: 'adduser_label'}
     })
 
     const [msg, setMsg] = useState({
@@ -13,16 +14,16 @@ export const AddUser = ({auth}: any): any => {
     })
 
     const changeHandler = (event: any) => {
-        setForm({ ...form, [event.target.name]: {msg: event.target.value, state: 'active'}})
+        setForm({ ...form, [event.target.name]: {msg: event.target.value, state: 'adduser_label active'}})
     }
 
     const focusHandler = (event: any) => {
-        setForm({ ...form, [event.target.name]: {msg: event.target.value, state: 'active'}})
+        setForm({ ...form, [event.target.name]: {msg: event.target.value, state: 'adduser_label active'}})
     }
 
     const blurHandler = (event: any) => {
         if (event.target.value === '') {
-            setForm({ ...form, [event.target.name]: {msg: event.target.value, state: ''}})
+            setForm({ ...form, [event.target.name]: {msg: event.target.value, state: 'adduser_label'}})
         }
     }
 
@@ -39,17 +40,19 @@ export const AddUser = ({auth}: any): any => {
             if (password) record.password = password.msg
             return record
         }
-        a.post('/auth/register', {email: form.email.msg, username: form.username.msg, password: form.password.msg})
+        a.post('/auth/register', {email: form.email.msg, username: form.username.msg,
+            password: form.password.msg})
             .then((res: any) => {
                 setMsg(
-                    {message: res.data.message, color: '#66bb6a',
+                    {message: res.data.message, color: 'green',
                         errors: {'email': '', 'password': '', 'username': ''}}
                 )
                 window.location.replace('login')
             })
             .catch((err: any) => setMsg(
-                {message: (err.response.data != null) ? err.response.data.message : err.data.message, color: '#ef5350',
-                    errors: (!!err.response && !!err.response.data.errors) ? parseErrors(err.response.data.errors) : {'email': '', 'password': '', 'username': ''}}
+                {message: (err.response.data != null) ? err.response.data.message : err.data.message, color: 'red',
+                    errors: (!!err.response && !!err.response.data.errors) ? parseErrors(err.response.data.errors) :
+                        {'email': '', 'password': '', 'username': ''}}
             ))
     }
 
@@ -76,9 +79,9 @@ export const AddUser = ({auth}: any): any => {
                             onFocus={focusHandler}
                             onBlur={blurHandler}
                         />
-                        <label htmlFor='email' className={form.email.state} style={{fontSize: '160%'}}>Email</label>
+                        <label htmlFor='email' className={form.email.state}>Email</label>
                     </div>
-                    <div className='row' style={{color: '#ef5350', fontSize: '115%'}}>
+                    <div className='row adduser_error'>
                         {msg.errors.email}
                     </div>
                 </div>
@@ -94,9 +97,9 @@ export const AddUser = ({auth}: any): any => {
                             onFocus={focusHandler}
                             onBlur={blurHandler}
                         />
-                        <label htmlFor='username' className={form.username.state} style={{fontSize: '160%'}}>User name</label>
+                        <label htmlFor='username' className={form.username.state}>User name</label>
                     </div>
-                    <div className='row' style={{color: '#ef5350', fontSize: '115%'}}>
+                    <div className='row adduser_error'>
                         {msg.errors.username}
                     </div>
                 </div>
@@ -112,24 +115,23 @@ export const AddUser = ({auth}: any): any => {
                             onFocus={focusHandler}
                             onBlur={blurHandler}
                         />
-                        <label htmlFor='password' className={form.password.state} style={{fontSize: '160%'}}>Password</label>
+                        <label htmlFor='password' className={form.password.state}>Password</label>
                     </div>
-                    <div className='row' style={{color: '#ef5350', fontSize: '115%'}}>
+                    <div className='row adduser_error'>
                         {msg.errors.password}
                     </div>
                 </div>
             </form>
             <div className='card-action'>
                 <button
-                    className='btn green lighten-2 black-text'
-                    style={{float: 'left', marginLeft: 10}}
+                    className='btn adduser_btn green lighten-2 black-text'
                     onClick={handleRegister}
                 >
                     Register new User
                 </button>
             </div>
             <br/>
-            <div className='alert' style={{marginTop: 30, marginLeft: 10, color: msg.color, fontSize: '120%'}}>
+            <div className={'alert adduser_alert ' + msg.color + '-text text-lighten-1'}>
                 {msg.message}
             </div>
         </>

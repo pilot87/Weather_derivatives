@@ -16,23 +16,23 @@ export const Statistic = ({stats, page_city_change}: any): any => {
             <tbody>
                 <tr>
                     <td>Temperature</td>
-                    <td style={{textAlign: 'right'}}>{s.temp}</td>
+                    <td className='statistics_table_right'>{s.temp}</td>
                 </tr>
                 <tr>
                     <td>Quantity</td>
-                    <td style={{textAlign: 'right'}}>{s.quantity}</td>
+                    <td className='statistics_table_right'>{s.quantity}</td>
                 </tr>
                 <tr>
                     <td>Duration</td>
-                    <td style={{textAlign: 'right'}}>{s.duration}</td>
+                    <td className='statistics_table_right'>{s.duration}</td>
                 </tr>
                 <tr>
                     <td>Duration left</td>
-                    <td style={{textAlign: 'right'}}>{s.duration_left}</td>
+                    <td className='statistics_table_right'>{s.duration_left}</td>
                 </tr>
                 <tr>
                     <td>Buyer's email</td>
-                    <td style={{textAlign: 'right'}}>{s.email}</td>
+                    <td className='statistics_table_right'>{s.email}</td>
                 </tr>
             </tbody>
         </table>
@@ -53,24 +53,24 @@ export const Statistic = ({stats, page_city_change}: any): any => {
             re.push(
                     <div className="card">
                         <div className="card-image">
-                            <img src={city_img[index]} alt={city[0]} style={{maxWidth: '100%', height: 'auto'}}/>
+                            <img className='statistics_img' src={city_img[index]} alt={city[0]}/>
                             <span className="card-title">{city[0]}</span>
                         </div>
                         <div className="card-tabs">
                             <ul className="tabs tabs-fixed-width">
-                                <li className="tab" style={{cursor: 'pointer'}} onClick={() => {
+                                <li className="tab statistics_pointer" onClick={() => {
                                     page_city_change({index: index, payload:
                                             {index: 0, active: ['green lighten-4', '', '']}})
                                 }}>
                                     <p className={stats.page[index].active[0]}>Futures</p>
                                 </li>
-                                <li className="tab" style={{cursor: 'pointer'}} onClick={() => {
+                                <li className="tab statistics_pointer" onClick={() => {
                                     page_city_change({index: index, payload:
                                             {index: 1, active: ['', 'green lighten-4', '']}})
                                 }}>
                                     <p className={stats.page[index].active[1]}>Statistic</p>
                                 </li>
-                                <li className="tab" style={{cursor: 'pointer'}} onClick={() => {
+                                <li className="tab statistics_pointer" onClick={() => {
                                     page_city_change({index: index, payload:
                                             {index: 2, active: ['', '', 'green lighten-4']}})
                                 }}>
