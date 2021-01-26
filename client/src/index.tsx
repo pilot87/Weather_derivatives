@@ -23,9 +23,6 @@ store.dispatch(updateBalance())
         return store.dispatch(updateWeather())
     })
     .then((data: any) => {
-        return store.dispatch(updateRate())
-    })
-    .then((data: any) => {
         return store.dispatch(updateStats())
     })
     .then((data: any) => {

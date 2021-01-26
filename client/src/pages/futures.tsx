@@ -80,8 +80,6 @@ export const Futures = ({
         )
     }
 
-    let card: any
-
     const balance = auth.balance
 
     const handleBuy = () => {
@@ -98,7 +96,16 @@ export const Futures = ({
             })
     }
 
-    if(weather0.weather[city] !== undefined) {
+    let card: any = <>
+        <h4 className="grey-text text-darken-3">
+            {city}
+        </h4>
+        <div className="progress">
+            <div className="indeterminate"/>
+        </div>
+    </>
+
+    if(city !== '') {
         card = <>
             <h4 className="grey-text text-darken-3">
                 {city}
@@ -221,15 +228,6 @@ export const Futures = ({
                     </div>
                 </div>
 
-            </div>
-        </>
-    } else {
-        card = <>
-            <h4 className="grey-text text-darken-3">
-                {city}
-            </h4>
-            <div className="progress">
-                <div className="indeterminate"/>
             </div>
         </>
     }

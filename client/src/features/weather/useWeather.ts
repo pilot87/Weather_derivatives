@@ -1,4 +1,5 @@
 import {update_weather} from './weatherSlice'
+import {updateRate} from '../derivative/useDerivative'
 const axios = require('axios').default
 
 const sleep = (ms: number) => {
@@ -10,6 +11,9 @@ const upd = (dispatch: any, getState: any) => {
         axios.create(getState().auth.request_params).post('/weather/update')
             .then((res: any) => {
                 dispatch(update_weather(res.data))
+                if (getState().derivative.page.city === '') {
+                    updateRate(dispatch, getState)
+                }
             })
     }
 }
@@ -22,6 +26,7 @@ export const regularUpdateWeather = () => async (dispatch: any, getState: any) =
 }
 
 export const updateWeather = () => async (dispatch: any, getState: any) => {
+    console.log('updateWeather 0')
     upd(dispatch, getState)
-    return Promise.resolve()
+    console.log('updateWeather 1')
 }

@@ -1,6 +1,7 @@
 import {update_rate, init_page, setCity, setTemp, setTempRate, setRich,
     setQuantity, setPrivate_derivative} from './derivativeSlice'
 
+
 const axios = require('axios').default
 
 const sleep = (ms: number) => {
@@ -41,7 +42,8 @@ const rate =  (standard_deviation: number,
     return 1.05 * Phi
 }
 
-const upd = (dispatch: any, getState: any, init: boolean) => {
+const upd = (dispatch: any, getState: any, init_city?: string) => {
+    console.log('upd')
     if(getState().auth.name !== '') {
         axios.create(getState().auth.request_params).post('/derivative/daily_params')
             .then((res: any) => {
@@ -86,17 +88,18 @@ const upd = (dispatch: any, getState: any, init: boolean) => {
                         standard_deviation: city.standard_deviation
                     }))
                 })
-                if (init) {
+                if (init_city) {
+                    console.log(init_city)
                     dispatch(init_page({
-                        city: 'Moscow',
+                        city: init_city,
                         temp: {
                             temp: '0',
                             image: 'wb_sunny'
                         },
                         quantity: '1',
                         tempRate: Math.round((rate(
-                            getState().derivative.daily[Object.keys(getState().weather.weather)[0]].standard_deviation,
-                            getState().derivative.daily[Object.keys(getState().weather.weather)[0]].expected_value,
+                            getState().derivative.daily[init_city].standard_deviation,
+                            getState().derivative.daily[init_city].expected_value,
                             0,
                             true
                         ) + Number.EPSILON) * 10000) / 100 + ' %',
@@ -112,12 +115,16 @@ const upd = (dispatch: any, getState: any, init: boolean) => {
 export const regularUpdateRate = () => async (dispatch: any, getState: any) => {
     while(true) {
         await sleep(10000)
-        upd(dispatch, getState, false)
+        upd(dispatch, getState)
     }
 }
 
-export const updateRate = () => async (dispatch: any, getState: any) => {
-    upd(dispatch, getState, true)
+export const updateRate = (dispatch: any, getState: any) => {
+    // await sleep(2000)
+    // const weather = getState().weather.weather
+    const city = Object.keys(getState().weather.weather)[0]
+    console.log('try ' + city)
+    upd(dispatch, getState, city)
 }
 
 const askRate = (dispatch: any, getState: any) => {
