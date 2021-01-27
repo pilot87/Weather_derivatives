@@ -119,8 +119,6 @@ export const regularUpdateRate = () => async (dispatch: any, getState: any) => {
 }
 
 export const updateRate = (dispatch: any, getState: any) => {
-    // await sleep(2000)
-    // const weather = getState().weather.weather
     const city = Object.keys(getState().weather.weather)[0]
     console.log('try ' + city)
     upd(dispatch, getState, city)
