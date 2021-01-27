@@ -73,11 +73,6 @@ const FuturesPage = connect(() => (state: State) => {
 
 const App = () => {
 
-    // store.dispatch(updateRate())
-    // store.dispatch(regularUpdateBalance())
-    // store.dispatch(updateStats())
-    // store.dispatch(updateWeather())
-
   return (
       <Router>
         <NavbarFrame />

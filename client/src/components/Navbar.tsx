@@ -8,8 +8,6 @@ export const Navbar = ({auth}: any): any => {
             <div className='nav-wrapper'>
                 <a href='/' className='brand-logo'>Forecast Trading</a>
                 <ul id='nav-mobile' className='right hide-on-med-and-down'>
-                    <li><NavLink to=''>Sass</NavLink></li>
-                    <li><NavLink to=''>Components</NavLink></li>
                     <li><NavLink to='/login'>Hello, Guest!</NavLink></li>
                 </ul>
             </div>

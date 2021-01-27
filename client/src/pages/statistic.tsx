@@ -41,7 +41,7 @@ export const Statistic = ({stats, page_city_change}: any): any => {
             const tab_content: any = [
                 'No futures',
                 'Quantity of futures: ' + city[1].length,
-                'Test 2',
+                '',
             ]
             if (city[1].length !== 0) {
                 tab_content[0] = city[1].map((detail: any, index2: number) => show(detail, index2))
@@ -69,12 +69,6 @@ export const Statistic = ({stats, page_city_change}: any): any => {
                                             {index: 1, active: ['', 'green lighten-4', '']}})
                                 }}>
                                     <p className={stats.page[index].active[1]}>Statistic</p>
-                                </li>
-                                <li className="tab statistics_pointer" onClick={() => {
-                                    page_city_change({index: index, payload:
-                                            {index: 2, active: ['', '', 'green lighten-4']}})
-                                }}>
-                                    <p className={stats.page[index].active[2]}>Test 2</p>
                                 </li>
                             </ul>
                         </div>

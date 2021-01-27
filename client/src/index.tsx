@@ -20,13 +20,13 @@ class Head extends React.Component {
 }
 
 store.dispatch(updateWeather())
-    .then((data: any) => {
+    .then(() => {
         return store.dispatch(updateStats())
     })
-    .then((data: any) => {
+    .then(() => {
         return store.dispatch(updateBalance())
     })
-    .then((data: any) => {
+    .then(() => {
         store.dispatch(regularUpdateWeather())
         store.dispatch(regularUpdateRate())
         store.dispatch(regularUpdateBalance())
@@ -48,6 +48,5 @@ store.dispatch(updateWeather())
         serviceWorker.unregister()
     })
     .catch((err: any) => {
-        console.log('error in index')
         console.log(err)
     })
