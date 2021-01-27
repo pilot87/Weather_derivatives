@@ -1,4 +1,5 @@
-const {Router} = require('express')
+import {Router} from '../app'
+// const {Router} = require('express')
 const {check, validationResult} = require('express-validator')
 const jwt = require('jsonwebtoken')
 const config = require('config')

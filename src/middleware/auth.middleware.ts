@@ -1,5 +1,6 @@
-const jwt = require('jsonwebtoken')
-const config = require('config')
+import {config, jwt} from '../app'
+// const jwt = require('jsonwebtoken')
+// const config = require('config')
 
 const User = require('../models/User')
 

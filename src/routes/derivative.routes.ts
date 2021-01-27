@@ -1,4 +1,5 @@
-const {Router} = require('express')
+// const {Router} = require('express')
+import {Router} from '../app'
 
 const City = require('../models/City')
 const User = require('../models/User')
