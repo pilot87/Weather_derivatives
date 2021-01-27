@@ -1,4 +1,5 @@
 const {Router} = require('express')
+
 const City = require('../models/City')
 const User = require('../models/User')
 const Derivative = require('../models/Derivative')
@@ -37,23 +38,17 @@ const rate = async (city: string, duration: number, temp: number, rich: boolean)
         }
     }
 
-    // return 0.20 * Phi * 1.1
-    // console.log(Phi + ' ' + city + ' ' + standard_deviation[index])
     return 1.05 * Phi
 }
 
 router.post('/rate', auth,
     async (req: any, res: any) => {
         try {
-            // console.log('rate')
             const {city, duration, temp, rich} = req.body
-            // console.log(city, duration, temp, rich)
 
             if(duration < 5) {
                 res.status(400).json({message: 'duration should be more than 5 minutes'})
             }
-
-            // console.log(rate(city, duration, temp, rich))
 
             const di = await rate(city, duration, temp, rich)
 
@@ -71,13 +66,9 @@ router.post('/rate', auth,
 router.post('/daily_index', auth,
     async (req: any, res: any) => {
         try {
-            // console.log('daily_index')
             const { city, temp, rich } = req.body
-            // console.log(city)
 
             const di = await rate(city, 60 * 24, temp, rich)
-
-            // console.log(di)
 
             res.status(200).json({city: city, rate: di})
 
@@ -90,9 +81,7 @@ router.post('/daily_index', auth,
 router.post('/daily_index_info', auth,
     async (req: any, res: any) => {
         try {
-            // console.log('daily_index')
             const { city, rich, l, init_step } = req.body
-            // console.log(city)
 
             const index: number = Math.floor(60 * 24 / 180)
 
@@ -197,9 +186,6 @@ router.post('/buy', auth,
 router.post('/daily_params', auth,
     async (req: any, res: any) => {
         try {
-            // console.log('daily_index')
-            // const {  } = req.body
-            // console.log(city)
 
             const index: number = Math.floor(60 * 24 / 180)
 
@@ -274,8 +260,6 @@ router.post('/stats', auth,
             for (const city of cities) {
                 stats[city.name] = der.filter((elem: any) => elem.city === city.name)
             }
-
-            // console.log(stats['Moscow'].derivative)
 
             res.status(200).json({stats: stats})
 

@@ -1,7 +1,6 @@
 import {update_rate, init_page, setCity, setTemp, setTempRate, setRich,
     setQuantity, setPrivate_derivative} from './derivativeSlice'
 
-
 const axios = require('axios').default
 
 const sleep = (ms: number) => {

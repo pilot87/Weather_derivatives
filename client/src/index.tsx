@@ -1,13 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+
 import './index.css'
 import App from './App'
-import { store } from './app/store'
-import { Provider } from 'react-redux'
+import {store} from './app/store'
+import {Provider} from 'react-redux'
 import * as serviceWorker from './serviceWorker'
 
 import {updateBalance, regularUpdateBalance} from './features/auth/useAuth'
-import {updateRate,  regularUpdateRate} from './features/derivative/useDerivative'
+import {regularUpdateRate} from './features/derivative/useDerivative'
 import {updateStats, regularUpdateStats} from './features/stats/useStats'
 import {updateWeather, regularUpdateWeather} from './features/weather/useWeather'
 
@@ -18,10 +19,7 @@ class Head extends React.Component {
     }
 }
 
-store.dispatch(updateBalance())
-    .then((data: any) => {
-        return store.dispatch(updateWeather())
-    })
+store.dispatch(updateWeather())
     .then((data: any) => {
         return store.dispatch(updateStats())
     })

@@ -4,7 +4,6 @@ const User = require('../models/User')
 
 export const billing = async() => {
     const futures = await Derivative.find({type: 'futures', completed: false})
-    // const city = await City.find()
     for (const der of futures) {
         const city = await City.findOne({name: der.city})
         if((der.temp_reach && Number.parseFloat(city.current_temp) > Number.parseFloat(der.temp)) ||

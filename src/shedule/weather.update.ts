@@ -1,5 +1,6 @@
 const axios = require('axios')
 const config = require('config')
+
 const City = require('../models/City')
 
 interface Hourly3 {
@@ -102,8 +103,6 @@ export const forecast = async() => {
                     config.get('apiKey'))
                     .then(async (hourly3: Hourly3) => {
                         try {
-                            // console.log('create ' + city)
-
                             const expected_value = await hourly3.data.list.map((hour, index, array) =>
                                 array.slice(0, index + 1).reduce(
                                     (res, curr) => {
@@ -149,7 +148,6 @@ export const forecast = async() => {
             })
             .catch((e: any) => console.log('error in ring 1' + JSON.stringify(e)))
         } else {
-            // console.log('what?')
             await City.findOneAndUpdate({name: city}, { $set: {init_phase: false}})
         }
     }
@@ -157,7 +155,6 @@ export const forecast = async() => {
 
     cities.forEach(city => {
         if(!city.init_phase) {
-            // console.log('upd')
             axios.get('https://api.openweathermap.org/data/2.5/weather?q=' + city.name + '&appid=' +
                 config.get('apiKey'))
                 .then(async (current: Current) => {
@@ -171,8 +168,6 @@ export const forecast = async() => {
                             const variance = await hourly3.data.list.map((hour, index) =>
                                 (hour.main.temp - 273.15 - expected_value[index]) ** 2)
                             const standard_deviation = await variance.map((value: number) => Math.sqrt(value))
-                            // const old = await City.findOne({name: city.name})
-                            // console.log(city.name + ' ' + JSON.stringify(city.current_temp) + ' ' + JSON.stringify(city.history_temp))
                             city.history_temp.push(city.current_temp)
 
                             await City.findOneAndUpdate({name: city.name}, { $set: {

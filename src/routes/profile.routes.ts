@@ -1,6 +1,7 @@
 const {Router} = require('express')
 const {check, validationResult} = require('express-validator')
 const bcrypt = require('bcryptjs')
+
 const User = require('../models/User')
 const auth = require('../middleware/auth.middleware')
 
@@ -22,8 +23,6 @@ router.post('/rename', auth,
             }
             const email = req.user.email
             const { username } = req.body
-            console.log(email)
-            console.log(username)
             await User.findOneAndUpdate({ email }, { $set: { username: username }})
             res.status(200).json({username: username})
         } catch (e) {

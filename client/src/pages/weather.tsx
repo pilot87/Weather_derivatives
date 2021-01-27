@@ -73,5 +73,4 @@ export const WeatherP = ({weather}: Args): any => {
             </table>
         </>
     )
-
 }

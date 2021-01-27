@@ -3,6 +3,7 @@ const {check, validationResult} = require('express-validator')
 const jwt = require('jsonwebtoken')
 const config = require('config')
 const bcrypt = require('bcryptjs')
+
 const User = require('../models/User')
 
 const router = Router()
@@ -19,7 +20,6 @@ router.post(
     ],
      async (req: any, res: any) => {
         try {
-            // console.log('Try')
             const errors = validationResult(req)
 
             if (!errors.isEmpty()) {
@@ -44,7 +44,6 @@ router.post(
             }
 
             const hashedPassword = await bcrypt.hash(password, 12)
-            // console.log('point 0')
             const user = new User({
                 email,
                 username,
@@ -52,15 +51,12 @@ router.post(
                 last_active: Date.now(),
                 balance: '10000'
             })
-            // console.log('point 1')
 
             await user.save()
-            // console.log('point 2')
 
             res.status(200).json({ message: 'User has created' })
 
         } catch (e) {
-            // console.log(e)
             res.status(500).json({ message: 'Some error ' + JSON.stringify(e) })
         }
 })

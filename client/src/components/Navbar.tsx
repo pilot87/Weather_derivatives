@@ -1,12 +1,5 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
-import { useSelector } from 'react-redux'
-
-import {Session} from '../features/auth/authSlice'
-
-interface State {
-    auth: Session
-}
 
 export const Navbar = ({auth}: any): any => {
     const user = auth.name

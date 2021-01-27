@@ -1,4 +1,5 @@
 const {Router} = require('express')
+
 const City = require('../models/City')
 const auth = require('../middleware/auth.middleware')
 
@@ -6,9 +7,7 @@ const router = Router()
 
 router.post('/update', auth,
     async(req: any, res: any) => {
-        // console.log('update')
         try {
-            // console.log(Math.round(Date.now()/1000))
             const cities = await City.find()
             res.status(200).json(
                 Object.fromEntries(cities.map((city: { name: string, current_temp: string, hourly_temp: string[],

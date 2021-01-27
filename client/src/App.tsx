@@ -1,8 +1,8 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
-import { connect } from 'react-redux'
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
+import {connect} from 'react-redux'
 
-import { Navbar } from './components/Navbar'
+import {Navbar} from './components/Navbar'
 
 import {Session, rename, setSession} from './features/auth/authSlice'
 import {WeatherAll} from './features/weather/weatherSlice'

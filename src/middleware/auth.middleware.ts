@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const config = require('config')
+
 const User = require('../models/User')
 
 module.exports = async(req: { user: { email: any }, headers: any, method: string }, res: any, next: any) => {
@@ -22,7 +23,6 @@ module.exports = async(req: { user: { email: any }, headers: any, method: string
       return res.status(511).json({ message: 'Disconnected due inactivity' })
     }
     await User.findOneAndUpdate({ email }, { $set: { last_active: Date.now() }})
-    // console.log(Date.now() - rec.last_active.getTime())
 
     next()
 

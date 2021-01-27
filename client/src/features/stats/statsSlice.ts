@@ -1,10 +1,11 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+
 import {city_img} from '../../components/Images'
 
 export interface StatDetail {
     completed: boolean
     quantity: 1
-    email: string //change to email up to down and delete collection in mongodb
+    email: string
     duration: number
     duration_left: number
     city: string

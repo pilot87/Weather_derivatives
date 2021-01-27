@@ -1,5 +1,6 @@
 import {update_weather} from './weatherSlice'
 import {updateRate} from '../derivative/useDerivative'
+
 const axios = require('axios').default
 
 const sleep = (ms: number) => {
