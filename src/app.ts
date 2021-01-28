@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import express = require('express')
 export const {Router} = require('express')
 export const config = require('config')
