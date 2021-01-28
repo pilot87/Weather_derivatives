@@ -25,8 +25,6 @@ app.use('/api/profile', require('./routes/profile.routes'))
 app.use('/api/weather', require('./routes/weather.routes'))
 app.use('/api/derivative', require('./routes/derivative.routes'))
 
-console.log(JSON.stringify(process.env.NODE_ENV))
-
 if (process.env.NODE_ENV === 'production') {
     console.log(__dirname)
     app.use('/', express.static(path.join(__dirname, '../', 'client', 'build')))

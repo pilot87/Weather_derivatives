@@ -92,7 +92,7 @@ interface Record {
 }
 
 export const forecast = async() => {
-    const base = ['Moscow', 'San Francisco', 'New York', 'Paris']
+    const base = ['Hong Kong', 'San Francisco', 'New York', 'Paris']
     for (const city of base) {
         const c = await City.findOne({name: city})
         if(!c) {
