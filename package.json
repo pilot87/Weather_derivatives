@@ -2,7 +2,7 @@
   "name": "forecast_trading",
   "version": "1.0.0",
   "description": "",
-  "main": "build/app.js",
+  "main": "app.js",
   "scripts": {
     "server:dev": "ts-node-dev --respawn --transpile-only ./src/app.ts",
     "server:prod": "tsc && node ./build/app.js",
