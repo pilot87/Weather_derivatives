@@ -1,7 +1,5 @@
 node_modules
 .idea
 .git
-build
+./build
 package-lock.json
-client/node_modules
-client/package-lock.json
