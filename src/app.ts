@@ -28,15 +28,6 @@ app.use('/api/profile', require('./routes/profile.routes'))
 app.use('/api/weather', require('./routes/weather.routes'))
 app.use('/api/derivative', require('./routes/derivative.routes'))
 
-if (process.env.NODE_ENV === 'production') {
-    console.log(__dirname)
-    app.use('/', express.static(path.join(__dirname, '../', 'client', 'build')))
-
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, '../', 'client', 'build', 'index.html'))
-    })
-}
-
 const PORT = config.get('port') || 5000
 
 const start = async () => {
@@ -59,9 +50,33 @@ const start = async () => {
 
             const express = require('express')
             const app = express()
+
+            app.use(express.json({ extended: true }))
+
+            app.use('/api/auth', require('./routes/auth.routes'))
+            app.use('/api/profile', require('./routes/profile.routes'))
+            app.use('/api/weather', require('./routes/weather.routes'))
+            app.use('/api/derivative', require('./routes/derivative.routes'))
+
+            app.use('/', express.static(path.join(__dirname, '../', 'client', 'build')))
+            app.get('*', (req: any, res: any) => {
+                res.sendFile(path.resolve(__dirname, '../', 'client', 'build', 'index.html'))
+            })
             createServer(app).listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
+        } else {
+            const express = require('express')
+            const app = express()
+
+            app.use(express.json({ extended: true }))
+
+            app.use('/api/auth', require('./routes/auth.routes'))
+            app.use('/api/profile', require('./routes/profile.routes'))
+            app.use('/api/weather', require('./routes/weather.routes'))
+            app.use('/api/derivative', require('./routes/derivative.routes'))
+
+            app.listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
         }
-        app.listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
+
     } catch (e) {
         console.log('Server Error', e.message)
         process.exit(1)
