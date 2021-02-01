@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/home/web/.nvm/versions/node/v14.15.4/bin/node
 
 // import express = require('express')
 export const {Router} = require('express')
