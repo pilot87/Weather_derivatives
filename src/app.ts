@@ -1,5 +1,5 @@
-#!/home/web/.nvm/versions/node/v14.15.4/bin/node
-
+#!/usr/bin/env /home/web/.nvm/versions/node/v14.15.4/bin/node
+const fs = require('fs')
 const {
     createServer,
     IncomingMessage,
@@ -8,6 +8,8 @@ const {
 
 require('http').ServerResponse = ServerResponse
 require('http').IncomingMessage = IncomingMessage
+
+fs.appendFileSync('/site/WD/ex/log.log', 'point 0')
 
 import express = require('express')
 export const {Router} = require('express')
@@ -30,6 +32,8 @@ schedule.scheduleJob(rule, () => {
 })
 // @ts-ignore
 app.use(express.json({ extended: true }))
+
+fs.appendFileSync('/site/WD/ex/log.log', 'point 1')
 
 app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/api/profile', require('./routes/profile.routes'))
