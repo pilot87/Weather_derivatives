@@ -49,7 +49,7 @@ console.log('piont 2\n')
 
 app.use(base + '/', express.static(path.join(__dirname, 'client', 'build')))
 
-app.get(base + '*', (req: any, res: any) => {
+app.get('*', (req: any, res: any) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
 })
 
