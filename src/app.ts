@@ -37,17 +37,19 @@ app.use(express.json({ extended: true }))
 fs.appendFileSync('/site/WD/ex/log.log', 'point 1\n')
 console.log('piont 1\n')
 
-app.use('/forecast/api/auth', require('./routes/auth.routes'))
-app.use('/forecast/api/profile', require('./routes/profile.routes'))
-app.use('/forecast/api/weather', require('./routes/weather.routes'))
-app.use('/forecast/api/derivative', require('./routes/derivative.routes'))
+const base: string = config.get('baseUrl')
+
+app.use(base + '/api/auth', require('./routes/auth.routes'))
+app.use(base + '/api/profile', require('./routes/profile.routes'))
+app.use(base + '/api/weather', require('./routes/weather.routes'))
+app.use(base + '/api/derivative', require('./routes/derivative.routes'))
 
 fs.appendFileSync('/site/WD/ex/log.log', 'point 2\n')
 console.log('piont 2\n')
 
-app.use('/forecast/', express.static(path.join(__dirname, 'client', 'build')))
+app.use(base + '/', express.static(path.join(__dirname, 'client', 'build')))
 
-app.get('*', (req: any, res: any) => {
+app.get(base + '*', (req: any, res: any) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
 })
 

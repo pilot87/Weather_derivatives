@@ -2,6 +2,6 @@
   "port": 8080,
   "jwtSecret": "my secret",
   "mongoUri": "mongodb+srv://FTapp:S26bcpVwfYEja4J@cluster0.0c2vl.mongodb.net/app?retryWrites=true&w=majority",
-  "baseUrl": "http://localhost:8080",
+  "baseUrl": "/forecast",
   "apiKey": "2fb81a5dd02cf40e91170e9bd70c8122"
 }

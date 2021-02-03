@@ -80,7 +80,7 @@ const App = () => {
             <Switch>
                 <Route
                     exact
-                    path='/'
+                    path='/forecast/'
                     render={() => (
                         <nav>
                             <div className="nav-wrapper">
@@ -98,7 +98,7 @@ const App = () => {
                 <Route path='/forecast/:city' component={ ForecastPage } />
                 <Route exact path='/futures' component={ FuturesPage } />
                 <Route exact path='/statistic' component={ StatisticPage }  />
-                <Redirect to='/' />
+                <Redirect to='/forecast/' />
             </Switch>
         </div>
       </Router>
