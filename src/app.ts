@@ -1,26 +1,13 @@
 #!/home/web/.nvm/versions/node/v14.15.4/bin/node
-let {
+
+const {
     createServer,
     IncomingMessage,
     ServerResponse,
-}: {
-    createServer: any,
-    IncomingMessage: any,
-    ServerResponse: any
-} = {
-    createServer: null,
-    IncomingMessage: null,
-    ServerResponse: null
-}
+} = require('unit-http')
 
-if (process.env.NODE_ENV === 'production') {
-    const {v0, v1, v2,} = require('unit-http')
-    createServer = v0
-    IncomingMessage = v1
-    ServerResponse = v2
-    require('http').ServerResponse = ServerResponse
-    require('http').IncomingMessage = IncomingMessage
-}
+require('http').ServerResponse = ServerResponse
+require('http').IncomingMessage = IncomingMessage
 
 import express = require('express')
 export const {Router} = require('express')
@@ -68,11 +55,8 @@ const start = async () => {
             useCreateIndex: true,
             useFindAndModify: false
         })
-        if (process.env.NODE_ENV === 'production') {
-            createServer(app).listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
-        } else {
-            app.listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
-        }
+        createServer(app).listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
+
     } catch (e) {
         console.log('Server Error', e.message)
         process.exit(1)
