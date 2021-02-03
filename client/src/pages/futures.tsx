@@ -83,7 +83,7 @@ export const Futures = ({
     const balance = auth.balance
 
     const handleBuy = () => {
-        request.post('/derivative/buy', {
+        request.post('./derivative/buy', {
             city: city,
             duration: 60 * 24,
             temp: Number.parseFloat(temp.temp),
@@ -240,8 +240,8 @@ export const Futures = ({
         <nav>
             <div className="nav-wrapper">
                 <div className="col s12">
-                    <a href="/" className="breadcrumb">Home</a>
-                    <a href="/futures" className="breadcrumb">Futures</a>
+                    <a href="./" className="breadcrumb">Home</a>
+                    <a href="./futures" className="breadcrumb">Futures</a>
                 </div>
             </div>
         </nav>

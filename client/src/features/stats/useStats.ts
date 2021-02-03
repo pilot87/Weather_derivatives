@@ -8,7 +8,7 @@ const sleep = (ms: number) => {
 
 const upd = (dispatch: any, getState: any) => {
     if (getState().auth.name !== '') {
-    axios.create(getState().auth.request_params).post('/derivative/stats')
+    axios.create(getState().auth.request_params).post('./derivative/stats')
         .then((res: any) => {
             dispatch(update_stat(res.data.stats))
         })

@@ -34,7 +34,7 @@ export const Auth = ({auth}: any): any => {
     const a = axios.create(auth.request_params)
 
     const handleLogin = () => {
-        a.post('/auth/login', {email: form.email.msg, password: form.password.msg})
+        a.post('./auth/login', {email: form.email.msg, password: form.password.msg})
             .then((res: any) => {
                 store.dispatch(setSession({email: res.data.email, name: res.data.username,
                     token: res.data.token}))
@@ -51,8 +51,8 @@ export const Auth = ({auth}: any): any => {
             <nav>
                 <div className="nav-wrapper">
                     <div className="col s12">
-                        <a href="/" className="breadcrumb">Home</a>
-                        <a href="/login" className="breadcrumb">Login</a>
+                        <a href="./" className="breadcrumb">Home</a>
+                        <a href="./login" className="breadcrumb">Login</a>
                     </div>
                 </div>
             </nav>
@@ -96,7 +96,7 @@ export const Auth = ({auth}: any): any => {
                 </button>
                 <a
                     className='btn register_btn grey lighten-1 black-text'
-                    href='/register'
+                    href='./register'
                 >
                     Register new User
                 </a>

@@ -1,6 +1,7 @@
 import React from 'react'
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
+import { createBrowserHistory } from 'history'
 
 import {Navbar} from './components/Navbar'
 
@@ -20,6 +21,10 @@ import { WeatherP } from './pages/weather'
 import { Forecast } from './pages/forecast'
 import { Futures } from './pages/futures'
 import {Statistic} from './pages/statistic'
+
+export const history = createBrowserHistory({
+    basename: process.env.PUBLIC_URL
+})
 
 interface State {
     stats: Stat
@@ -80,7 +85,7 @@ const App = () => {
             <Switch>
                 <Route
                     exact
-                    path='/'
+                    path='./'
                     render={() => (
                         <nav>
                             <div className="nav-wrapper">
@@ -91,14 +96,14 @@ const App = () => {
                         </nav>
                     )}
                 />
-                <Route exact path='/login' component={ AuthPage } />
-                <Route exact path='/register' component={ AddUserPage } />
-                <Route exact path='/about' component={ AboutPage } />
-                <Route exact path='/weather' component={ WeatherPage } />
-                <Route path='/forecast/:city' component={ ForecastPage } />
-                <Route exact path='/futures' component={ FuturesPage } />
-                <Route exact path='/statistic' component={ StatisticPage }  />
-                <Redirect to='/' />
+                <Route exact path='./login' component={ AuthPage } />
+                <Route exact path='./register' component={ AddUserPage } />
+                <Route exact path='./about' component={ AboutPage } />
+                <Route exact path='./weather' component={ WeatherPage } />
+                <Route path='./forecast/:city' component={ ForecastPage } />
+                <Route exact path='./futures' component={ FuturesPage } />
+                <Route exact path='./statistic' component={ StatisticPage }  />
+                <Redirect to='./' />
             </Switch>
         </div>
       </Router>

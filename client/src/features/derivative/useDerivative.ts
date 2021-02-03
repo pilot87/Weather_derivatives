@@ -44,7 +44,7 @@ const rate =  (standard_deviation: number,
 const upd = (dispatch: any, getState: any, init_city?: string) => {
     console.log('upd')
     if(getState().auth.name !== '') {
-        axios.create(getState().auth.request_params).post('/derivative/daily_params')
+        axios.create(getState().auth.request_params).post('./derivative/daily_params')
             .then((res: any) => {
                 res.data.stats.forEach((city: any) => {
                     let temp: number[]

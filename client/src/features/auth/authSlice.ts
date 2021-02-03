@@ -45,7 +45,7 @@ export const authSlice = createSlice({
             state.name = name
             state.email = email
             state.request_params = {
-                baseURL: "/api",
+                baseURL: "./api",
                 timeout: 30000,
                 headers: { 'Content-Type': 'application/json', 'Authorization': es.token }
             }
