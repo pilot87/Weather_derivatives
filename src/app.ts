@@ -36,14 +36,12 @@ app.use('/api/profile', require('./routes/profile.routes'))
 app.use('/api/weather', require('./routes/weather.routes'))
 app.use('/api/derivative', require('./routes/derivative.routes'))
 
-if (process.env.NODE_ENV === 'production') {
-    console.log(__dirname)
-    app.use('/', express.static(path.join(__dirname, '../', 'client', 'build')))
 
-    app.get('*', (req: any, res: any) => {
-        res.sendFile(path.resolve(__dirname, '../', 'client', 'build', 'index.html'))
-    })
-}
+app.use('/', express.static(path.join(__dirname, '../', 'client', 'build')))
+
+app.get('*', (req: any, res: any) => {
+    res.sendFile(path.resolve(__dirname, '../', 'client', 'build', 'index.html'))
+})
 
 const PORT = config.get('port') || 5000
 
