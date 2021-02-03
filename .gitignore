@@ -11,3 +11,4 @@ package-lock.json
 !client/models
 !client/routes
 !client/shedule
+!client/build

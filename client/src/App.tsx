@@ -22,9 +22,9 @@ import { Forecast } from './pages/forecast'
 import { Futures } from './pages/futures'
 import {Statistic} from './pages/statistic'
 
-export const history = createBrowserHistory({
-    basename: process.env.PUBLIC_URL
-})
+// export const history = createBrowserHistory({
+//     // basename: process.env.PUBLIC_URL
+// })
 
 interface State {
     stats: Stat
