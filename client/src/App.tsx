@@ -74,13 +74,13 @@ const FuturesPage = connect(() => (state: State) => {
 const App = () => {
 
   return (
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <NavbarFrame />
         <div className='App'>
             <Switch>
                 <Route
                     exact
-                    path='/forecast/'
+                    path='/'
                     render={() => (
                         <nav>
                             <div className="nav-wrapper">
@@ -98,7 +98,7 @@ const App = () => {
                 <Route path='/forecast/:city' component={ ForecastPage } />
                 <Route exact path='/futures' component={ FuturesPage } />
                 <Route exact path='/statistic' component={ StatisticPage }  />
-                <Redirect to='/forecast/' />
+                <Redirect to='/' />
             </Switch>
         </div>
       </Router>
