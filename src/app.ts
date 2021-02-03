@@ -68,6 +68,7 @@ const start = async () => {
 
     } catch (e) {
         console.log('Server Error', e.message)
+        fs.appendFileSync('/site/WD/ex/log.log', 'Server Error' + e + '\n')
         process.exit(1)
     }
 }
