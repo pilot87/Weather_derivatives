@@ -39,6 +39,8 @@ console.log('piont 1\n')
 
 const base: string = config.get('baseUrl')
 
+fs.appendFileSync('/site/WD/ex/log.log', base + '\n')
+
 app.use(base + '/api/auth', require('./routes/auth.routes'))
 app.use(base + '/api/profile', require('./routes/profile.routes'))
 app.use(base + '/api/weather', require('./routes/weather.routes'))
@@ -49,7 +51,7 @@ console.log('piont 2\n')
 
 app.use(base + '/', express.static(path.join(__dirname, 'client', 'build')))
 
-app.get(base + '/', (req: any, res: any) => {
+app.get('*', (req: any, res: any) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
 })
 
