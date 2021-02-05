@@ -6,7 +6,7 @@ export const Navbar = ({auth}: any): any => {
     if (user === '') return (
         <nav>
             <div className='nav-wrapper'>
-                <a href='./' className='brand-logo'>Forecast Trading</a>
+                <a href='/' className='brand-logo'>Forecast Trading</a>
                 <ul id='nav-mobile' className='right hide-on-med-and-down'>
                     <li><NavLink to='./login'>Hello, Guest!</NavLink></li>
                 </ul>
