@@ -33,7 +33,7 @@ const rate =  (standard_deviation: number,
     } else {
         Phi = Math.round(100000 * normalcdf((temp - expected_value) /
             standard_deviation)) / 100000
-        if(!rich) {
+        if(rich) {
             Phi = 1 - Phi
         }
     }

@@ -34,7 +34,7 @@ const rate = async (city: string, duration: number, temp: number, rich: boolean)
         }
     } else {
         Phi = Math.round(100000 * normalcdf((temp - expected_value[index]) / standard_deviation[index])) / 100000
-        if(!rich) {
+        if(rich) {
             Phi = 1 - Phi
         }
     }
