@@ -40,7 +40,7 @@ export const AddUser = ({auth}: any): any => {
             if (password) record.password = password.msg
             return record
         }
-        a.post('./auth/register', {email: form.email.msg, username: form.username.msg,
+        a.post(process.env.PUBLIC_URL + '/auth/register', {email: form.email.msg, username: form.username.msg,
             password: form.password.msg})
             .then((res: any) => {
                 setMsg(
@@ -61,8 +61,8 @@ export const AddUser = ({auth}: any): any => {
             <nav>
                 <div className="nav-wrapper">
                     <div className="col s12">
-                        <a href="./" className="breadcrumb">Home</a>
-                        <a href="./register" className="breadcrumb">Register</a>
+                        <a href="" className="breadcrumb">Home</a>
+                        <a href="register" className="breadcrumb">Register</a>
                     </div>
                 </div>
             </nav>

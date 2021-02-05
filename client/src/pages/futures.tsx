@@ -240,8 +240,8 @@ export const Futures = ({
         <nav>
             <div className="nav-wrapper">
                 <div className="col s12">
-                    <a href="./" className="breadcrumb">Home</a>
-                    <a href="./futures" className="breadcrumb">Futures</a>
+                    <a href="" className="breadcrumb">Home</a>
+                    <a href="futures" className="breadcrumb">Futures</a>
                 </div>
             </div>
         </nav>

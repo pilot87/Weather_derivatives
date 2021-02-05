@@ -33,7 +33,7 @@ export const About = ({auth, rename, setSession}: any): any => {
     const a = axios.create(auth.request_params)
 
     const handleRename = () => {
-        a.post('./profile/rename', { username: form.username.msg })
+        a.post(process.env.PUBLIC_URL + '/profile/rename', { username: form.username.msg })
             .then((res: any) => {
                 rename(res.data.username)
                 setMsg({message: 'Welcome, ' + res.data.username + '!', color: 'green'})
@@ -44,7 +44,7 @@ export const About = ({auth, rename, setSession}: any): any => {
     }
 
     const handlePassword = () => {
-        a.post('./profile/chpasswd', { password: form.password.msg })
+        a.post(process.env.PUBLIC_URL + './profile/chpasswd', { password: form.password.msg })
             .then((res: any) => {
                 setMsg2({message: 'Password has changed', color: 'green'})
             })
@@ -55,7 +55,7 @@ export const About = ({auth, rename, setSession}: any): any => {
 
     const handleLogout = () => {
         setSession({ email: '', name: '', token: '' })
-        window.location.replace('./login')
+        window.location.replace('login')
     }
 
     return(
@@ -63,8 +63,8 @@ export const About = ({auth, rename, setSession}: any): any => {
             <nav>
                 <div className="nav-wrapper">
                     <div className="col s12">
-                        <a href="./" className="breadcrumb">Home</a>
-                        <a href="./about" className="breadcrumb">About</a>
+                        <a href="" className="breadcrumb">Home</a>
+                        <a href="about" className="breadcrumb">About</a>
                     </div>
                 </div>
             </nav>

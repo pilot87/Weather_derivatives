@@ -61,8 +61,8 @@ export const WeatherP = ({weather}: Args): any => {
             <nav>
                 <div className="nav-wrapper">
                     <div className="col s12">
-                        <a href="./" className="breadcrumb">Home</a>
-                        <a href="./weather" className="breadcrumb">Weather</a>
+                        <a href="" className="breadcrumb">Home</a>
+                        <a href="weather" className="breadcrumb">Weather</a>
                     </div>
                 </div>
             </nav>
