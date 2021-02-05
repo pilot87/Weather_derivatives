@@ -24,15 +24,20 @@ catch (e) {
     document.cookie = JSON.stringify(es)
 }
 
+let base = ''
+if (process.env.PUBLIC_URL) {
+    // @ts-ignore
+    base = /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0]
+}
+
 const initialState: Session = {
     name: es.name,
     email: es.email,
     balance: 0,
-    // @ts-ignore
-    base: /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0],
+    base: base,
     request_params: {
         // @ts-ignore
-        baseURL: /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0] + '/api',
+        baseURL: base + '/api',
         timeout: 30000,
         headers: { 'Content-Type': 'application/json', 'Authorization': es.token }
     }

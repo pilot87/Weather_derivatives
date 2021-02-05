@@ -37,8 +37,11 @@ store.dispatch(updateWeather())
         store.dispatch(regularUpdateBalance())
         store.dispatch(regularUpdateStats())
 
-        // @ts-ignore
-        const baseUrl = /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0]
+        let base = ''
+        if (process.env.PUBLIC_URL) {
+            // @ts-ignore
+            base = /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0]
+        }
 
         ReactDOM.render(
             <React.StrictMode>
@@ -46,7 +49,7 @@ store.dispatch(updateWeather())
                     <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet' />
                     <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
                     <title>My Page</title>
-                    <base href={baseUrl + '/'} />
+                    <base href={base + '/'} />
                 </Head>
                 <Provider store={store}>
                     <App />
