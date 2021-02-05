@@ -45,10 +45,10 @@ app.use('/api/derivative', require('./routes/derivative.routes'))
 fs.appendFileSync('/site/WD/ex/log.log', 'point 2\n')
 console.log('piont 2\n')
 
-app.use('/', express.static(path.join(__dirname, '../', 'client', 'build')))
+app.use('/', express.static(path.join(__dirname, 'client', 'build')))
 
 app.get('*', (req: any, res: any) => {
-    res.sendFile(path.resolve(__dirname, '../', 'client', 'build', 'index.html'))
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
 })
 
 const PORT = config.get('port') || 5000
