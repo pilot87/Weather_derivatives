@@ -101,8 +101,8 @@ export const Statistic = ({stats, page_city_change}: any): any => {
             <nav>
                 <div className="nav-wrapper">
                     <div className="col s12">
-                        <a href="/" className="breadcrumb">Home</a>
-                        <a href="/statistic" className="breadcrumb">Statistic</a>
+                        <a href="./" className="breadcrumb">Home</a>
+                        <a href="./statistic" className="breadcrumb">Statistic</a>
                     </div>
                 </div>
             </nav>

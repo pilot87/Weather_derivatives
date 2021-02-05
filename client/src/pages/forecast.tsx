@@ -31,9 +31,9 @@ export const Forecast = ({weather}: any): any => {
             <nav>
                 <div className="nav-wrapper">
                     <div className="col s12">
-                        <a href="/" className="breadcrumb">Home</a>
-                        <a href="/weather" className="breadcrumb">Weather</a>
-                        <a href="#" className="breadcrumb">{'Forecast for ' + city}</a>
+                        <a href="./" className="breadcrumb">Home</a>
+                        <a href="./weather" className="breadcrumb">Weather</a>
+                        <a href={"./weather/" + city} className="breadcrumb">{'Forecast for ' + city}</a>
                     </div>
                 </div>
             </nav>

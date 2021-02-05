@@ -28,7 +28,7 @@ const initialState: Session = {
     email: es.email,
     balance: 0,
     request_params: {
-        baseURL: "/api",
+        baseURL: "/wf/api",
         timeout: 30000,
         headers: { 'Content-Type': 'application/json', 'Authorization': es.token }
     }
@@ -45,7 +45,7 @@ export const authSlice = createSlice({
             state.name = name
             state.email = email
             state.request_params = {
-                baseURL: "/api",
+                baseURL: "/wf/api",
                 timeout: 30000,
                 headers: { 'Content-Type': 'application/json', 'Authorization': es.token }
             }
