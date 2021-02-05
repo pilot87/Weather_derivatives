@@ -51,8 +51,8 @@ export const Auth = ({auth}: any): any => {
             <nav>
                 <div className="nav-wrapper">
                     <div className="col s12">
-                        <a href="./" className="breadcrumb">Home</a>
-                        <a href="./login" className="breadcrumb">Login</a>
+                        <a href="" className="breadcrumb">Home</a>
+                        <a href="login" className="breadcrumb">Login</a>
                     </div>
                 </div>
             </nav>
@@ -96,7 +96,7 @@ export const Auth = ({auth}: any): any => {
                 </button>
                 <a
                     className='btn register_btn grey lighten-1 black-text'
-                    href='./register'
+                    href='register'
                 >
                     Register new User
                 </a>
