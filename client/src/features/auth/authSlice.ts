@@ -6,6 +6,7 @@ export interface Session {
     email: string
     request_params: any
     balance: number
+    baseUrl: string
 }
 
 export interface User {
@@ -27,6 +28,8 @@ const initialState: Session = {
     name: es.name,
     email: es.email,
     balance: 0,
+    // @ts-ignore
+    baseUrl: /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0],
     request_params: {
         baseURL: "/wf/api",
         timeout: 30000,
