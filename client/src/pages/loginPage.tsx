@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 
 const axios = require('axios').default
 
-export const Login = ({auth, setSession}: any): any => {
+export const Login = ({auth, setSession, baseUrl}: any): any => {
 
     console.log(auth)
 

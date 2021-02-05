@@ -5,7 +5,7 @@ import { createBrowserHistory } from 'history'
 import './index.css'
 import App from './App'
 import {store} from './app/store'
-import {Provider} from 'react-redux'
+import {Provider, useSelector} from 'react-redux'
 import * as serviceWorker from './serviceWorker'
 
 import {updateBalance, regularUpdateBalance} from './features/auth/useAuth'
@@ -37,13 +37,16 @@ store.dispatch(updateWeather())
         store.dispatch(regularUpdateBalance())
         store.dispatch(regularUpdateStats())
 
+        // @ts-ignore
+        const baseUrl = useSelector(state => state.auth.baseUrl)
+
         ReactDOM.render(
             <React.StrictMode>
                 <Head>
                     <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet' />
                     <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
                     <title>My Page</title>
-                    <base href={process.env.PUBLIC_URL + '/'} />
+                    <base href={baseUrl + '/'} />
                 </Head>
                 <Provider store={store}>
                     <App />

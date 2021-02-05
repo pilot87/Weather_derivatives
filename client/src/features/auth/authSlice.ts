@@ -31,7 +31,8 @@ const initialState: Session = {
     // @ts-ignore
     baseUrl: /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0],
     request_params: {
-        baseURL: "/wf/api",
+        // @ts-ignore
+        baseURL: /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0] + '/api',
         timeout: 30000,
         headers: { 'Content-Type': 'application/json', 'Authorization': es.token }
     }

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 const axios = require('axios').default
 
-export const About = ({auth, rename, setSession}: any): any => {
+export const About = ({auth, rename, setSession, baseUrl}: any): any => {
 
     const [form, setForm] = useState(
         {username: {msg: '', state: ''}, password: {msg: '', state: ''}

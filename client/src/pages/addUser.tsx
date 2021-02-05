@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 const axios = require('axios').default
 
-export const AddUser = ({auth}: any): any => {
+export const AddUser = ({auth, baseUrl}: any): any => {
 
     const [form, setForm] = useState({
         email: {msg: '', state: 'adduser_label'}, password: {msg: '', state: 'adduser_label'},

@@ -5,9 +5,10 @@ import {city_img} from '../components/Images'
 
 interface Args {
     weather: WeatherAll
+    baseUrl: string
 }
 
-export const WeatherP = ({weather}: Args): any => {
+export const WeatherP = ({weather, baseUrl}: Args): any => {
     let cities: any =  Object.entries(weather.weather).map((city: [string, Weather], index: number) =>
         <td onClick={() => window.location.replace('/forecast/' + city[0])}>
                 <div className="card">

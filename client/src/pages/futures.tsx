@@ -18,6 +18,7 @@ interface Args {
     changeRich: () => void
     changeQuantity: (event: any) => void
     changePrivate_derivative: () => void
+    baseUrl: string
 }
 
 export const Futures = ({
@@ -28,7 +29,8 @@ export const Futures = ({
                             changeTemp,
                             changeRich,
                             changeQuantity,
-                            changePrivate_derivative
+                            changePrivate_derivative,
+                            baseUrl
 }: Args): any => {
 
     const city = derivative0.page.city

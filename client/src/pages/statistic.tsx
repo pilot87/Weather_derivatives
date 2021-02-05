@@ -3,7 +3,7 @@ import React from 'react'
 import {StatDetail} from '../features/stats/statsSlice'
 import {city_img} from '../components/Images'
 
-export const Statistic = ({stats, page_city_change}: any): any => {
+export const Statistic = ({stats, page_city_change, baseUrl}: any): any => {
 
     const show = (s: StatDetail, index: number) =>
         <table className={[0].map((condition) => {
