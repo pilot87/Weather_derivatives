@@ -6,7 +6,7 @@ export interface Session {
     email: string
     request_params: any
     balance: number
-    baseUrl: string
+    base: string
 }
 
 export interface User {
@@ -29,7 +29,7 @@ const initialState: Session = {
     email: es.email,
     balance: 0,
     // @ts-ignore
-    baseUrl: /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0],
+    base: /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0],
     request_params: {
         // @ts-ignore
         baseURL: /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0] + '/api',

@@ -29,42 +29,42 @@ interface State {
 }
 
 const StatisticPage = connect(() => (state: State) => {
-    return {stats: state.stats, baseUrl: state.auth.baseUrl}
+    return {stats: state.stats, baseUrl: state.auth.base}
 }, {
     page_city_change: page_city_change
 })(Statistic)
 
 const NavbarFrame = connect(() => (state: State) => {
-    return {auth: state.auth, baseUrl: state.auth.baseUrl}
+    return {auth: state.auth, baseUrl: state.auth.base}
 })(Navbar)
 
 const AboutPage = connect(() => (state: State) => {
-    return {auth: state.auth, baseUrl: state.auth.baseUrl}
+    return {auth: state.auth, baseUrl: state.auth.base}
 }, {
     rename: rename, setSession: setSession
 })(About)
 
 const AddUserPage = connect(() => (state: State) => {
-    return {auth: state.auth, baseUrl: state.auth.baseUrl}
+    return {auth: state.auth, baseUrl: state.auth.base}
 })(AddUser)
 
 const ForecastPage = connect(() => (state: State) => {
-    return {weather: state.weather, baseUrl: state.auth.baseUrl}
+    return {weather: state.weather, baseUrl: state.auth.base}
 })(Forecast)
 
 const WeatherPage = connect(() => (state: State) => {
-    return {weather: state.weather, baseUrl: state.auth.baseUrl}
+    return {weather: state.weather, baseUrl: state.auth.base}
 })(WeatherP)
 
 const LoginPage = connect(() => (state: State) => {
-    return {auth: state.auth, baseUrl: state.auth.baseUrl}
+    return {auth: state.auth, baseUrl: state.auth.base}
 }, {
     setSession: setSession
 })(Login)
 
 const FuturesPage = connect(() => (state: State) => {
     return {auth: state.auth, weather0: state.weather, derivative0:
-        state.derivative, baseUrl: state.auth.baseUrl}
+        state.derivative, baseUrl: state.auth.base}
 }, {
     changeCity: changeCity,
     changeTemp: changeTemp,

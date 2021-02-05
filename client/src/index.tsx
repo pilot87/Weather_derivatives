@@ -38,7 +38,7 @@ store.dispatch(updateWeather())
         store.dispatch(regularUpdateStats())
 
         // @ts-ignore
-        const baseUrl = useSelector(state => state.auth.baseUrl)
+        const baseUrl = /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0]
 
         ReactDOM.render(
             <React.StrictMode>
