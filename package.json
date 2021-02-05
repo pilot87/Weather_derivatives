@@ -6,11 +6,11 @@
   "scripts": {
     "server:dev": "ts-node-dev --respawn --transpile-only ./src/app.ts",
     "server:prod": "tsc && node ./build/app.js",
-    "client": "npm run start --prefix client",
+    "client": "cross-env NODE_ENV=development npm run start --prefix client",
     "client:install": "npm install --prefix client",
     "client:build": "npm run build --prefix client && git add client/build",
     "dev": "cross-env NODE_ENV=development concurrently \"npm run server:dev\" \"npm run client\"",
-    "start": "cross-env tsc && cross-env NODE_ENV=production node build/app.js",
+    "start": "tsc && cross-env NODE_ENV=production node app.js",
     "server:build": "cross-env tsc"
   },
   "author": "",

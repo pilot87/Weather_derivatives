@@ -25,7 +25,7 @@ catch (e) {
 }
 
 let base = ''
-if (process.env.PUBLIC_URL) {
+if (process.env.NODE_ENV !== 'development') {
     // @ts-ignore
     base = /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0]
 }

@@ -5,7 +5,7 @@ import { createBrowserHistory } from 'history'
 import './index.css'
 import App from './App'
 import {store} from './app/store'
-import {Provider, useSelector} from 'react-redux'
+import {Provider} from 'react-redux'
 import * as serviceWorker from './serviceWorker'
 
 import {updateBalance, regularUpdateBalance} from './features/auth/useAuth'
@@ -38,7 +38,8 @@ store.dispatch(updateWeather())
         store.dispatch(regularUpdateStats())
 
         let base = ''
-        if (process.env.PUBLIC_URL) {
+        if (process.env.NODE_ENV !== 'development') {
+            console.log('NODE_ENV')
             // @ts-ignore
             base = /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0]
         }

@@ -1,6 +1,6 @@
 import React from 'react'
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
-import {connect} from 'react-redux'
+import {connect, useSelector} from 'react-redux'
 
 import {Navbar} from './components/Navbar'
 
@@ -77,7 +77,7 @@ const FuturesPage = connect(() => (state: State) => {
 const App = () => {
 
   return (
-      <Router basename={process.env.PUBLIC_URL}>
+      <Router basename={useSelector((state: State) => state.auth.base)}>
         <NavbarFrame />
         <div className='App'>
             <Switch>

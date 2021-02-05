@@ -1,13 +1,19 @@
 #!/usr/bin/env /home/web/.nvm/versions/node/v14.15.4/bin/node
 
-const {
-    createServer,
-    IncomingMessage,
-    ServerResponse,
-} = require('unit-http')
+let createServer: any = null
+let IncomingMessage: any = null
+let ServerResponse: any = null
+let base = ''
 
-require('http').ServerResponse = ServerResponse
-require('http').IncomingMessage = IncomingMessage
+if (process.env.NODE_ENV === 'production') {
+    const { v0, v1, v2, } = require('unit-http')
+    createServer = v0
+    IncomingMessage = v1
+    ServerResponse = v2
+    require('http').ServerResponse = ServerResponse
+    require('http').IncomingMessage = IncomingMessage
+    base = '/wf'
+}
 
 import express = require('express')
 export const {Router} = require('express')
@@ -29,14 +35,14 @@ schedule.scheduleJob(rule, () => {
 // @ts-ignore
 app.use(express.json({ extended: true }))
 
-app.use('/wf/api/auth', require('./routes/auth.routes'))
-app.use('/wf/api/profile', require('./routes/profile.routes'))
-app.use('/wf/api/weather', require('./routes/weather.routes'))
-app.use('/wf/api/derivative', require('./routes/derivative.routes'))
+app.use(base + '/api/auth', require('./routes/auth.routes'))
+app.use(base + '/api/profile', require('./routes/profile.routes'))
+app.use(base + '/api/weather', require('./routes/weather.routes'))
+app.use(base + '/api/derivative', require('./routes/derivative.routes'))
 
-app.use('/wf/', express.static(path.join(__dirname, 'client', 'build')))
+app.use(base + '/', express.static(path.join(__dirname, 'client', 'build')))
 
-app.get('/wf*', (req: any, res: any) => {
+app.get(base + '*', (req: any, res: any) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
 })
 
@@ -50,7 +56,11 @@ const start = async () => {
             useCreateIndex: true,
             useFindAndModify: false
         })
-        createServer(app).listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
+        if (process.env.NODE_ENV === 'production') {
+            createServer(app).listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
+        } else {
+            app.listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
+        }
 
     } catch (e) {
         console.log('Server Error', e.message)
