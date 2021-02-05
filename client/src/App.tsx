@@ -13,7 +13,7 @@ import { Derivative } from './features/derivative/derivativeSlice'
 import {changeCity, changeTemp, changeRich, changeQuantity,
     changePrivate_derivative} from './features/derivative/useDerivative'
 
-import { Auth } from './pages/loginPage'
+import { Login } from './pages/loginPage'
 import { AddUser } from './pages/addUser'
 import { About } from './pages/aboutUser'
 import { WeatherP } from './pages/weather'
@@ -56,9 +56,11 @@ const WeatherPage = connect(() => (state: State) => {
     return {weather: state.weather}
 })(WeatherP)
 
-const AuthPage = connect(() => (state: State) => {
+const LoginPage = connect(() => (state: State) => {
     return {auth: state.auth}
-})(Auth)
+}, {
+    setSession: setSession
+})(Login)
 
 const FuturesPage = connect(() => (state: State) => {
     return {auth: state.auth, weather0: state.weather, derivative0: state.derivative}
@@ -91,7 +93,7 @@ const App = () => {
                         </nav>
                     )}
                 />
-                <Route exact path='/login' component={ AuthPage } />
+                <Route exact path='/login' component={ LoginPage } />
                 <Route exact path='/register' component={ AddUserPage } />
                 <Route exact path='/about' component={ AboutPage } />
                 <Route exact path='/weather' component={ WeatherPage } />

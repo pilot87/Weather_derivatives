@@ -1,11 +1,9 @@
 import React, {useState} from 'react'
 
-import {setSession} from '../features/auth/authSlice'
-import {store} from '../app/store'
 
 const axios = require('axios').default
 
-export const Auth = ({auth}: any): any => {
+export const Login = ({auth, setSession}: any): any => {
 
     console.log(auth)
 
@@ -36,8 +34,8 @@ export const Auth = ({auth}: any): any => {
     const handleLogin = () => {
         a.post('/auth/login', {email: form.email.msg, password: form.password.msg})
             .then((res: any) => {
-                store.dispatch(setSession({email: res.data.email, name: res.data.username,
-                    token: res.data.token}))
+                setSession({email: res.data.email, name: res.data.username,
+                    token: res.data.token})
                 setMsg({message: 'Welcome, ' + res.data.username + '!', color: 'green'})
                 window.location.replace('about')
             })

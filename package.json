@@ -8,7 +8,7 @@
     "server:prod": "tsc && node ./build/app.js",
     "client": "npm run start --prefix client",
     "client:install": "npm install --prefix client",
-    "client:build": "npm run build --prefix client",
+    "client:build": "npm run build --prefix client && git add client/build",
     "dev": "cross-env NODE_ENV=development concurrently \"npm run server:dev\" \"npm run client\"",
     "start": "cross-env tsc && cross-env NODE_ENV=production node build/app.js",
     "server:build": "cross-env tsc"
