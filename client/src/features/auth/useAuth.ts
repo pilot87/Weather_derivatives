@@ -8,7 +8,7 @@ const sleep = (ms: number) => {
 
 const upd = (dispatch: any, getState: any) => {
     if(getState().auth.name !== '') {
-        axios.create(getState().auth.request_params).post(process.env.PUBLIC_URL + '/profile/balance')
+        axios.create(getState().auth.request_params).post('/profile/balance')
             .then((res: any) => {
                 dispatch(updBalance(res.data))
             })

@@ -40,7 +40,7 @@ export const AddUser = ({auth}: any): any => {
             if (password) record.password = password.msg
             return record
         }
-        a.post(process.env.PUBLIC_URL + '/auth/register', {email: form.email.msg, username: form.username.msg,
+        a.post('/auth/register', {email: form.email.msg, username: form.username.msg,
             password: form.password.msg})
             .then((res: any) => {
                 setMsg(

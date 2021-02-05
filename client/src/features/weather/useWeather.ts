@@ -9,7 +9,7 @@ const sleep = (ms: number) => {
 
 const upd = (dispatch: any, getState: any) => {
     if (getState().auth.name !== '') {
-        axios.create(getState().auth.request_params).post(process.env.PUBLIC_URL + '/weather/update')
+        axios.create(getState().auth.request_params).post('/weather/update')
             .then((res: any) => {
                 dispatch(update_weather(res.data))
                 if (getState().derivative.page.city === '') {
