@@ -51,7 +51,7 @@ app.get('*', (req: any, res: any) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
 })
 
-const PORT = config.get('port') || 5000
+const PORT = config.get('port') || 443
 
 fs.appendFileSync('/site/WD/ex/log.log', 'point 3\n')
 console.log('piont 3\n')
