@@ -39,7 +39,7 @@ app.use('/wf/api/derivative', require('./routes/derivative.routes'))
 
 app.use('/wf/', express.static(path.join(__dirname, 'client', 'build')))
 
-app.get('/wf', (req: any, res: any) => {
+app.get('/wf/', (req: any, res: any) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
 })
 
