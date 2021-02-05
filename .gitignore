@@ -1,7 +1,6 @@
 node_modules
 .idea
 .git
-/build
 package-lock.json
 /middleware
 /models
