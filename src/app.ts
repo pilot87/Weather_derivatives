@@ -32,14 +32,14 @@ schedule.scheduleJob(rule, () => {
 // @ts-ignore
 app.use(express.json({ extended: true }))
 
-app.use('/futures/api/auth', require('./routes/auth.routes'))
-app.use('/futures/api/profile', require('./routes/profile.routes'))
-app.use('/futures/api/weather', require('./routes/weather.routes'))
-app.use('/futures/api/derivative', require('./routes/derivative.routes'))
+app.use('/wf/api/auth', require('./routes/auth.routes'))
+app.use('/wf/api/profile', require('./routes/profile.routes'))
+app.use('/wf/api/weather', require('./routes/weather.routes'))
+app.use('/wf/api/derivative', require('./routes/derivative.routes'))
 
-app.use('/futures/', express.static(path.join(__dirname, 'client', 'build')))
+app.use('/wf/', express.static(path.join(__dirname, 'client', 'build')))
 
-app.get('/futures*', (req: any, res: any) => {
+app.get('/wf*', (req: any, res: any) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
 })
 
