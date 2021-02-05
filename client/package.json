@@ -14,6 +14,7 @@
     "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.7",
     "axios": "^0.21.1",
+    "history": "^4.10.1",
     "materialize-css": "^1.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -48,5 +49,5 @@
   "devDependencies": {
     "@types/jquery": "^3.5.5"
   },
-  "homepage": "/wf"
+  "homepage": "/wf/"
 }

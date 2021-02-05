@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { createBrowserHistory } from 'history'
 
 import './index.css'
 import App from './App'
@@ -18,6 +19,10 @@ class Head extends React.Component {
         return ReactDOM.createPortal(this.props.children, headRoot)
     }
 }
+
+export const history = createBrowserHistory({
+    basename: process.env.PUBLIC_URL
+})
 
 store.dispatch(updateWeather())
     .then(() => {
