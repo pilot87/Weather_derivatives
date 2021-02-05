@@ -2,8 +2,8 @@ const City = require('../models/City')
 const Derivative = require('../models/Derivative')
 const User = require('../models/User')
 
-export const billing = async() => {
-    const futures = await Derivative.find({type: 'futures', completed: false})
+export const billing = async(city: string) => {
+    const futures = await Derivative.find({type: 'futures', completed: false, city: city})
     for (const der of futures) {
         const city = await City.findOne({name: der.city})
         if((der.temp_reach && Number.parseFloat(city.current_temp) > Number.parseFloat(der.temp)) ||

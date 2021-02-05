@@ -1,6 +1,5 @@
 #!/usr/bin/env /home/web/.nvm/versions/node/v14.15.4/bin/node
 
-// const fs = require('fs')
 const {
     createServer,
     IncomingMessage,
@@ -19,7 +18,6 @@ const schedule = require('node-schedule')
 export const jwt = require('jsonwebtoken')
 
 import {forecast} from './shedule/weather.update'
-import {billing} from './shedule/billing.update'
 
 const app: express.Application = express()
 
@@ -27,7 +25,6 @@ const rule = new schedule.RecurrenceRule()
 rule.second = 15
 schedule.scheduleJob(rule, () => {
     forecast()
-    billing()
 })
 // @ts-ignore
 app.use(express.json({ extended: true }))

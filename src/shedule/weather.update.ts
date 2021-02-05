@@ -1,6 +1,8 @@
 const axios = require('axios')
 const config = require('config')
 
+import {billing} from './billing.update'
+
 const City = require('../models/City')
 
 interface Hourly3 {
@@ -194,6 +196,7 @@ export const forecast = async() => {
                                 standard_deviation: standard_deviation.map(ev => ev.toString()),
                                 history_temp: city.history_temp
                             }})
+                            await billing(city.name)
                         })
                         .catch((err: any) => {
                             console.log('req 0 error' + ' ' + JSON.stringify(err))
