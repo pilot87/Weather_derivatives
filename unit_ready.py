@@ -20,7 +20,7 @@ lines = app.split('\r\n')
 start = lines.index('//#start')
 second = lines.index('//#app')
 
-new_app = lines[:start] + unit0 + lines[start + 2:second] + unit1 + [second + 2:]
+new_app = lines[:start] + unit0 + lines[start + 2:second] + unit1 + lines[second + 2:]
 
 '\n'.join(new_app)
 
