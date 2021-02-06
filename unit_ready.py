@@ -15,7 +15,7 @@ unit0 = ['const {',
     
 unit1 = ['        createServer(app).listen(PORT, () => console.log(`App has been started on port ${PORT}...`))']
 
-lines = app.split('\r\n')
+lines = app.split('\n')
 
 start = lines.index('//#start')
 second = lines.index('//#app')
