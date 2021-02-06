@@ -1,5 +1,5 @@
 //#start
-let base = ''
+const base = ''
 
 import express = require('express')
 export const {Router} = require('express')

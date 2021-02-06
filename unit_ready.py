@@ -11,6 +11,7 @@ unit0 = ['const {',
     '',
     'require(\'http\').ServerResponse = ServerResponse',
     'require(\'http\').IncomingMessage = IncomingMessage',
+    'const base = \'/wf\''
     '']
     
 unit1 = ['        createServer(app).listen(PORT, () => console.log(`App has been started on port ${PORT}...`))']
