@@ -21,7 +21,7 @@ lines = app.split('\n')
 start = lines.index('//#start')
 second = lines.index('//#app')
 
-new_app = ['#!/usr/bin/env /home/web/.nvm/versions/node/v14.15.4/bin/node', ''] + lines[:start] + unit0 +
+new_app = ['#!/usr/bin/env /home/web/.nvm/versions/node/v14.15.4/bin/node', ''] + lines[:start] + unit0 +\
  lines[start + 2:second] + unit1 + lines[second + 2:]
 
 '\n'.join(new_app)
