@@ -7,10 +7,10 @@ unit0 = ['const {',
     '  createServer,',
     '  IncomingMessage,',
     '  ServerResponse,',
-    '} = require('unit-http')',
+    '} = require(\'unit-http\')',
     '',
-    'require('http').ServerResponse = ServerResponse',
-    'require('http').IncomingMessage = IncomingMessage',
+    'require(\'http\').ServerResponse = ServerResponse',
+    'require(\'http\').IncomingMessage = IncomingMessage',
     '']
     
 unit1 = ['        createServer(app).listen(PORT, () => console.log(`App has been started on port ${PORT}...`))']
