@@ -196,6 +196,7 @@ export const forecast = async() => {
                                 standard_deviation: standard_deviation.map(ev => ev.toString()),
                                 history_temp: city.history_temp
                             }})
+
                             await billing(city.name)
                         })
                         .catch((err: any) => {
