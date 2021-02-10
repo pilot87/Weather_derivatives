@@ -2,6 +2,13 @@ import React from 'react'
 
 import {useParams} from 'react-router-dom'
 
+let base = ''
+if (process.env.NODE_ENV !== 'development') {
+    console.log('NODE_ENV')
+    // @ts-ignore
+    base = /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0]
+}
+
 export const Forecast = ({weather, baseUrl}: any): any => {
 
     const city = useParams<{city: string}>().city
@@ -33,7 +40,7 @@ export const Forecast = ({weather, baseUrl}: any): any => {
                     <div className="col s12">
                         <a href="" className="breadcrumb">Home</a>
                         <a href="weather" className="breadcrumb">Weather</a>
-                        <a href={"weather/" + city} className="breadcrumb">{'Forecast for ' + city}</a>
+                        <a href={base + "/weather/" + city} className="breadcrumb">{'Forecast for ' + city}</a>
                     </div>
                 </div>
             </nav>
