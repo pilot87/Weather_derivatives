@@ -2,5 +2,6 @@
   "port": 443,
   "jwtSecret": "my secret",
   "mongoUri": "mongodb+srv://FTapp:S26bcpVwfYEja4J@cluster0.0c2vl.mongodb.net/app?retryWrites=true&w=majority",
-  "apiKey": "2fb81a5dd02cf40e91170e9bd70c8122"
+  "apiKey": "2fb81a5dd02cf40e91170e9bd70c8122",
+  "base": ""
 }

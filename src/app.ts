@@ -1,5 +1,4 @@
 //#start
-const base = ''
 
 import express = require('express')
 export const {Router} = require('express')
@@ -10,6 +9,8 @@ const schedule = require('node-schedule')
 export const jwt = require('jsonwebtoken')
 
 import {forecast} from './shedule/weather.update'
+
+const base = config.get('base')
 
 const app: express.Application = express()
 

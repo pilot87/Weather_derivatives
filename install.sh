@@ -1,7 +1,8 @@
 npm i
-chmod 500 unit_ready.py
+chmod 750 unit_ready.py
 npm install express --save
 npm link unit-http
-./unit_ready.py
+# argument of unit_ready script is root url
+./unit_ready.py /wf
 npm run-script server:build
 chmod +x app.js

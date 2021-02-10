@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
-
+import {base} from '../../index'
 export interface Session {
     name: string
     email: string
@@ -22,12 +22,6 @@ try {
 }
 catch (e) {
     document.cookie = JSON.stringify(es)
-}
-
-let base = ''
-if (process.env.NODE_ENV !== 'development') {
-    // @ts-ignore
-    base = /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0]
 }
 
 const initialState: Session = {

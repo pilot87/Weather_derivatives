@@ -20,6 +20,9 @@ class Head extends React.Component {
     }
 }
 
+//#start
+export const base = ''
+
 export const history = createBrowserHistory({
     basename: process.env.PUBLIC_URL
 })
@@ -36,13 +39,6 @@ store.dispatch(updateWeather())
         store.dispatch(regularUpdateRate())
         store.dispatch(regularUpdateBalance())
         store.dispatch(regularUpdateStats())
-
-        let base = ''
-        if (process.env.NODE_ENV !== 'development') {
-            console.log('NODE_ENV')
-            // @ts-ignore
-            base = /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0]
-        }
 
         ReactDOM.render(
             <React.StrictMode>
