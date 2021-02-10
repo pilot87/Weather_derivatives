@@ -24,11 +24,11 @@ export const Statistic = ({stats, page_city_change, baseUrl}: any): any => {
                 </tr>
                 <tr>
                     <td>Rises above</td>
-                    <td className='statistics_table_right'>{s.temp_reach}</td>
+                    <td className='statistics_table_right'>{s.temp_reach.toString()}</td>
                 </tr>
                 <tr>
                     <td>Privacy</td>
-                    <td className='statistics_table_right'>{s.hidden}</td>
+                    <td className='statistics_table_right'>{s.hidden.toString()}</td>
                 </tr>
                 <tr>
                     <td>Duration</td>
