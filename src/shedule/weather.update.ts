@@ -98,7 +98,7 @@ export const forecast = async() => {
     for (const city of base) {
         const c = await City.findOne({name: city})
         if(!c) {
-            axios.get('https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' +
+            await axios.get('https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' +
                 config.get('apiKey'))
             .then((current: Current) => {
                 axios.get('https://api.openweathermap.org/data/2.5/forecast?q=' + city + '&appid=' +
@@ -139,9 +139,8 @@ export const forecast = async() => {
                                 history_temp: [],
                                 init_phase: true
                             })
-
-
                             await blob.save()
+                            await new Promise(r => setTimeout(r, 20))
                         } catch (e) {
                             console.log('creating error')
                         }
