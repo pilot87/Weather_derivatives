@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {NavLink} from 'react-router-dom'
 
 const axios = require('axios').default
 
@@ -61,8 +62,8 @@ export const AddUser = ({auth, baseUrl}: any): any => {
             <nav>
                 <div className="nav-wrapper">
                     <div className="col s12">
-                        <a href="" className="breadcrumb">Home</a>
-                        <a href="register" className="breadcrumb">Register</a>
+                        <NavLink to="" className="breadcrumb">Home</NavLink>
+                        <NavLink to="register" className="breadcrumb">Register</NavLink>
                     </div>
                 </div>
             </nav>

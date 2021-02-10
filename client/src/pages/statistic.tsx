@@ -1,4 +1,5 @@
 import React from 'react'
+import {NavLink} from 'react-router-dom'
 
 import {StatDetail} from '../features/stats/statsSlice'
 import {city_img} from '../components/Images'
@@ -113,8 +114,8 @@ export const Statistic = ({stats, page_city_change, baseUrl}: any): any => {
             <nav>
                 <div className="nav-wrapper">
                     <div className="col s12">
-                        <a href="" className="breadcrumb">Home</a>
-                        <a href="statistic" className="breadcrumb">Statistic</a>
+                        <NavLink to="" className="breadcrumb">Home</NavLink>
+                        <NavLink to="statistic" className="breadcrumb">Statistic</NavLink>
                     </div>
                 </div>
             </nav>

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-
+import {NavLink} from 'react-router-dom'
 
 const axios = require('axios').default
 
@@ -49,8 +49,8 @@ export const Login = ({auth, setSession, baseUrl}: any): any => {
             <nav>
                 <div className="nav-wrapper">
                     <div className="col s12">
-                        <a href="" className="breadcrumb">Home</a>
-                        <a href="login" className="breadcrumb">Login</a>
+                        <NavLink to="" className="breadcrumb">Home</NavLink>
+                        <NavLink to="login" className="breadcrumb">Login</NavLink>
                     </div>
                 </div>
             </nav>
@@ -92,12 +92,12 @@ export const Login = ({auth, setSession, baseUrl}: any): any => {
                 >
                     Login
                 </button>
-                <a
+                <NavLink
                     className='btn register_btn grey lighten-1 black-text'
-                    href='register'
+                    to='register'
                 >
                     Register new User
-                </a>
+                </NavLink>
             </div>
             <div className={'alert login_alert ' + msg.color + '-text text-lighten-1'}>
                 {msg.message}

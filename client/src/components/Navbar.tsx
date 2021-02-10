@@ -24,7 +24,7 @@ export const Navbar = ({auth}: any): any => {
     return (
         <nav>
             <div className='nav-wrapper'>
-                <NavLink to='' className='brand-logo'>Forecast Trading</>
+                <NavLink to='' className='brand-logo'>Forecast Trading</NavLink>
                 <ul id='nav-mobile' className='right hide-on-med-and-down'>
                     <li><NavLink to='weather'>Weather</NavLink></li>
                     <li><NavLink to='statistic'>Statistic</NavLink></li>

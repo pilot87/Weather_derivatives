@@ -1,4 +1,5 @@
 import React from 'react'
+import {NavLink} from 'react-router-dom'
 
 import {Weather, WeatherAll} from '../features/weather/weatherSlice'
 import {Derivative} from '../features/derivative/derivativeSlice'
@@ -242,8 +243,8 @@ export const Futures = ({
         <nav>
             <div className="nav-wrapper">
                 <div className="col s12">
-                    <a href="" className="breadcrumb">Home</a>
-                    <a href="futures" className="breadcrumb">Futures</a>
+                    <NavLink to="" className="breadcrumb">Home</NavLink>
+                    <NavLink to="futures" className="breadcrumb">Futures</NavLink>
                 </div>
             </div>
         </nav>

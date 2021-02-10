@@ -1,6 +1,6 @@
 import React from 'react'
-
 import {useParams} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 
 let base = ''
 if (process.env.NODE_ENV !== 'development') {
@@ -38,9 +38,9 @@ export const Forecast = ({weather, baseUrl}: any): any => {
             <nav>
                 <div className="nav-wrapper">
                     <div className="col s12">
-                        <a href="" className="breadcrumb">Home</a>
-                        <a href="weather" className="breadcrumb">Weather</a>
-                        <a href={base + "/weather/" + city} className="breadcrumb">{'Forecast for ' + city}</a>
+                        <NavLink to="" className="breadcrumb">Home</NavLink>
+                        <NavLink to="weather" className="breadcrumb">Weather</NavLink>
+                        <NavLink to={"weather/" + city} className="breadcrumb">{'Forecast for ' + city}</NavLink>
                     </div>
                 </div>
             </nav>

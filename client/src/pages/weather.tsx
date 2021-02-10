@@ -1,4 +1,5 @@
 import React from 'react'
+import {NavLink} from 'react-router-dom'
 
 import {Weather, WeatherAll} from '../features/weather/weatherSlice'
 import {city_img} from '../components/Images'
@@ -69,8 +70,8 @@ export const WeatherP = ({weather, baseUrl}: Args): any => {
             <nav>
                 <div className="nav-wrapper">
                     <div className="col s12">
-                        <a href="" className="breadcrumb">Home</a>
-                        <a href="weather" className="breadcrumb">Weather</a>
+                        <NavLink to="" className="breadcrumb">Home</NavLink>
+                        <NavLink to="weather" className="breadcrumb">Weather</NavLink>
                     </div>
                 </div>
             </nav>
