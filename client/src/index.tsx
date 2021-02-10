@@ -21,7 +21,7 @@ class Head extends React.Component {
 }
 
 //#start
-export const base = ''
+export const base = '/wf'
 
 export const history = createBrowserHistory({
     basename: process.env.PUBLIC_URL
