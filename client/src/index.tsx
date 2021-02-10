@@ -24,7 +24,7 @@ class Head extends React.Component {
 export const base = '/wf'
 
 export const history = createBrowserHistory({
-    basename: process.env.PUBLIC_URL
+    basename: base
 })
 
 store.dispatch(updateWeather())
