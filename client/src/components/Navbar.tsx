@@ -26,7 +26,7 @@ export const Navbar = ({auth}: any): any => {
             <div className='nav-wrapper'>
                 <a href={base} className='brand-logo'>Forecast Trading</a>
                 <ul id='nav-mobile' className='right hide-on-med-and-down'>
-                    <li><a href={base + '/weather'}>Weather</a></li>
+                    <li><NavLink to='weather'>Weather</NavLink></li>
                     <li><a href={base + '/statistic'}>Statistic</a></li>
                     <li><a href={base + '/futures'}>Futures</a></li>
                     <li><a href={base + '/about'}>Hello, {user}!</a></li>
