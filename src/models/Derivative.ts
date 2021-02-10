@@ -1,6 +1,7 @@
 import {Schema, model} from 'mongoose'
 
 const schema = new Schema({
+    paid: {type: Number, required: true},
     completed: {type: Boolean, required: true},
     quantity: {type: Number, required: true},
     email: { type: String, required: true},

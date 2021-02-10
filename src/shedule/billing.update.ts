@@ -2,7 +2,15 @@ const City = require('../models/City')
 const Derivative = require('../models/Derivative')
 const User = require('../models/User')
 
-export const billing = async(city: string) => {
+import {base} from './weather.update'
+
+export const billing = async () => {
+    for (const city in base) {
+        await billing_city(city)
+    }
+}
+
+const billing_city = async (city: string) => {
     const futures = await Derivative.find({type: 'futures', completed: false, city: city})
     for (const der of futures) {
         const city = await City.findOne({name: der.city})
@@ -13,6 +21,8 @@ export const billing = async(city: string) => {
             const user = await User.findOne({email: der.email})
             await User.findOneAndUpdate({email: der.email},
                 {$set: {balance: (Number.parseFloat(user.balance) + der.quantity).toString()}})
+            await Derivative.findOneAndUpdate({_id: der._id}, {$set:
+                    {paid: der.paid + 1}})
             if (der.duration_left === 1) {
                 await Derivative.findOneAndUpdate({_id: der._id}, {$set:
                         {completed: true}})

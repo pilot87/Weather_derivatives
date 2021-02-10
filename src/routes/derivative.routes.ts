@@ -157,6 +157,7 @@ router.post('/buy', auth,
             }
 
             const derivative = new Derivative({
+                paid: 0,
                 completed: false,
                 quantity: quantity,
                 email: email,

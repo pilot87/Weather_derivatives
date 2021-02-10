@@ -10,13 +10,20 @@ const schedule = require('node-schedule')
 export const jwt = require('jsonwebtoken')
 
 import {forecast} from './shedule/weather.update'
+import {billing} from './shedule/billing.update'
 
 const app: express.Application = express()
 
-const rule = new schedule.RecurrenceRule()
-rule.second = 15
-schedule.scheduleJob(rule, () => {
+const rule_forecast = new schedule.RecurrenceRule()
+rule_forecast.second = 15
+schedule.scheduleJob(rule_forecast, () => {
     forecast()
+})
+
+const rule_billing = new schedule.RecurrenceRule()
+rule_billing.second = 20
+schedule.scheduleJob(rule_billing, () => {
+    billing()
 })
 // @ts-ignore
 app.use(express.json({ extended: true }))

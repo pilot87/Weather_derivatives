@@ -1,7 +1,7 @@
 const axios = require('axios')
 const config = require('config')
 
-import {billing} from './billing.update'
+// import {billing} from './billing.update'
 
 const City = require('../models/City')
 
@@ -93,8 +93,9 @@ interface Record {
     init_phase: boolean
 }
 
+export const base = ['Hong Kong', 'San Francisco', 'New York', 'Paris']
+
 export const forecast = async() => {
-    const base = ['Hong Kong', 'San Francisco', 'New York', 'Paris']
     for (const city of base) {
         const c = await City.findOne({name: city})
         if(!c) {
@@ -140,7 +141,7 @@ export const forecast = async() => {
                                 init_phase: true
                             })
                             await blob.save()
-                            await new Promise(r => setTimeout(r, 200))
+
                         } catch (e) {
                             console.log('creating error')
                         }
@@ -148,7 +149,7 @@ export const forecast = async() => {
                     .catch((e: any) => console.log('error in ring 0: ' + JSON.stringify(e)))
             })
             .catch((e: any) => console.log('error in ring 1' + JSON.stringify(e)))
-            await new Promise(r => setTimeout(r, 200))
+
         } else {
             await City.findOneAndUpdate({name: city}, { $set: {init_phase: false}})
         }
@@ -197,7 +198,6 @@ export const forecast = async() => {
                                 history_temp: city.history_temp
                             }})
 
-                            await billing(city.name)
                         })
                         .catch((err: any) => {
                             console.log('req 0 error' + ' ' + JSON.stringify(err))
