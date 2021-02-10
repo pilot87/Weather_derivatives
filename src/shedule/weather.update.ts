@@ -149,6 +149,7 @@ export const forecast = async() => {
                     .catch((e: any) => console.log('error in ring 0: ' + JSON.stringify(e)))
             })
             .catch((e: any) => console.log('error in ring 1' + JSON.stringify(e)))
+            await new Promise(r => setTimeout(r, 20))
         } else {
             await City.findOneAndUpdate({name: city}, { $set: {init_phase: false}})
         }

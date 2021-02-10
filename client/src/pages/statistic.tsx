@@ -23,6 +23,14 @@ export const Statistic = ({stats, page_city_change, baseUrl}: any): any => {
                     <td className='statistics_table_right'>{s.quantity}</td>
                 </tr>
                 <tr>
+                    <td>Rises above</td>
+                    <td className='statistics_table_right'>{s.temp_reach}</td>
+                </tr>
+                <tr>
+                    <td>Privacy</td>
+                    <td className='statistics_table_right'>{s.hidden}</td>
+                </tr>
+                <tr>
                     <td>Duration</td>
                     <td className='statistics_table_right'>{s.duration}</td>
                 </tr>

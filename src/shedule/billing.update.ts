@@ -17,7 +17,7 @@ export const billing = async(city: string) => {
                 await Derivative.findOneAndUpdate({_id: der._id}, {$set:
                         {completed: true}})
             }
-            await new Promise(r => setTimeout(r, 10))
+            await new Promise(r => setTimeout(r, 20))
         }
     }
 }
