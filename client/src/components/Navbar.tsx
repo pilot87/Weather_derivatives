@@ -15,7 +15,7 @@ export const Navbar = ({auth}: any): any => {
             <div className='nav-wrapper'>
                 <a href={base} className='brand-logo'>Forecast Trading</a>
                 <ul id='nav-mobile' className='right hide-on-med-and-down'>
-                    <li><NavLink to={base + '/login'}>Hello, Guest!</NavLink></li>
+                    <li><a href={base + '/login'}>Hello, Guest!</a></li>
                 </ul>
             </div>
         </nav>
@@ -24,12 +24,12 @@ export const Navbar = ({auth}: any): any => {
     return (
         <nav>
             <div className='nav-wrapper'>
-                <a href='' className='brand-logo'>Forecast Trading</a>
+                <a href={base} className='brand-logo'>Forecast Trading</a>
                 <ul id='nav-mobile' className='right hide-on-med-and-down'>
-                    <li><NavLink to={base + '/weather'}>Weather</NavLink></li>
-                    <li><NavLink to={base + '/statistic'}>Statistic</NavLink></li>
-                    <li><NavLink to={base + '/futures'}>Futures</NavLink></li>
-                    <li><NavLink to={base + '/about'}>Hello, {user}!</NavLink></li>
+                    <li><a href={base + '/weather'}>Weather</a></li>
+                    <li><a href={base + '/statistic'}>Statistic</a></li>
+                    <li><a href={base + '/futures'}>Futures</a></li>
+                    <li><a href={base + '/about'}>Hello, {user}!</a></li>
                 </ul>
             </div>
         </nav>
