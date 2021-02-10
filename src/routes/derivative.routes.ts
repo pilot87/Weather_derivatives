@@ -242,7 +242,7 @@ router.post('/stats', auth,
 
             const email = req.user.email
 
-            const der_user = await Derivative.find({email: email})
+            const der_user = await Derivative.find({email: email, hidden: true})
 
             const der_pub = await Derivative.find({hidden: false})
 
