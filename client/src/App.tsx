@@ -20,6 +20,7 @@ import { WeatherP } from './pages/weather'
 import { Forecast } from './pages/forecast'
 import { Futures } from './pages/futures'
 import {Statistic} from './pages/statistic'
+import {updateBalance} from "./features/auth/useAuth";
 
 interface State {
     stats: Stat
@@ -41,7 +42,7 @@ const NavbarFrame = connect(() => (state: State) => {
 const AboutPage = connect(() => (state: State) => {
     return {auth: state.auth, baseUrl: state.auth.base}
 }, {
-    rename: rename, setSession: setSession
+    rename: rename, setSession: setSession, updateBalance: updateBalance
 })(About)
 
 const AddUserPage = connect(() => (state: State) => {

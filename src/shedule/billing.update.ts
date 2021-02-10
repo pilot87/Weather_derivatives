@@ -6,11 +6,12 @@ import {base} from './weather.update'
 
 export const billing = async () => {
     for (const city in base) {
-        await billing_city(city)
+        await billing_city(base[city])
     }
 }
 
 const billing_city = async (city: string) => {
+    console.log(city)
     const futures = await Derivative.find({type: 'futures', completed: false, city: city})
     for (const der of futures) {
         const city = await City.findOne({name: der.city})

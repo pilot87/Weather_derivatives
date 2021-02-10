@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 const axios = require('axios').default
 
-export const About = ({auth, rename, setSession, baseUrl}: any): any => {
+export const About = ({auth, rename, setSession, baseUrl, updateBalance}: any): any => {
 
     const [form, setForm] = useState(
         {username: {msg: '', state: ''}, password: {msg: '', state: ''}
@@ -31,6 +31,16 @@ export const About = ({auth, rename, setSession, baseUrl}: any): any => {
     }
 
     const a = axios.create(auth.request_params)
+
+    const handleResatBalance = () => {
+        a.post('/profile/reset_balance', { username: form.username.msg })
+            .then((res: any) => {
+                updateBalance()
+            })
+            .catch((err: any) => setMsg(
+                {message: err.response.data.message, color: 'red'}
+            ))
+    }
 
     const handleRename = () => {
         a.post('/profile/rename', { username: form.username.msg })
@@ -75,7 +85,17 @@ export const About = ({auth, rename, setSession, baseUrl}: any): any => {
                         {'Email:    ' + auth.email}</p>
                     <p className='collection-item black-text'>
                         {'Username: ' + auth.name}</p>
+                    <p className='collection-item black-text'>
+                        {'Balance:    ' + auth.balance}</p>
                 </div>
+            </div>
+            <div className='card-action'>
+                <button
+                    className='btn about_btn green lighten-2 black-text'
+                    onClick={handleResatBalance}
+                >
+                    Reset balance to 100 000 USD
+                </button>
             </div>
             <form className='col s12'>
                 <div className='row'>
@@ -133,6 +153,7 @@ export const About = ({auth, rename, setSession, baseUrl}: any): any => {
             <div className={'alert ' + msg2.color + '-text text-lighten-1'}>
                 {msg2.message}
             </div>
+
             <div className='card-action about_card_btn'>
                 <button
                     className='btn about_btn green lighten-2 black-text'

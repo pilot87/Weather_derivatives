@@ -69,4 +69,21 @@ router.post('/balance', auth,
         }
 })
 
+router.post('/reset_balance', auth,
+    async (req: any, res: any) => {
+        try {
+            const email = req.user.email
+
+            await User.findOneAndUpdate({email}, {$set: {balance: 100000}})
+
+            res.status(200).json()
+
+        } catch (e) {
+            console.log('error in stats ')
+            console.log(e)
+            res.status(500).json({message: 'Server error: ' + JSON.stringify(e)})
+        }
+    }
+)
+
 module.exports = router

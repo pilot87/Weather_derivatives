@@ -50,7 +50,7 @@ router.post(
                 username,
                 password: hashedPassword,
                 last_active: Date.now(),
-                balance: '10000'
+                balance: '100000'
             })
 
             await user.save()

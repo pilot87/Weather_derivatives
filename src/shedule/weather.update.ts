@@ -93,9 +93,10 @@ interface Record {
     init_phase: boolean
 }
 
-export const base = ['Hong Kong', 'San Francisco', 'New York', 'Paris']
+export const base: string[] = ['Hong Kong', 'San Francisco', 'New York', 'Paris']
 
 export const forecast = async() => {
+    console.log('forecast')
     for (const city of base) {
         const c = await City.findOne({name: city})
         if(!c) {

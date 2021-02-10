@@ -3,6 +3,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {city_img} from '../../components/Images'
 
 export interface StatDetail {
+    paid: string
     completed: boolean
     quantity: 1
     email: string
