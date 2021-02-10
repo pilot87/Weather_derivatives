@@ -62,8 +62,8 @@ export const AddUser = ({auth, baseUrl}: any): any => {
             <nav>
                 <div className="nav-wrapper">
                     <div className="col s12">
-                        <NavLink to="" className="breadcrumb">Home</NavLink>
-                        <NavLink to="register" className="breadcrumb">Register</NavLink>
+                        <NavLink to="/" className="breadcrumb">Home</NavLink>
+                        <NavLink to="/register" className="breadcrumb">Register</NavLink>
                     </div>
                 </div>
             </nav>

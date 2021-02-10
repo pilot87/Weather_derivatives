@@ -49,8 +49,8 @@ export const Login = ({auth, setSession, baseUrl}: any): any => {
             <nav>
                 <div className="nav-wrapper">
                     <div className="col s12">
-                        <NavLink to="" className="breadcrumb">Home</NavLink>
-                        <NavLink to="login" className="breadcrumb">Login</NavLink>
+                        <NavLink to="/" className="breadcrumb">Home</NavLink>
+                        <NavLink to="/login" className="breadcrumb">Login</NavLink>
                     </div>
                 </div>
             </nav>
@@ -94,7 +94,7 @@ export const Login = ({auth, setSession, baseUrl}: any): any => {
                 </button>
                 <NavLink
                     className='btn register_btn grey lighten-1 black-text'
-                    to='register'
+                    to='/register'
                 >
                     Register new User
                 </NavLink>

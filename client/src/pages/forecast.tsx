@@ -38,9 +38,9 @@ export const Forecast = ({weather, baseUrl}: any): any => {
             <nav>
                 <div className="nav-wrapper">
                     <div className="col s12">
-                        <NavLink to="" className="breadcrumb">Home</NavLink>
-                        <NavLink to="weather" className="breadcrumb">Weather</NavLink>
-                        <NavLink to={"weather/" + city} className="breadcrumb">{'Forecast for ' + city}</NavLink>
+                        <NavLink to="/" className="breadcrumb">Home</NavLink>
+                        <NavLink to="/weather" className="breadcrumb">Weather</NavLink>
+                        <NavLink to={"/weather/" + city} className="breadcrumb">{'Forecast for ' + city}</NavLink>
                     </div>
                 </div>
             </nav>

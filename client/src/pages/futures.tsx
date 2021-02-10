@@ -243,8 +243,8 @@ export const Futures = ({
         <nav>
             <div className="nav-wrapper">
                 <div className="col s12">
-                    <NavLink to="" className="breadcrumb">Home</NavLink>
-                    <NavLink to="futures" className="breadcrumb">Futures</NavLink>
+                    <NavLink to="/" className="breadcrumb">Home</NavLink>
+                    <NavLink to="/futures" className="breadcrumb">Futures</NavLink>
                 </div>
             </div>
         </nav>

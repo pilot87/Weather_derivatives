@@ -74,8 +74,8 @@ export const About = ({auth, rename, setSession, baseUrl, updateBalance}: any): 
             <nav>
                 <div className="nav-wrapper">
                     <div className="col s12">
-                        <NavLink to="" className="breadcrumb">Home</NavLink>
-                        <NavLink to="about" className="breadcrumb">About</NavLink>
+                        <NavLink to="/" className="breadcrumb">Home</NavLink>
+                        <NavLink to="/about" className="breadcrumb">About</NavLink>
                     </div>
                 </div>
             </nav>
