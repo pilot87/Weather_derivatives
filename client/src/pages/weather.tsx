@@ -8,9 +8,16 @@ interface Args {
     baseUrl: string
 }
 
+let base = ''
+if (process.env.NODE_ENV !== 'development') {
+    console.log('NODE_ENV')
+    // @ts-ignore
+    base = /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0]
+}
+
 export const WeatherP = ({weather, baseUrl}: Args): any => {
     let cities: any =  Object.entries(weather.weather).map((city: [string, Weather], index: number) =>
-        <td onClick={() => window.location.replace('forecast/' + city[0])}>
+        <td onClick={() => window.location.replace(base + 'forecast/' + city[0])}>
                 <div className="card">
                     <div className="card-image">
                         <img src={city_img[index]} alt={city[0]} className='weather_img'/>
