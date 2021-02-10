@@ -20,8 +20,6 @@ py.py -s unit -u /forecast
 '''
 
 #parsing options
-
-
 available_keys = ['-u', '--url', '-s', '--server']
 
 if len(sys.argv) % 2 != 1:
@@ -30,14 +28,14 @@ if len(sys.argv) % 2 != 1:
 
 args = sys.argv[1:]
 
-keys = [o for o in args if not o%2]
+keys = [o for k, o in enumerate(args) if not k%2]
 
 if [o for o in keys if o not in available_keys]:
     print([o for o in keys if o not in available_keys][0] + ' is missing options')
     print(usage)
     exit()
 
-values = [o for o in args if o%2]
+values = [o for k, o in enumerate(args) if k%2]
 
 options = {o[0]: o[1] for o in zip(keys, values)}
 
