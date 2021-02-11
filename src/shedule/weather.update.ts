@@ -89,14 +89,13 @@ interface Record {
     expected_value: string[],
     variance: string[],
     standard_deviation: string[],
-    history_temp: string[],
     init_phase: boolean
 }
 
 export const base: string[] = ['Hong Kong', 'San Francisco', 'New York', 'Paris']
 
 export const forecast = async() => {
-    console.log('forecast')
+    // console.log('forecast')
     for (const city of base) {
         const c = await City.findOne({name: city})
         if(!c) {
@@ -138,7 +137,6 @@ export const forecast = async() => {
                                 expected_value: expected_value.map(ev => ev.toString()),
                                 variance: variance.map(ev => ev.toString()),
                                 standard_deviation: standard_deviation.map(ev => ev.toString()),
-                                history_temp: [],
                                 init_phase: true
                             })
                             await blob.save()
@@ -172,7 +170,6 @@ export const forecast = async() => {
                             const variance = await hourly3.data.list.map((hour, index) =>
                                 (hour.main.temp - 273.15 - expected_value[index]) ** 2)
                             const standard_deviation = await variance.map((value: number) => Math.sqrt(value))
-                            city.history_temp.push(city.current_temp)
 
                             await City.findOneAndUpdate({name: city.name}, { $set: {
                                 current_temp: (current.data.main.temp - 273.15).toString(),
@@ -195,8 +192,7 @@ export const forecast = async() => {
                                     hour.visibility.toString()),
                                 expected_value: expected_value.map(ev => ev.toString()),
                                 variance: variance.map(ev => ev.toString()),
-                                standard_deviation: standard_deviation.map(ev => ev.toString()),
-                                history_temp: city.history_temp
+                                standard_deviation: standard_deviation.map(ev => ev.toString())
                             }})
 
                         })

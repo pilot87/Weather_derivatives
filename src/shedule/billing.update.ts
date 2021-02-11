@@ -11,7 +11,7 @@ export const billing = async () => {
 }
 
 const billing_city = async (city: string) => {
-    console.log(city)
+    // console.log(city)
     const futures = await Derivative.find({type: 'futures', completed: false, city: city})
     for (const der of futures) {
         const city = await City.findOne({name: der.city})

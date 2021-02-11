@@ -1,4 +1,3 @@
-// const {Router} = require('express')
 import {Router} from '../app'
 
 const City = require('../models/City')
@@ -185,14 +184,17 @@ router.post('/buy', auth,
     }
 )
 
+// let daily_params_counter = 0
+
 router.post('/daily_params', auth,
     async (req: any, res: any) => {
         try {
-
+            // const id = daily_params_counter
+            // daily_params_counter += 1
+            // console.log('daily_params request ' + id)
             const index: number = Math.floor(60 * 24 / 180)
-
             const cities = await City.find()
-
+            // console.log('daily_params brake ' + id)
             const stats = cities.map((city: any) => {
                 return ({
                     name: city.name,
@@ -200,7 +202,7 @@ router.post('/daily_params', auth,
                     standard_deviation: city.standard_deviation[index]
                 })
             })
-
+            // console.log('daily_params response ' + id)
             res.status(200).json({stats: stats})
 
         } catch (e) {

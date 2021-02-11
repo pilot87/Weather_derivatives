@@ -24,42 +24,44 @@ export const history = createBrowserHistory({
     basename: process.env.PUBLIC_URL
 })
 
-store.dispatch(updateWeather())
-    .then(() => {
-        return store.dispatch(updateStats())
-    })
-    .then(() => {
-        return store.dispatch(updateBalance())
-    })
-    .then(() => {
-        store.dispatch(regularUpdateWeather())
-        store.dispatch(regularUpdateRate())
-        store.dispatch(regularUpdateBalance())
-        store.dispatch(regularUpdateStats())
+const app = async () => {
+    store.dispatch(updateWeather())
+    await new Promise(r => setTimeout(r, 50))
+    store.dispatch(updateStats())
+    await new Promise(r => setTimeout(r, 50))
+    store.dispatch(updateBalance())
+    await new Promise(r => setTimeout(r, 50))
+    store.dispatch(regularUpdateWeather())
+    await new Promise(r => setTimeout(r, 50))
+    store.dispatch(regularUpdateRate())
+    await new Promise(r => setTimeout(r, 50))
+    store.dispatch(regularUpdateBalance())
+    await new Promise(r => setTimeout(r, 50))
+    store.dispatch(regularUpdateStats())
 
-        let base = ''
-        if (process.env.NODE_ENV !== 'development') {
-            console.log('NODE_ENV')
-            // @ts-ignore
-            base = /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0]
-        }
+    let base = ''
+    if (process.env.NODE_ENV !== 'development') {
+        console.log('NODE_ENV')
+        // @ts-ignore
+        base = /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0]
+    }
 
-        ReactDOM.render(
-            <React.StrictMode>
-                <Head>
-                    <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet' />
-                    <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
-                    <title>My Page</title>
-                    <base href={base + '/'} />
-                </Head>
-                <Provider store={store}>
-                    <App />
-                </Provider>
-            </React.StrictMode>,
-            document.getElementById('root')
-        )
-        serviceWorker.unregister()
-    })
-    .catch((err: any) => {
-        console.log(err)
-    })
+    ReactDOM.render(
+        <React.StrictMode>
+            <Head>
+                <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'/>
+                <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+                <title>My Page</title>
+                <base href={base + '/'}/>
+            </Head>
+            <Provider store={store}>
+                <App/>
+            </Provider>
+        </React.StrictMode>,
+        document.getElementById('root')
+    )
+    serviceWorker.unregister()
+
+}
+
+app()

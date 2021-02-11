@@ -17,7 +17,6 @@ const schema = new Schema({
   expected_value: [{type: String, required: true}],
   variance: [{type: String, required: true}],
   standard_deviation: [{type: String, required: true}],
-  history_temp: [{type: String, required: true}],
   init_phase: {type: Boolean, required: true}
 })
 
