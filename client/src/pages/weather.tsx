@@ -25,7 +25,7 @@ export const WeatherP = ({weather, baseUrl}: Args): any => {
                         <img src={city_img[index]} alt={city[0]} className='weather_img'/>
                         <span className="card-title">{city[0]}</span>
                     </div>
-                    <div className="card-content">
+                    <div className="card-content black-text">
                         <table>
                             <tbody>
                             <tr>

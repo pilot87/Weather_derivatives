@@ -113,7 +113,7 @@ export const Futures = ({
             <h4 className="grey-text text-darken-3">
                 {city}
             </h4>
-            <div className="row">
+            <div className="row black-text">
                 <div className="col s3">
                     <table>
                         <tbody>
@@ -199,24 +199,24 @@ export const Futures = ({
                                     onChange={ () => {
                                         changeRich()
                                     }}/>
-                                <span className="grey-text text-darken-3">Pay if temperature rises above</span>
+                                <span className="black-text">Pay if temperature rises above</span>
                             </label>
                         </div>
                     </div>
                     <div className="collection label_rich">
-                        <p className="collection-item grey lighten-3 grey-text text-darken-3"><span className="badge">
+                        <p className="collection-item grey lighten-3"><span className="badge black-text">
                             {Math.round((balance + Number.EPSILON) * 100) / 100 + ' USD'}
                         </span>Balance</p>
                     </div>
                 </div>
                 <div className="col s3">
                     <div className="collection">
-                        <p className="collection-item grey lighten-3 grey-text text-darken-3"><span className="badge">
+                        <p className="collection-item grey lighten-3"><span className="badge black-text">
                             {tempRate}
                         </span>Rate</p>
                     </div>
                     <div className="collection label_rich">
-                        <p className="collection-item grey lighten-3 grey-text text-darken-3"><span className="badge">
+                        <p className="collection-item grey lighten-3"><span className="badge black-text">
                             {Math.round(Number.parseFloat(tempRate) * Number.parseFloat(quantity)) * 60 * 24 / 100 + ' USD'}
                         </span>Amount</p>
                     </div>
@@ -226,7 +226,7 @@ export const Futures = ({
                                    onChange={() => {
                                        changePrivate_derivative()
                                    }}/>
-                            <span className="grey-text text-darken-3">Private (only you will see one)</span>
+                            <span className="black-text">Private (only you will see one)</span>
                         </label>
                     </div>
                     <div className="buy_btn btn"
