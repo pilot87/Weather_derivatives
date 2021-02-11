@@ -48,7 +48,7 @@ export const AddUser = ({auth, baseUrl}: any): any => {
                     {message: res.data.message, color: 'green',
                         errors: {'email': '', 'password': '', 'username': ''}}
                 )
-                window.location.replace('login')
+                window.location.assign('login')
             })
             .catch((err: any) => setMsg(
                 {message: (err.response.data != null) ? err.response.data.message : err.data.message, color: 'red',

@@ -66,7 +66,7 @@ export const About = ({auth, rename, setSession, baseUrl, updateBalance}: any): 
 
     const handleLogout = () => {
         setSession({ email: '', name: '', token: '' })
-        window.location.replace('login')
+        window.location.assign('login')
     }
 
     return(

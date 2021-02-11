@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {NavLink} from 'react-router-dom'
 
+
 const axios = require('axios').default
 
 export const Login = ({auth, setSession, baseUrl}: any): any => {
@@ -37,7 +38,7 @@ export const Login = ({auth, setSession, baseUrl}: any): any => {
                 setSession({email: res.data.email, name: res.data.username,
                     token: res.data.token})
                 setMsg({message: 'Welcome, ' + res.data.username + '!', color: 'green'})
-                window.location.replace('about')
+                window.location.assign('about')
             })
             .catch((err: any) => setMsg(
                 {message: (err.response.data) ? err.response.data.message : err.data.message, color: 'red'}

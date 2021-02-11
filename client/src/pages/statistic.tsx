@@ -60,7 +60,7 @@ export const Statistic = ({stats, page_city_change, baseUrl}: any): any => {
                 tab_content[0] = city[1].map((detail: any, index2: number) => show(detail, index2))
             }
             if (stats.page[index] === undefined) {
-                window.location.replace('about')
+                window.location.assign('about')
             }
             const re: any = []
             re.push(
