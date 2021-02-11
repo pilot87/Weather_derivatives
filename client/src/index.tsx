@@ -24,15 +24,9 @@ export const history = createBrowserHistory({
     basename: process.env.PUBLIC_URL
 })
 
-store.dispatch(updateWeather())
+store.dispatch(regularUpdateWeather())
     .then(() => {
-        return store.dispatch(updateStats())
-    })
-    .then(() => {
-        return store.dispatch(updateBalance())
-    })
-    .then(() => {
-        store.dispatch(regularUpdateWeather())
+        // store.dispatch(regularUpdateWeather())
         store.dispatch(regularUpdateRate())
         store.dispatch(regularUpdateBalance())
         store.dispatch(regularUpdateStats())
