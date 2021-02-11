@@ -18,7 +18,8 @@ if (process.env.NODE_ENV !== 'development') {
 
 export const WeatherP = ({weather, baseUrl}: Args): any => {
     let cities: any =  Object.entries(weather.weather).map((city: [string, Weather], index: number) =>
-        <td onClick={() => window.location.replace(base + '/forecast/' + city[0])}>
+        <td>
+            <NavLink to={'/forecast/' + city[0]}>
                 <div className="card">
                     <div className="card-image">
                         <img src={city_img[index]} alt={city[0]} className='weather_img'/>
@@ -57,6 +58,7 @@ export const WeatherP = ({weather, baseUrl}: Args): any => {
                         </table>
                     </div>
                 </div>
+            </NavLink>
         </td>
     )
     if(cities === []) {
