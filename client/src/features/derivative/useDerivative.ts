@@ -113,8 +113,8 @@ const upd = (dispatch: any, getState: any, init_city?: string) => {
 
 export const regularUpdateRate = () => async (dispatch: any, getState: any) => {
     while(true) {
-        upd(dispatch, getState)
         await sleep(10000)
+        upd(dispatch, getState)
     }
 }
 

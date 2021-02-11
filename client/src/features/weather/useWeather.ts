@@ -21,8 +21,8 @@ const upd = (dispatch: any, getState: any) => {
 
 export const regularUpdateWeather = () => async (dispatch: any, getState: any) => {
     while(true) {
-        upd(dispatch, getState)
         await sleep(10000)
+        upd(dispatch, getState)
     }
 }
 
