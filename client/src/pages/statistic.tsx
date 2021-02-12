@@ -16,6 +16,10 @@ export const Statistic = ({stats, page_city_change, baseUrl}: any): any => {
         })[0]}>
             <tbody>
                 <tr>
+                    <td>Completed</td>
+                    <td className='statistics_table_right'>{s.completed.toString()}</td>
+                </tr>
+                <tr>
                     <td>Paid</td>
                     <td className='statistics_table_right'>{s.paid + ' USD'}</td>
                 </tr>
