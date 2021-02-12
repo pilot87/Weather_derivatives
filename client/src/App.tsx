@@ -3,15 +3,15 @@ import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom
 import {connect, useSelector} from 'react-redux'
 
 import {Navbar} from './components/Navbar'
+import {Signature} from './components/Signature'
 
 import {Session, rename, setSession} from './features/auth/authSlice'
 import {WeatherAll} from './features/weather/weatherSlice'
 import {page_city_change, Stat} from './features/stats/statsSlice'
-
 import { Derivative } from './features/derivative/derivativeSlice'
-
 import {changeCity, changeTemp, changeRich, changeQuantity,
     changePrivate_derivative} from './features/derivative/useDerivative'
+import {updateBalance} from './features/auth/useAuth'
 
 import { Login } from './pages/loginPage'
 import { AddUser } from './pages/addUser'
@@ -20,8 +20,7 @@ import { WeatherP } from './pages/weather'
 import { Forecast } from './pages/forecast'
 import { Futures } from './pages/futures'
 import {Statistic} from './pages/statistic'
-import {updateBalance} from "./features/auth/useAuth"
-import {Signature} from './components/Signature'
+import {Homepage} from './pages/homepage'
 
 interface State {
     stats: Stat
@@ -75,6 +74,9 @@ const FuturesPage = connect(() => (state: State) => {
     changePrivate_derivative: changePrivate_derivative
 })(Futures)
 
+const HomepagePage = connect(() => (state: State) => {
+    return {auth: state.auth}
+})(Homepage)
 
 const App = () => {
 
@@ -83,19 +85,7 @@ const App = () => {
             <NavbarFrame />
             <div className='App'>
                 <Switch>
-                    <Route
-                        exact
-                        path='/'
-                        render={() => (
-                            <nav>
-                                <div className="nav-wrapper">
-                                    <div className="col s12">
-                                        <p className="breadcrumb">Home</p>
-                                    </div>
-                                </div>
-                            </nav>
-                        )}
-                    />
+                    <Route exact path='/' component={ HomepagePage } />
                     <Route exact path='/login' component={ LoginPage } />
                     <Route exact path='/register' component={ AddUserPage } />
                     <Route exact path='/about' component={ AboutPage } />
