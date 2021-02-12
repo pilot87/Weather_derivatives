@@ -144,3 +144,7 @@ body {
 .weather_table_right {
   text-align: right;
 }
+
+p.simple {
+  margin-left: 2.5%;
+}

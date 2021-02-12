@@ -20,7 +20,8 @@ import { WeatherP } from './pages/weather'
 import { Forecast } from './pages/forecast'
 import { Futures } from './pages/futures'
 import {Statistic} from './pages/statistic'
-import {updateBalance} from "./features/auth/useAuth";
+import {updateBalance} from "./features/auth/useAuth"
+import {Signature} from './components/Signature'
 
 interface State {
     stats: Stat
@@ -77,36 +78,37 @@ const FuturesPage = connect(() => (state: State) => {
 
 const App = () => {
 
-  return (
-      <Router basename={useSelector((state: State) => state.auth.base)}>
-        <NavbarFrame />
-        <div className='App'>
-            <Switch>
-                <Route
-                    exact
-                    path='/'
-                    render={() => (
-                        <nav>
-                            <div className="nav-wrapper">
-                                <div className="col s12">
-                                    <p className="breadcrumb">Home</p>
+    return (
+        <Router basename={useSelector((state: State) => state.auth.base)}>
+            <NavbarFrame />
+            <div className='App'>
+                <Switch>
+                    <Route
+                        exact
+                        path='/'
+                        render={() => (
+                            <nav>
+                                <div className="nav-wrapper">
+                                    <div className="col s12">
+                                        <p className="breadcrumb">Home</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </nav>
-                    )}
-                />
-                <Route exact path='/login' component={ LoginPage } />
-                <Route exact path='/register' component={ AddUserPage } />
-                <Route exact path='/about' component={ AboutPage } />
-                <Route exact path='/weather' component={ WeatherPage } />
-                <Route path='/forecast/:city' component={ ForecastPage } />
-                <Route exact path='/futures' component={ FuturesPage } />
-                <Route exact path='/statistic' component={ StatisticPage }  />
-                <Redirect to='/' />
-            </Switch>
-        </div>
-      </Router>
-  )
+                            </nav>
+                        )}
+                    />
+                    <Route exact path='/login' component={ LoginPage } />
+                    <Route exact path='/register' component={ AddUserPage } />
+                    <Route exact path='/about' component={ AboutPage } />
+                    <Route exact path='/weather' component={ WeatherPage } />
+                    <Route path='/forecast/:city' component={ ForecastPage } />
+                    <Route exact path='/futures' component={ FuturesPage } />
+                    <Route exact path='/statistic' component={ StatisticPage }  />
+                    <Redirect to='/' />
+                </Switch>
+            </div>
+            <Signature />
+        </Router>
+    )
 }
 
 export default App
