@@ -24,11 +24,11 @@ const billing_city = async (city: string) => {
                 {$set: {balance: (Number.parseFloat(user.balance) + der.quantity).toString()}})
             await Derivative.findOneAndUpdate({_id: der._id}, {$set:
                     {paid: der.paid + 1}})
-            if (der.duration_left < 2) {
-                await Derivative.findOneAndUpdate({_id: der._id}, {$set:
-                        {completed: true}})
-            }
             await new Promise(r => setTimeout(r, 20))
+        }
+        if (der.duration_left < 2) {
+            await Derivative.findOneAndUpdate({_id: der._id}, {$set:
+                    {completed: true}})
         }
     }
 }
