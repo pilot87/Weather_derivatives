@@ -241,17 +241,17 @@ router.post('/city_stat', auth,
 router.post('/stats', auth,
     async (req: any, res: any) => {
         try {
-
             const email = req.user.email
-
             const der_user = await Derivative.find({email: email, hidden: true})
-
             const der_pub = await Derivative.find({hidden: false})
-
             const cities = await City.find()
-
             const der = der_user.concat(der_pub).filter(
                 (v: number, i: number, a: Uint8Array) => a.indexOf(v) === i)
+
+            for (const elem of der) {
+                const {username} = await User.findOne({email: elem.email})
+                elem.user = username
+            }
 
             interface Stat {
                 [index: string]: {
