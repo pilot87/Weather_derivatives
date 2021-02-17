@@ -1,0 +1,1 @@
+This is weather futures emulator, placed on https://kernelexplorer.site/wf for use it please register and login.Email is for authorisation purpose only. 
