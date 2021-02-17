@@ -48,8 +48,8 @@ export const Statistic = ({stats, page_city_change, baseUrl}: any): any => {
                     <td className='statistics_table_right'>{s.duration_left}</td>
                 </tr>
                 <tr>
-                    <td>Buyer's user</td>
-                    <td className='statistics_table_right'>{s.user}</td>
+                    <td>Buyer</td>
+                    <td className='statistics_table_right'>{s.email}</td>
                 </tr>
             </tbody>
         </table>

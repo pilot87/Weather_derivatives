@@ -250,7 +250,7 @@ router.post('/stats', auth,
 
             for (const elem of der) {
                 const {username} = await User.findOne({email: elem.email})
-                elem.user = username
+                elem.email = username
             }
 
             interface Stat {

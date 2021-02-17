@@ -6,7 +6,7 @@ export interface StatDetail {
     paid: string
     completed: boolean
     quantity: 1
-    user: string
+    email: string // contain username, not email
     duration: number
     duration_left: number
     city: string
