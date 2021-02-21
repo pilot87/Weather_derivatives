@@ -10,17 +10,19 @@ if (process.env.NODE_ENV !== 'development') {
 
 export const Navbar = ({auth}: any): any => {
     const user = auth.name
-
-    // if (user === '') return (
-    //     <nav>
-    //         <div className='nav-wrapper'>
-    //             <NavLink to='/' className='brand-logo'>Forecast Trading</NavLink>
-    //             <ul id='nav-mobile' className='right hide-on-med-and-down'>
-    //                 <li><NavLink to='/login'>Hello, Guest!</NavLink></li>
-    //             </ul>
-    //         </div>
-    //     </nav>
-    // )
+    if (user === '') return (
+        <nav>
+            <div className='nav-wrapper'>
+                <NavLink to='/' className='brand-logo'>Forecast Trading</NavLink>
+                <ul id='nav-mobile' className='right hide-on-med-and-down'>
+                    <li><NavLink to='/weather'>Weather</NavLink></li>
+                    <li><NavLink to='/statistic'>Statistic</NavLink></li>
+                    <li><NavLink to='/futures'>Futures</NavLink></li>
+                    <li><NavLink to='/login'>Hello, guest!</NavLink></li>
+                </ul>
+            </div>
+        </nav>
+    )
 
     return (
         <nav>
@@ -30,12 +32,7 @@ export const Navbar = ({auth}: any): any => {
                     <li><NavLink to='/weather'>Weather</NavLink></li>
                     <li><NavLink to='/statistic'>Statistic</NavLink></li>
                     <li><NavLink to='/futures'>Futures</NavLink></li>
-                    <li><NavLink to='/about'>Hello, {() => {
-                        if (user === '') {
-                            return 'Guest'
-                        }
-                        return user
-                    }}!</NavLink></li>
+                    <li><NavLink to='/about'>Hello, {user}!</NavLink></li>
                 </ul>
             </div>
         </nav>
