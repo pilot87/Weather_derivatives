@@ -209,35 +209,53 @@ router.post('/daily_params',
     }
 )
 
+const stats = async (req: any, res: any, der_user: any) => {
+    const der_pub = await Derivative.find({hidden: false})
+    const cities = await City.find()
+    const der = der_user.concat(der_pub).filter(
+        (v: number, i: number, a: Uint8Array) => a.indexOf(v) === i)
+
+    for (const elem of der) {
+        const {username} = await User.findOne({email: elem.email})
+        elem.email = username
+    }
+
+    interface Stat {
+        [index: string]: {
+            quantity: number,
+            derivative: any
+        }
+    }
+
+    const stats: Stat = {}
+    for (const city of cities) {
+        stats[city.name] = der.filter((elem: any) => elem.city === city.name)
+    }
+
+    return stats
+}
+
 router.post('/stats', auth,
     async (req: any, res: any) => {
         try {
             const email = req.user.email
             const der_user = await Derivative.find({email: email, hidden: true})
-            const der_pub = await Derivative.find({hidden: false})
-            const cities = await City.find()
-            const der = der_user.concat(der_pub).filter(
-                (v: number, i: number, a: Uint8Array) => a.indexOf(v) === i)
+            const responce = stats(req, res, der_user)
+            res.status(200).json({stats: responce})
 
-            for (const elem of der) {
-                const {username} = await User.findOne({email: elem.email})
-                elem.email = username
-            }
+        } catch (e) {
+            console.log('error in stats ')
+            console.log(e)
+            res.status(500).json({message: 'Server error: ' + JSON.stringify(e)})
+        }
+    }
+)
 
-            interface Stat {
-                [index: string]: {
-                    quantity: number,
-                    derivative: any
-                }
-            }
-
-            const stats: Stat = {}
-            for (const city of cities) {
-                stats[city.name] = der.filter((elem: any) => elem.city === city.name)
-            }
-
-            res.status(200).json({stats: stats})
-
+router.post('/pub_stats',
+    async (req: any, res: any) => {
+        try {
+            const responce = stats(req, res, [])
+            res.status(200).json({stats: responce})
         } catch (e) {
             console.log('error in stats ')
             console.log(e)
