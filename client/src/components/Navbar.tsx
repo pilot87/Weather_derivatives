@@ -10,16 +10,16 @@ if (process.env.NODE_ENV !== 'development') {
 
 export const Navbar = ({auth}: any): any => {
     const user = auth.name
-    if (user === '') return (
-        <nav>
-            <div className='nav-wrapper'>
-                <NavLink to='/' className='brand-logo'>Forecast Trading</NavLink>
-                <ul id='nav-mobile' className='right hide-on-med-and-down'>
-                    <li><NavLink to='/login'>Hello, Guest!</NavLink></li>
-                </ul>
-            </div>
-        </nav>
-    )
+    // if (user === '') return (
+    //     <nav>
+    //         <div className='nav-wrapper'>
+    //             <NavLink to='/' className='brand-logo'>Forecast Trading</NavLink>
+    //             <ul id='nav-mobile' className='right hide-on-med-and-down'>
+    //                 <li><NavLink to='/login'>Hello, Guest!</NavLink></li>
+    //             </ul>
+    //         </div>
+    //     </nav>
+    // )
 
     return (
         <nav>

@@ -108,6 +108,21 @@ export const Futures = ({
         </div>
     </>
 
+    const buy_btn = (user: string) => {
+        if (user === '') {
+            return <NavLink
+                    className='btn register_btn grey lighten-1 black-text'
+                    to='/login'
+                >
+                    Buy
+                </NavLink>
+        }
+        return <div className="buy_btn btn"
+                    onClick={handleBuy}>
+            Buy
+        </div>
+    }
+
     if(city !== '') {
         card = <>
             <h4 className="grey-text text-darken-3">
@@ -229,10 +244,7 @@ export const Futures = ({
                             <span className="black-text">Private (only you will see one)</span>
                         </label>
                     </div>
-                    <div className="buy_btn btn"
-                    onClick={handleBuy}>
-                        Buy
-                    </div>
+                    {buy_btn(auth.name)}
                 </div>
 
             </div>
