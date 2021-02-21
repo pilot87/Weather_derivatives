@@ -41,7 +41,7 @@ const rate = async (city: string, duration: number, temp: number, rich: boolean)
     return 1.05 * Phi
 }
 
-router.post('/rate', auth,
+router.post('/rate',
     async (req: any, res: any) => {
         try {
             const {city, duration, temp, rich} = req.body
@@ -63,7 +63,7 @@ router.post('/rate', auth,
     }
 )
 
-router.post('/daily_index', auth,
+router.post('/daily_index',
     async (req: any, res: any) => {
         try {
             const { city, temp, rich } = req.body
@@ -78,7 +78,7 @@ router.post('/daily_index', auth,
     }
 )
 
-router.post('/daily_index_info', auth,
+router.post('/daily_index_info',
     async (req: any, res: any) => {
         try {
             const { city, rich, l, init_step } = req.body
@@ -186,15 +186,12 @@ router.post('/buy', auth,
 
 // let daily_params_counter = 0
 
-router.post('/daily_params', auth,
+router.post('/daily_params',
     async (req: any, res: any) => {
         try {
-            // const id = daily_params_counter
-            // daily_params_counter += 1
-            // console.log('daily_params request ' + id)
+
             const index: number = Math.floor(60 * 24 / 180)
             const cities = await City.find()
-            // console.log('daily_params brake ' + id)
             const stats = cities.map((city: any) => {
                 return ({
                     name: city.name,
@@ -202,7 +199,6 @@ router.post('/daily_params', auth,
                     standard_deviation: city.standard_deviation[index]
                 })
             })
-            // console.log('daily_params response ' + id)
             res.status(200).json({stats: stats})
 
         } catch (e) {
@@ -216,15 +212,10 @@ router.post('/daily_params', auth,
 router.post('/city_stat', auth,
     async (req: any, res: any) => {
         try {
-
             const {city} = req.body
-
             const email = req.user.email
-
             const der_user = await Derivative.find({email: email, city: city})
-
             const der_pub = await Derivative.find({hidden: false, city: city})
-
             const der = der_user.concat(der_pub).filter(
                 (v: number, i: number, a: Uint8Array) => a.indexOf(v) === i)
 

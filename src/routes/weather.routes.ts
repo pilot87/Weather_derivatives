@@ -6,7 +6,7 @@ const auth = require('../middleware/auth.middleware')
 
 const router = Router()
 
-router.post('/update', auth,
+router.post('/update',
     async(req: any, res: any) => {
         try {
             const cities = await City.find()
