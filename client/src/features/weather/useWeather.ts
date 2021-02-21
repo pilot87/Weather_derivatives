@@ -8,15 +8,13 @@ const sleep = (ms: number) => {
 }
 
 const upd = (dispatch: any, getState: any) => {
-    if (getState().auth.name !== '') {
-        axios.create(getState().auth.request_params).post('/weather/update')
-            .then((res: any) => {
-                dispatch(update_weather(res.data))
-                if (getState().derivative.page.city === '') {
-                    updateRate(dispatch, getState)
-                }
-            })
-    }
+    axios.create(getState().auth.request_params).post('/weather/update')
+        .then((res: any) => {
+            dispatch(update_weather(res.data))
+            if (getState().derivative.page.city === '') {
+                updateRate(dispatch, getState)
+            }
+        })
 }
 
 export const regularUpdateWeather = () => async (dispatch: any, getState: any) => {

@@ -43,72 +43,70 @@ const rate =  (standard_deviation: number,
 
 const upd = (dispatch: any, getState: any, init_city?: string) => {
     console.log('upd')
-    if(getState().auth.name !== '') {
-        axios.create(getState().auth.request_params).post('/derivative/daily_params')
-            .then((res: any) => {
-                res.data.stats.forEach((city: any) => {
-                    let temp: number[]
-                    let di: number[]
-                    let step = 2
-                    const l = 2
+    axios.create(getState().auth.request_params).post('/derivative/daily_params')
+        .then((res: any) => {
+            res.data.stats.forEach((city: any) => {
+                let temp: number[]
+                let di: number[]
+                let step = 2
+                const l = 2
 
-                    do {
-                        temp = []
-                        di = []
+                do {
+                    temp = []
+                    di = []
 
-                        for (let t = 0; t < 2 * l + 1; t++) {
-                            temp.push(city.expected_value - (l - t) * step)
-                        }
-
-                        for (const t of temp) {
-                            const i = rate(
-                                city.standard_deviation,
-                                city.expected_value,
-                                t,
-                                true)
-                            di.push(i)
-                        }
-
-                        step = step / 2
-                    } while (Math.max(...di) > 1)
-
-                    let di2 = []
-
-                    for (const i of di) {
-                        di2.push(1 - i)
+                    for (let t = 0; t < 2 * l + 1; t++) {
+                        temp.push(city.expected_value - (l - t) * step)
                     }
 
-                    dispatch(update_rate({
-                        city: city.name,
-                        rate: di,
-                        rate2: di2,
-                        temp: temp,
-                        expected_value: city.expected_value,
-                        standard_deviation: city.standard_deviation
-                    }))
-                })
-                if (init_city) {
-                    console.log(init_city)
-                    dispatch(init_page({
-                        city: init_city,
-                        temp: {
-                            temp: '0',
-                            image: 'wb_sunny'
-                        },
-                        quantity: '1',
-                        tempRate: Math.round((rate(
-                            getState().derivative.daily[init_city].standard_deviation,
-                            getState().derivative.daily[init_city].expected_value,
-                            0,
-                            true
-                        ) + Number.EPSILON) * 10000) / 100 + ' %',
-                        private_derivative: true,
-                        rich: true
-                    }))
+                    for (const t of temp) {
+                        const i = rate(
+                            city.standard_deviation,
+                            city.expected_value,
+                            t,
+                            true)
+                        di.push(i)
+                    }
+
+                    step = step / 2
+                } while (Math.max(...di) > 1)
+
+                let di2 = []
+
+                for (const i of di) {
+                    di2.push(1 - i)
                 }
+
+                dispatch(update_rate({
+                    city: city.name,
+                    rate: di,
+                    rate2: di2,
+                    temp: temp,
+                    expected_value: city.expected_value,
+                    standard_deviation: city.standard_deviation
+                }))
             })
-            .catch((err: any) => console.log(err))
-    }
+            if (init_city) {
+                console.log(init_city)
+                dispatch(init_page({
+                    city: init_city,
+                    temp: {
+                        temp: '0',
+                        image: 'wb_sunny'
+                    },
+                    quantity: '1',
+                    tempRate: Math.round((rate(
+                        getState().derivative.daily[init_city].standard_deviation,
+                        getState().derivative.daily[init_city].expected_value,
+                        0,
+                        true
+                    ) + Number.EPSILON) * 10000) / 100 + ' %',
+                    private_derivative: true,
+                    rich: true
+                }))
+            }
+        })
+        .catch((err: any) => console.log(err))
 }
 
 export const regularUpdateRate = () => async (dispatch: any, getState: any) => {
