@@ -240,7 +240,7 @@ router.post('/stats', auth,
         try {
             const email = req.user.email
             const der_user = await Derivative.find({email: email, hidden: true})
-            const responce = stats(req, res, der_user)
+            const responce = await stats(req, res, der_user)
             res.status(200).json({stats: responce})
 
         } catch (e) {
