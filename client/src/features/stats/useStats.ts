@@ -7,12 +7,10 @@ const sleep = (ms: number) => {
 }
 
 const upd = (dispatch: any, getState: any) => {
-    console.log('useState')
     let api_addr = '/derivative/stats'
-    if (getState.auth.name === '') {
+    if (getState().auth.name === '') {
         api_addr = '/derivative/pub_stats'
     }
-    console.log(api_addr)
     axios.create(getState().auth.request_params).post(api_addr)
         .then((res: any) => {
             dispatch(update_stat(res.data.stats))
