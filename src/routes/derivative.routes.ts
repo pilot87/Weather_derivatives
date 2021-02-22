@@ -254,7 +254,7 @@ router.post('/stats', auth,
 router.post('/pub_stats',
     async (req: any, res: any) => {
         try {
-            const responce = stats(req, res, [])
+            const responce = await stats(req, res, [])
             res.status(200).json({stats: responce})
         } catch (e) {
             console.log('error in stats ')
