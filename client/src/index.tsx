@@ -26,17 +26,11 @@ export const history = createBrowserHistory({
 
 const app = async () => {
     store.dispatch(updateWeather())
-    await new Promise(r => setTimeout(r, 50))
     store.dispatch(updateStats())
-    await new Promise(r => setTimeout(r, 50))
     store.dispatch(updateBalance())
-    await new Promise(r => setTimeout(r, 50))
     store.dispatch(regularUpdateWeather())
-    await new Promise(r => setTimeout(r, 50))
     store.dispatch(regularUpdateRate())
-    await new Promise(r => setTimeout(r, 50))
     store.dispatch(regularUpdateBalance())
-    await new Promise(r => setTimeout(r, 50))
     store.dispatch(regularUpdateStats())
 
     let base = ''
