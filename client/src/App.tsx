@@ -20,7 +20,6 @@ import { WeatherP } from './pages/weather'
 import { Forecast } from './pages/forecast'
 import { Futures } from './pages/futures'
 import {Statistic} from './pages/statistic'
-import {Homepage} from './pages/homepage'
 
 interface State {
     stats: Stat
@@ -74,10 +73,6 @@ const FuturesPage = connect(() => (state: State) => {
     changePrivate_derivative: changePrivate_derivative
 })(Futures)
 
-const HomepagePage = connect(() => (state: State) => {
-    return {auth: state.auth}
-})(Homepage)
-
 const App = () => {
 
     return (
@@ -85,7 +80,7 @@ const App = () => {
             <NavbarFrame />
             <div className='App'>
                 <Switch>
-                    <Route exact path='/' component={ HomepagePage } />
+                    <Route exact path='/' component={ FuturesPage } />
                     <Route exact path='/login' component={ LoginPage } />
                     <Route exact path='/register' component={ AddUserPage } />
                     <Route exact path='/about' component={ AboutPage } />
