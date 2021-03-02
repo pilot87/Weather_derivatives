@@ -8,6 +8,7 @@ const path = require('path')
 const mongoose = require('mongoose')
 const schedule = require('node-schedule')
 export const jwt = require('jsonwebtoken')
+const compression = require('compression')
 
 import {forecast} from './shedule/weather.update'
 import {billing} from './shedule/billing.update'
@@ -27,6 +28,7 @@ schedule.scheduleJob(rule_billing, () => {
 })
 // @ts-ignore
 app.use(express.json({ extended: true }))
+app.use(compression())
 
 app.use(base + '/api/auth', require('./routes/auth.routes'))
 app.use(base + '/api/profile', require('./routes/profile.routes'))
