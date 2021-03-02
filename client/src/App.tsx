@@ -86,7 +86,6 @@ const App = () => {
                     <Route exact path='/about' component={ AboutPage } />
                     <Route exact path='/weather' component={ WeatherPage } />
                     <Route path='/forecast/:city' component={ ForecastPage } />
-                    <Route exact path='/futures' component={ FuturesPage } />
                     <Route exact path='/statistic' component={ StatisticPage }  />
                     <Redirect to='/' />
                 </Switch>

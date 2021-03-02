@@ -30,8 +30,7 @@ export const Futures = ({
                             changeTemp,
                             changeRich,
                             changeQuantity,
-                            changePrivate_derivative,
-                            baseUrl
+                            changePrivate_derivative
 }: Args): any => {
 
     const city = derivative0.page.city
@@ -256,7 +255,6 @@ export const Futures = ({
             <div className="nav-wrapper">
                 <div className="col s12">
                     <NavLink to="/" className="breadcrumb">Home</NavLink>
-                    <NavLink to="/futures" className="breadcrumb">Futures</NavLink>
                 </div>
             </div>
         </nav>

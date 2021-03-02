@@ -17,7 +17,7 @@ export const Navbar = ({auth}: any): any => {
                 <ul id='nav-mobile' className='right hide-on-med-and-down'>
                     <li><NavLink to='/weather'>Weather</NavLink></li>
                     <li><NavLink to='/statistic'>Statistic</NavLink></li>
-                    <li><NavLink to='/futures'>Futures</NavLink></li>
+                    <li><NavLink to='/'>Futures</NavLink></li>
                     <li><NavLink to='/login'>Hello, guest!</NavLink></li>
                 </ul>
             </div>
@@ -31,7 +31,7 @@ export const Navbar = ({auth}: any): any => {
                 <ul id='nav-mobile' className='right hide-on-med-and-down'>
                     <li><NavLink to='/weather'>Weather</NavLink></li>
                     <li><NavLink to='/statistic'>Statistic</NavLink></li>
-                    <li><NavLink to='/futures'>Futures</NavLink></li>
+                    <li><NavLink to='/'>Futures</NavLink></li>
                     <li><NavLink to='/about'>Hello, {user}!</NavLink></li>
                 </ul>
             </div>
