@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { createBrowserHistory } from 'history'
+import * as serviceWorker from './serviceWorker'
 
 import './index.css'
 import App from './App'
@@ -32,54 +33,22 @@ if (process.env.NODE_ENV !== 'development') {
     base = /\/[a-zA-Z0-9_]*/.exec(window.location.pathname)[0]
 }
 
-class Root extends React.Component {
-
-    render(): React.ReactNode {
-        return (
-            <React.StrictMode>
-                <Head>
-                    <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'/>
-                    <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
-                    <title>My Page</title>
-                    <base href={base + '/'}/>
-                </Head>
-                <Provider store={store}>
-                    <App/>
-                </Provider>
-            </React.StrictMode>
-        )
-    }
-}
-
 ReactDOM.render(
-    <Root />,
+    <React.StrictMode>
+        <Head>
+            <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'/>
+            <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+            <title>My Page</title>
+            <base href={base + '/'}/>
+        </Head>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </React.StrictMode>,
     document.getElementById('root')
 )
 
-// const app = async () => {
-//     store.dispatch(updateWeather())
-//     store.dispatch(updateStats())
-//     store.dispatch(updateBalance())
-//     store.dispatch(regularUpdateWeather())
-//     store.dispatch(regularUpdateRate())
-//     store.dispatch(regularUpdateBalance())
-//     store.dispatch(regularUpdateStats())
-//
-//     ReactDOM.render(
-//         <React.StrictMode>
-//             <Head>
-//                 <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'/>
-//                 <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
-//                 <title>My Page</title>
-//                 <base href={base + '/'}/>
-//             </Head>
-//             <Provider store={store}>
-//                 <App/>
-//             </Provider>
-//         </React.StrictMode>,
-//         document.getElementById('root')
-//     )
-//     serviceWorker.unregister()
-// }
-//
-// app()
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.register()
