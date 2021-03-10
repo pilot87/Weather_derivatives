@@ -19,9 +19,3 @@ export const regularUpdateWeather = () => async (dispatch: any, getState: any) =
         await updWeather(dispatch, getState)
     }
 }
-
-// export const updateWeather = () => async (dispatch: any, getState: any) => {
-//     console.log('updateWeather 0')
-//     upd(dispatch, getState)
-//     console.log('updateWeather 1')
-// }

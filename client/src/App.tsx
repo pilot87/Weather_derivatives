@@ -79,46 +79,6 @@ const FuturesPage = connect(() => (state: State) => {
     changePrivate_derivative: changePrivate_derivative
 })(Futures)
 
-// class App extends React.Component {
-//     async componentDidMount() {
-//         const s = this.context.redux.getState()
-//         const dispatch = this.context.store.dispatch
-//         const get = () => s
-//         await updWeather(dispatch, get)
-//         await updRate(dispatch, get)
-//         await updStats(dispatch, get)
-//         await upd_Balance(dispatch, get)
-//         store.dispatch(regularUpdateWeather())
-//         store.dispatch(regularUpdateRate())
-//         store.dispatch(regularUpdateBalance())
-//         store.dispatch(regularUpdateStats())
-//         city_img.forEach((picture) => {
-//             const img = new Image()
-//             img.src = picture
-//         })
-//     }
-//     render(): React.ReactNode {
-//         return (
-//             <Router basename={this.context.redux.getState().state.auth.base}>
-//                 <NavbarFrame />
-//                 <div className='App'>
-//                     <Switch>
-//                         <Route exact path='/' component={ FuturesPage } />
-//                         <Route exact path='/login' component={ LoginPage } />
-//                         <Route exact path='/register' component={ AddUserPage } />
-//                         <Route exact path='/about' component={ AboutPage } />
-//                         <Route exact path='/weather' component={ WeatherPage } />
-//                         <Route path='/forecast/:city' component={ ForecastPage } />
-//                         <Route exact path='/statistic' component={ StatisticPage }  />
-//                         <Redirect to='/' />
-//                     </Switch>
-//                 </div>
-//                 <Signature />
-//             </Router>
-//         )
-//     }
-// }
-
 const initializeData = () => async (dispatch: any, getState: any) => {
     try {
         await updWeather(dispatch, getState)

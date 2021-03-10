@@ -117,12 +117,6 @@ export const regularUpdateRate = () => async (dispatch: any, getState: any) => {
     }
 }
 
-// export const updateRate = (dispatch: any, getState: any) => {
-//     const city = Object.keys(getState().weather.weather)[0]
-//     console.log('try ' + city)
-//     upd(dispatch, getState, city)
-// }
-
 const askRate = (dispatch: any, getState: any) => {
     const city = getState().derivative.page.city
     const lvl = rate(getState().derivative.daily[city].standard_deviation,

@@ -26,8 +26,3 @@ export const regularUpdateStats = () => async (dispatch: any, getState: any) => 
         await updStats(dispatch, getState)
     }
 }
-
-// export const updateStats = () => async (dispatch: any, getState: any) => {
-//     upd(dispatch, getState)
-//     return Promise.resolve()
-// }
