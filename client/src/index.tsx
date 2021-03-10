@@ -6,13 +6,12 @@ import './index.css'
 import App from './App'
 import {store} from './app/store'
 import {Provider} from 'react-redux'
-import * as serviceWorker from './serviceWorker'
 import {city_img} from './components/Images'
 
-import {updateBalance, regularUpdateBalance} from './features/auth/useAuth'
-import {regularUpdateRate} from './features/derivative/useDerivative'
-import {updateStats, regularUpdateStats} from './features/stats/useStats'
-import {updateWeather, regularUpdateWeather} from './features/weather/useWeather'
+import {upd_Balance, regularUpdateBalance} from './features/auth/useAuth'
+import {updRate, regularUpdateRate} from './features/derivative/useDerivative'
+import {updStats, regularUpdateStats} from './features/stats/useStats'
+import {updWeather, regularUpdateWeather} from './features/weather/useWeather'
 
 
 const headRoot = document.head
@@ -34,20 +33,6 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 class Root extends React.Component {
-
-    componentDidMount() {
-        store.dispatch(updateWeather())
-        store.dispatch(updateStats())
-        store.dispatch(updateBalance())
-        store.dispatch(regularUpdateWeather())
-        store.dispatch(regularUpdateRate())
-        store.dispatch(regularUpdateBalance())
-        store.dispatch(regularUpdateStats())
-        city_img.forEach((picture) => {
-            const img = new Image()
-            img.src = picture
-        });
-    }
 
     render(): React.ReactNode {
         return (

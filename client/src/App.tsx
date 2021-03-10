@@ -9,9 +9,11 @@ import {Session, rename, setSession} from './features/auth/authSlice'
 import {WeatherAll} from './features/weather/weatherSlice'
 import {page_city_change, Stat} from './features/stats/statsSlice'
 import { Derivative } from './features/derivative/derivativeSlice'
-import {changeCity, changeTemp, changeRich, changeQuantity,
-    changePrivate_derivative} from './features/derivative/useDerivative'
-import {updateBalance} from './features/auth/useAuth'
+import {
+    changeCity, changeTemp, changeRich, changeQuantity,
+    changePrivate_derivative, updRate, regularUpdateRate
+} from './features/derivative/useDerivative'
+import {regularUpdateBalance, upd_Balance, updateBalance} from './features/auth/useAuth'
 
 import { Login } from './pages/loginPage'
 import { AddUser } from './pages/addUser'
@@ -20,6 +22,10 @@ import { WeatherP } from './pages/weather'
 import { Forecast } from './pages/forecast'
 import { Futures } from './pages/futures'
 import {Statistic} from './pages/statistic'
+import {regularUpdateWeather, updWeather} from "./features/weather/useWeather";
+import {regularUpdateStats, updStats} from "./features/stats/useStats";
+import {store} from "./app/store";
+import {city_img} from "./components/Images";
 
 interface State {
     stats: Stat
@@ -73,26 +79,66 @@ const FuturesPage = connect(() => (state: State) => {
     changePrivate_derivative: changePrivate_derivative
 })(Futures)
 
-const App = () => {
-
-    return (
-        <Router basename={useSelector((state: State) => state.auth.base)}>
-            <NavbarFrame />
-            <div className='App'>
-                <Switch>
-                    <Route exact path='/' component={ FuturesPage } />
-                    <Route exact path='/login' component={ LoginPage } />
-                    <Route exact path='/register' component={ AddUserPage } />
-                    <Route exact path='/about' component={ AboutPage } />
-                    <Route exact path='/weather' component={ WeatherPage } />
-                    <Route path='/forecast/:city' component={ ForecastPage } />
-                    <Route exact path='/statistic' component={ StatisticPage }  />
-                    <Redirect to='/' />
-                </Switch>
-            </div>
-            <Signature />
-        </Router>
-    )
+class App extends React.Component {
+    async componentDidMount() {
+        const s = this.context.redux.getState()
+        const dispatch = this.context.store.dispatch
+        const get = () => s
+        await updWeather(dispatch, get)
+        await updRate(dispatch, get)
+        await updStats(dispatch, get)
+        await upd_Balance(dispatch, get)
+        store.dispatch(regularUpdateWeather())
+        store.dispatch(regularUpdateRate())
+        store.dispatch(regularUpdateBalance())
+        store.dispatch(regularUpdateStats())
+        city_img.forEach((picture) => {
+            const img = new Image()
+            img.src = picture
+        })
+    }
+    render(): React.ReactNode {
+        return (
+            <Router basename={this.context.redux.getState().state.auth.base}>
+                <NavbarFrame />
+                <div className='App'>
+                    <Switch>
+                        <Route exact path='/' component={ FuturesPage } />
+                        <Route exact path='/login' component={ LoginPage } />
+                        <Route exact path='/register' component={ AddUserPage } />
+                        <Route exact path='/about' component={ AboutPage } />
+                        <Route exact path='/weather' component={ WeatherPage } />
+                        <Route path='/forecast/:city' component={ ForecastPage } />
+                        <Route exact path='/statistic' component={ StatisticPage }  />
+                        <Redirect to='/' />
+                    </Switch>
+                </div>
+                <Signature />
+            </Router>
+        )
+    }
 }
+
+// const App = () => {
+//
+//     return (
+//         <Router basename={useSelector((state: State) => state.auth.base)}>
+//             <NavbarFrame />
+//             <div className='App'>
+//                 <Switch>
+//                     <Route exact path='/' component={ FuturesPage } />
+//                     <Route exact path='/login' component={ LoginPage } />
+//                     <Route exact path='/register' component={ AddUserPage } />
+//                     <Route exact path='/about' component={ AboutPage } />
+//                     <Route exact path='/weather' component={ WeatherPage } />
+//                     <Route path='/forecast/:city' component={ ForecastPage } />
+//                     <Route exact path='/statistic' component={ StatisticPage }  />
+//                     <Redirect to='/' />
+//                 </Switch>
+//             </div>
+//             <Signature />
+//         </Router>
+//     )
+// }
 
 export default App

@@ -41,9 +41,9 @@ const rate =  (standard_deviation: number,
     return 1.05 * Phi
 }
 
-const upd = (dispatch: any, getState: any, init_city?: string) => {
+export const updRate = async (dispatch: any, getState: any, init_city?: string) => {
     console.log('upd')
-    axios.create(getState().auth.request_params).post('/derivative/daily_params')
+    return axios.create(getState().auth.request_params).post('/derivative/daily_params')
         .then((res: any) => {
             res.data.stats.forEach((city: any) => {
                 let temp: number[]
@@ -112,15 +112,15 @@ const upd = (dispatch: any, getState: any, init_city?: string) => {
 export const regularUpdateRate = () => async (dispatch: any, getState: any) => {
     while(true) {
         await sleep(10000)
-        upd(dispatch, getState)
+        await updRate(dispatch, getState)
     }
 }
 
-export const updateRate = (dispatch: any, getState: any) => {
-    const city = Object.keys(getState().weather.weather)[0]
-    console.log('try ' + city)
-    upd(dispatch, getState, city)
-}
+// export const updateRate = (dispatch: any, getState: any) => {
+//     const city = Object.keys(getState().weather.weather)[0]
+//     console.log('try ' + city)
+//     upd(dispatch, getState, city)
+// }
 
 const askRate = (dispatch: any, getState: any) => {
     const city = getState().derivative.page.city
