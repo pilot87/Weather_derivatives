@@ -86,7 +86,8 @@ export const updRate = async (dispatch: any, getState: any, init_city?: string) 
                     standard_deviation: city.standard_deviation
                 }))
             })
-            if (init_city) {
+            if (getState().derivative.page.city === '') {
+                const init_city = Object.keys(getState().weather.weather)[0]
                 console.log(init_city)
                 dispatch(init_page({
                     city: init_city,
